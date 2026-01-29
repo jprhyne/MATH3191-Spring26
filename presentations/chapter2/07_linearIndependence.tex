@@ -1,0 +1,217 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+\usepackage{3191Style}
+\date{Linear Independence}
+
+\begin{document}
+\begin{frame}{Revisiting Vector Equations and Homogeneous Systems}
+    \begin{tcolorbox}
+        If $A\in\R^{m\times n}$ with columns $\vec{a}_1,\dots,\vec{a}_n\in\R^m$, then the 
+        homogeneous matrix equation $A\vec{x} = \vec{0}$ has the same solution set as the vector 
+        equation
+        \[
+            x_1\vec{a}_1 + \dots + x_n\vec{a}_n = \vec{0}
+        \]
+        which has the corresponding augmented matrix
+        \[
+            \aMat{cccc|c}{
+                \vec{a}_1 & \vec{a}_2 & \dots & \vec{a}_n & \vec{0}
+            }
+        \]
+    \end{tcolorbox}
+    \pause
+    \begin{itemize}
+        \item Homogeneous Linear Systems always have the trivial solution: $\vec{x}=\vec{0}$\pause
+        \item If a non-trivial solution exists, then: \pause
+            \begin{itemize}
+                \item At least one $x_i\neq 0$\pause
+                \item At least one $\vec{a}_i$ can be written as a linear combination of the others!\pause
+            \end{itemize}
+        \item If there is only the trivial solution, then no columns can be written as a linear combination
+            of the others!
+    \end{itemize}
+\end{frame}
+\begin{frame}{Brief Proof (on board) Of the last bullet point.}
+\end{frame}
+\begin{frame}[fragile]{Example}
+    Determine whether the equation
+    \[
+        x_1\begin{bmatrix}2\\1\\0\end{bmatrix} + x_2\begin{bmatrix}-1\\6\\3\end{bmatrix} + x_3
+            \begin{bmatrix}6\\-10\\-6\end{bmatrix} = \begin{bmatrix}0\\0\\0\end{bmatrix}
+    \]
+    has a non-trivial solution.
+    \pause
+    \begin{columns}
+        \column{.5\textwidth}
+        \[
+            \aMat{ccc|c}{
+                2 & -1 & 6 & 0\\
+                1 & 6  &-10& 0\\
+                0 & 3  &-6 & 0
+            }\pause\rightarrow\aMat{ccc|c}{
+                1 & 0 & \rTextWait{2}{4-} & 0 \\
+                0 & 1 & \rTextWait{-2}{4-} & 0 \\
+                0 & 0 & \rTextWait{0}{4-} & 0
+            }
+        \]\pause
+        Since $\rText{x_3}$ is a free variable, we have non-trivial solutions
+        \column{.5\textwidth}\pause
+        Python code to get this answer!
+        \begin{verbatim}
+import sympy as sym
+A = sym.Matrix([[2, -1, 6, 0],
+                [1, 6, -10, 0],
+                [0, 3, -6, 0]])
+display(A.rref())
+        \end{verbatim}
+    \end{columns}
+\end{frame}
+\begin{frame}{What does it mean?}
+    \begin{columns}
+        \column{.5\textwidth}
+        We get
+        \begin{align*}
+            x_1 + 2x_3 &= 0 \onslide<2->{\rightarrow x_1 = -2x_3}\\
+            x_2 - 2x_3 &= 0 \onslide<2->{\rightarrow x_2 = 2x_3}
+        \end{align*}
+        \pause
+        \pause
+        Where the solution set is
+        \[
+            \vec{x} = x_3\begin{bmatrix}
+                -2\\2\\1
+            \end{bmatrix}
+        \]\pause
+        \column{.5\textwidth}
+        Plugging in gives:
+        \[
+            \vec{0} = A\vec{x} = \rText{-2}\begin{bmatrix}2\\1\\0\end{bmatrix}
+                + \rText{2}\begin{bmatrix}-1\\6\\3\end{bmatrix}
+                + \rText{1}\begin{bmatrix}6\\-10\\-6\end{bmatrix}
+        \]
+        \pause
+        Or equivalently
+        \[
+            \begin{bmatrix}6\\-10\\-6\end{bmatrix} = \rText{2}\begin{bmatrix}2\\1\\0\end{bmatrix}
+                + \rText{-2}\begin{bmatrix}-1\\6\\3\end{bmatrix}
+        \]
+        \pause
+        So, one is a linear combination of the others!
+    \end{columns}
+\end{frame}
+\begin{frame}{Linear Independence}
+    \begin{defn}
+        \rText{Linear Independence}: We say that a set of $p>1$ vectors in $\R^n$, 
+        $\left\{\vec{v}_1,\dots,\vec{v}_p\right\}$ is \bText{linearly independent} if we \textbf{cannot} 
+        write one as a linear combination of the others. Otherwise, the set is \bText{linearly dependent}.
+    \end{defn}
+    \begin{example}
+        Since 
+        \[
+            \begin{bmatrix}6\\-10\\-6\end{bmatrix} = \rText{2}\begin{bmatrix}2\\1\\0\end{bmatrix}
+                + \rText{-2}\begin{bmatrix}-1\\6\\3\end{bmatrix},
+        \]
+        we know that the set $\left\{\begin{bmatrix}2\\1\\0\end{bmatrix},
+            \begin{bmatrix}-1\\6\\3\end{bmatrix},\begin{bmatrix}6\\-10\\-6\end{bmatrix}\right\}$ is\pause\ 
+                \bText{linearly dependent}!
+    \end{example}
+\end{frame}
+\begin{frame}{Showing Linear Independence}
+    \begin{theorem}
+        To show $\left\{\vec{v}_1,\dots,\vec{v}_p\right\}$ is \rText{linearly independent}, we can
+        just show that the system\pause
+        \[
+            \aMat{ccc|c}{
+                \vec{v}_1 & \dots & \vec{v}_p & \vec{0}
+            }
+        \]
+        \pause
+        only has the trivial solution!
+    \end{theorem}
+    \vspace{60pt}\pause
+    \begin{tcolorbox}
+        If we find another solution, then they are \bText{linearly dependent}
+    \end{tcolorbox}
+\end{frame}
+\begin{frame}{Practice!}
+    Determine if the following sets of vectors are \bText{linearly dependent} or \bText{linearly
+    independent}
+    \begin{columns}
+        \column{.5\textwidth}
+        \begin{itemize}
+            \item
+                \[
+                    S = \left\{\begin{bmatrix}1\\2\end{bmatrix},\begin{bmatrix}3\\6\end{bmatrix}\right\}
+                \]
+        \end{itemize}
+        \onslide<2->{
+            \iftoggle{showSolutions}{
+                Since $\begin{bmatrix}3\\6\end{bmatrix} = 3\begin{bmatrix}1\\2\end{bmatrix}$, they are
+                    \bText{linearly dependent}
+            }{}
+        }
+        \column{.5\textwidth}
+        \begin{itemize}
+            \item 
+                \[
+                    S = \left\{\begin{bmatrix}1\\2\\1\end{bmatrix},\begin{bmatrix}3\\6\\1\end{bmatrix}\right\}
+                \]
+        \end{itemize}
+        \onslide<3->{
+            \iftoggle{showSolutions}{
+                They are \bText{linearly independent}! Perform Gaussian Elimination on the Augmented matrix to see this
+            }{}
+        }
+    \end{columns}
+\end{frame}
+\begin{frame}{Conceptual Practice!}
+    For each of the following questions, either come up with an example or think of a reason it's false
+    \begin{enumerate}
+        \item Give an example of $1$ vector in $\R^3$ so that the set is linearly independent
+
+            \onslide<2->{
+            \iftoggle{showSolutions}{
+                \rText{Any vector will do!}}{}
+        }
+        \item Give an example of $2$ vector in $\R^3$ so that the set is linearly independent
+
+            \onslide<3->{
+            \iftoggle{showSolutions}{
+                \rText{$e_1$ and $e_2$ work!}}{}
+        }
+        \item Give an example of $3$ vector in $\R^3$ so that the set is linearly independent
+
+            \onslide<4->{
+            \iftoggle{showSolutions}{
+                \rText{This is the last one we can do!}}{}
+        }
+        \item Give an example of $4$ vector in $\R^3$ so that the set is linearly independent
+
+            \onslide<5->{
+            \iftoggle{showSolutions}{
+                \rText{This is not possible}}{}
+        }
+    \end{enumerate}
+\end{frame}
+\begin{frame}{But what about $\vec{0}$?}
+    \begin{theorem}
+        If a set $S=\left\{\vec{v}_1,\dots,\vec{v}_p\right\}$ contains the zero vector, $\vec{0}$,
+        then the set is linearly dependent.
+    \end{theorem}
+    \vspace{60pt}
+    \begin{proof}
+        Since we can reorder the list without changing the overall property, let $\vec{v}_1=\vec{0}$.\pause
+
+        See that
+        \[
+            1\vec{0} + 0\vec{v}_2 + \dots + 0\vec{v}_p = \vec{0}
+        \]
+    \end{proof}
+\end{frame}
+\begin{frame}{Number of Vectors and Their Dimension}
+    \begin{theorem}
+        A set of $p$ vectors, $S=\left\{\vec{v}_1,\dots,\vec{v}_p\right\}$ in $\R^n$ is linearly
+        dependent if $p>n$.
+    \end{theorem}
+    \vspace{200pt}
+\end{frame}
+\end{document}

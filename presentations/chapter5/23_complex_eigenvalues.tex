@@ -1,0 +1,388 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+\usepackage{3191Style}
+\newcommand{\C}{\mathbb{C}}
+\renewcommand{\Re}[1]{\textrm{Re}\left(#1\right)}
+\renewcommand{\Im}[1]{\textrm{Im}\left(#1\right)}
+% Date gives the title of the lecture
+\date{Complex Eigenvalues}
+
+\begin{document}
+    \begin{frame}{Review of Complex Numbers}
+        Let $z\in\C$. Then we can write it as\pause\ $z = a+bi$ for $a,b\in\R$.\pause
+        
+        We define some useful operations and properties of complex numbers.
+        $z_1=a+bi, z_2=c+di$
+        \begin{enumerate}
+            \pause\item $z_1+z_2 = (a+c) + (b+d)i$
+            \pause\item $z_1-z_2 = (a-c) + (b-d)i$
+            \pause\item $z_1\cdot z_2 = (ac-bd) + (ad + cb)i$
+            \pause\item $\overline{z}_1 = a - bi$
+            \pause\item $\Re{z_1} = a$
+            \pause\item $\Im{z_1} = b$
+            \pause\item $|z_1| = \sqrt{a^2 + b^2} = \sqrt{z_1\overline{z}_1}$
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Division with Complex Numbers}
+        What about division?\pause\ We can determine what $\frac{1}{z}$ needs to look like
+        if we know that $z = a+bi$ for $a,b\in\R$.\pause\ See that
+        \[
+            \frac{1}{z}\pause = \frac{\overline{z}}{\overline{z}z}\pause = 
+            \frac{a-bi}{a^2+b^2}
+        \]
+    \end{frame}
+    \begin{frame}{Fundamental Theorem of Algebra}
+        Recall that if we have an $n^{\textnormal{th}}$ degree polynomial with real (or complex)
+        coefficients, then we have $n$ roots counting multiplicity.\pause\ 
+
+        Or in other words if $p(x)$ is given by
+        \[
+            p(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x + a_0,
+        \]\pause\ then we can factor it as
+        \[
+            p(x) = (x-r_1)(x-r_2)\cdots (x-r_n)
+        \]\pause\
+        where each $r_\ell\in\C$ and can be repeated!
+    \end{frame}
+    \begin{frame}{Complex Eigenvalues of a Real Matrix Example}
+        Let $A=\bMat{
+            0 & -1\\
+            1 & 0
+        }$. The eigenvalues are going to be the roots of 
+        \[
+            p(\lambda) = \lambda^2 + 1
+        \]\pause
+        which has the roots $\lambda = \pm i$. 
+    \end{frame}
+    \begin{frame}{Complex Eigenvalues of a Real Matrix}
+        \begin{theorem}
+            Let $A\in\R^{n\times n}$, then if $(\lambda,\vec{v})$ is an eigenpair of $A$ then 
+            $(\overline{\lambda}, \overline{\vec{v}})$ is also an eigenpair!\pause\
+            In other words, eigenpairs come in conjugate pairs.
+        \end{theorem}
+        \vfill
+        \begin{proof}
+            Let $(\lambda,\vec{v})$ be an eigenpair of $A\in\R^{n\times n}$
+            \[
+                A\overline{\vec{v}}\pause = \overline{A\vec{v}}\pause = 
+                \overline{\lambda\vec{v}}\pause = \overline{\lambda}\overline{\vec{v}}
+            \]
+        \end{proof}
+    \end{frame}
+    \begin{frame}{Rotation-Scaling Matrices}
+        \small
+        \begin{defn}
+            We define a \bText{rotation-scaling matrix} as a matrix of the form
+            \[
+                A = \bMat{
+                    a & b\\
+                    -b & a
+                }\qquad a,b\in\R \qquad a\neq 0\neq b
+            \]
+        \end{defn}\pause
+        We can actually write $A$ as follows
+        \[
+            A = \bMat{
+                \cos\theta & -\sin\theta\\
+                \sin\theta & \cos\theta
+            }\bMat{
+                r & 0\\
+                0 & r
+            }
+        \]\pause
+        Where $r = \sqrt{a^2+b^2} = \sqrt{\det{A}}$.
+        \pause\\
+        We also have that the eigenvalues are $\lambda = a\pm bi$
+    \end{frame}
+    \begin{frame}{Eigenvalues Relating to Rotation-Scaling Matrices}
+        Why do we care? Well, do we notice about $A$ and how it relates to it's eigenvalues?
+        \[
+            A = \bMat{
+                a & -b\\
+                b & a
+            } \qquad \lambda=a\pm bi
+        \]\pause
+        We can write it as 
+        \[
+            A = \bMat{
+                \Re{\lambda} & \Im{\lambda}\\
+                -\Im{\lambda}& \Re{\lambda}
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Rotation-Scaling Theorem}
+        \begin{theorem}
+            Let $A\in\R^{2\times 2}$ with a complex eigenvalue $\lambda\not\in\R$ and $\vec{v}$ be
+            an eigenvector. Then $A=CBC^{-1}$ for
+            \[
+                B = \bMat{
+                    \Re{\lambda} & \Im{\lambda}\\
+                    -\Im{\lambda}& \Re{\lambda}
+                } \qquad C = \bMat{
+                    \Re{\vec{v}} & \Im{\vec{v}}
+                }
+            \]
+        \end{theorem}
+    \end{frame}
+    \begin{frame}{Rotation-Scaling Theorem Example $2\times 2$ Part 1}
+    Let $A$ be given as below. Find the $B$ and $C$ in the previous theorem.
+    \[
+        A = \bMat{
+            2 & -1\\
+            2 &  0
+        }
+    \]\pause\ The characteristic polynomial is $p(\lambda) = \lambda^2 - 2\lambda + 2$
+    \pause\
+    The roots of this polynomial are exactly $1\pm i$. However since we have conjugate pairs, we
+        will consider only $\lambda=1+i$. This means that $B$ is given by
+        \[
+            B = \bMat{
+                1 & 1\\
+                -1& 1
+            }
+        \]\pause
+        Finally, we must compute an eigenvector associated with $\lambda=1+i$.
+    \end{frame}
+    \begin{frame}{Rotation-Scaling Theorem Example $2\times 2$ Part 2}
+        \[
+            \bMat{2 & -1\\2 & 0}\pause\xrightarrow{B=A-(1+i)}\bMat{
+                2-(1+i) & -1\\
+                2 & -(1+i)
+            }\pause\rightarrow\bMat{
+                1-i & -1\\
+                2 & -1-i
+            }\pause\xrightarrow{R_2=R_2 - \frac{2}{1-i}R_1}\bMat{1-i & -1\\0 & 0}
+        \]
+        \[
+            \pause\xrightarrow{R_1 = \frac{R_1}{1-i}}\bMat{
+                1 & -\frac{1}{2} - \frac{1}{2}i\\
+                0 & 0
+            }
+        \]\pause
+        So, we have that 
+        \[
+            \vec{v} = \bMat{
+                \frac{1}{2} + \frac{1}{2}i\\
+                1
+            }\pause = \bMat{
+                \frac{1}{2}\\
+                1
+            } + \bMat{
+                \frac{1}{2}\\
+                0
+            }i
+        \]\pause
+        Meaning, 
+        \[
+            C = \bMat{
+                \frac{1}{2} & \frac{1}{2}\\
+                1 & 0
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Rotation-Scaling Theorem Example $2\times 2$ Part 3}
+        Putting this together gives\pause
+        \[
+            \bMat{
+                2 & -1 \\
+                2 & 0
+            }\bMat{
+                \frac{1}{2} & \frac{1}{2}\\
+                1 & 0
+            } = \bMat{
+                \frac{1}{2} & \frac{1}{2}\\
+                1 & 0
+            }\bMat{
+                1 & 1\\
+                -1& 1
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Is There an Easier Way?}
+        The division was pretty tedious, so let's try to make an easier way.\pause\
+        Remember that if $\lambda$ is an eigenvalue of a matrix, then $\det{A-\lambda I} = 0$. So, if
+        $A\in\R^{2\times 2},$ then the rows are multiples of each other!\pause\ This means that
+        \[
+            A - \lambda I = \bMat{
+                z & w\\
+                cz&cw
+            }
+        \]
+        For some $z,w,c\in\C$\pause\
+        See that if we define $\vec{v} = \bMat{-w\\z}$ then\pause\
+        \[
+            (A-\lambda I)\vec{v} = \bMat{
+                z & w\\
+                cz&cw
+            }\bMat{-w\\z}\pause = \bMat{
+                -zw + wz\\
+                -czw+cwz
+            }\pause = \bMat{
+                0\\
+                0
+            }
+        \]\pause
+        So, $(\lambda,\vec{v})$ is an eigenpair of $A$!
+    \end{frame}
+    \begin{frame}{A Special Similarity Transformation for Complex Eigenvalues}
+        \small
+        We can extend our Rotation-Scaling theorem to larger matrices! This is called the 
+        \rText{Block Diagonalization}
+        \begin{theorem}
+            Let $A\in\R^{n\times n}$ suppose that for each eigenvalue (real or complex!) the algebraic
+            and geometric multiplicities are equal, then $A=CBC^{-1}$ where $B,C$ are as follows.\pause
+            \begin{itemize}
+                \pause\item $B$ is \bText{block diagonal} with $1\times 1$ blocks for real 
+                    eigenvalues and $2\times 2$ blocks for complex eigenvalues.
+                \pause\item The columns of $C$ form a bases for the eigenspaces for the real
+                    eigenvectors or pairs $(\Re{\vec{v}}, \Im{\vec{v}})$.
+            \end{itemize}
+        \end{theorem}\pause
+        In other words, if we are in $\R^{3\times 3}$, and have $\lambda_1\in\C,\lambda_2\in\R$ as 
+        two eigenvalues ($\lambda_1\not\in\C$) of $A$, with $\vec{v}_1$ and $\vec{v}_2$ as their
+        corresponding eigenvectors\pause, we get
+        \[
+            A = \bMat{
+                    \Re{\vec{v}_1} & \Im{\vec{v}_1} & \vec{v}_2
+                }\bMat{
+                    \Re{\lambda_1} & \Im{\lambda_1} & 0\\
+                    -\Im{\lambda_1}& \Re{\lambda_1} & 0\\
+                    0 & 0 & \lambda2
+                }
+        \]
+    \end{frame}
+    \begin{frame}{Complex Eigenvalues of a Real Matrix Example $3\times 3$}
+    Let $A$ be given below:
+    \[
+        A = \bMat{
+            1 & 0 & -1\\
+            1 & 2 &  1\\
+            0 &-1 &  1
+        },
+    \]
+    which has characteristic polynomial 
+    $p(\lambda) = \lambda^3 - 4\lambda^2 + 6\lambda - 4$. Find a matrix $B$ such that
+    \[
+        A = CBC^{-1}
+    \]
+    where $C$ is 
+    \[
+        C = \bMat{
+            0 & 1 & 1\\
+            0 &-1 & 1\\
+            1 & 0 &-1
+        }
+    \]
+    \end{frame}
+    \begin{frame}{Complex Eigenvalues of a Real Matrix Practice $3\times 3$ Solution Part 1}
+        \small
+        First, we need to find the roots of $p(\lambda)$. By plugging in the values of 
+        $\pm1,\pm2,\pm4$ we will find that $\lambda=2$ is an eigenvalue. 
+
+        \vspace{10pt}
+        Next we would divide out the
+        factor $\lambda-2$ to get $\lambda^2 -2\lambda + 2$, which we use the quadratic formula to find
+        that $\lambda=1\pm i$ are the other eigenvalues.
+
+        \vspace{10pt}
+        Now we just need to find an eigenvector associated with $\lambda=1+i$ and $\lambda=2$. We
+        do the real one first
+        \[
+            A-2I = \bMat{
+                1-2 & 0 & -1\\
+                1 & 2-2 &  1\\
+                0 & -1 & 1-2
+            }\pause = \bMat{
+                -1 & 0 & -1\\
+                1 & 0 & 1\\
+                0 & -1 & -1
+            }\pause\xrightarrow{R_2=R_2+R_1}\bMat{
+                -1 & 0 & -1\\
+                0 & 0 & 0\\
+                0 & -1 & -1
+            }
+        \]
+        \[
+            \pause\xrightarrow{R_2\leftrightarrow R_3}\bMat{
+                -1 & 0 & -1\\
+                0 & -1 & -1\\
+                0 & 0 & 0
+            }\pause\xrightarrow[R_2=-R_2]{R_1=-R_1}\bMat{
+                1 & 0 & 1\\
+                0 & 1 & 1\\
+                0 & 0 & 0
+            }\pause\rightarrow\vec{x} = \bMat{-1\\-1\\1}
+        \]
+    \end{frame}
+    \begin{frame}{Complex Eigenvalues of a Real Matrix Practice $3\times 3$ Solution Part 2}
+        \small
+        Now, we find an eigenvector for $\lambda=1+i$
+        \[
+            A-(1+i)I = \bMat{
+                1-(1+i) & 0 & -1\\
+                1 & 2-(1+i) &  1\\
+                0 & -1 & 1-(1+i)
+            }\pause = \bMat{
+                -i & 0 & -1\\
+                1 & 1-i& 1\\
+                0 & -1 & -i
+            }
+        \]
+        \vspace{-5pt}
+        \[
+            \pause\xrightarrow{R_2\leftrightarrow R_1}\bMat{
+                1 & 1-i& 1\\
+                -i & 0 & -1\\
+                0 & -1 & -i
+            }\pause\xrightarrow{R_2 = R_2 + iR_1}\bMat{
+                1 & 1-i& 1\\
+                0 & 1+i& -1+i\\
+                0 & -1 & -i
+            }\pause\xrightarrow{R_3\leftrightarrow R_2}\bMat{
+                1 & 1-i& 1\\
+                0 & -1 & -i\\
+                0 & 1+i& -1+i
+            }
+        \]
+        \[
+            \pause\xrightarrow{R_3=R_3 + (1-i)R_2}\bMat{
+                1 & 1-i& 1\\
+                0 & -1 & -i\\
+                0 & 0& 0
+            }\pause\xrightarrow{R_1=R_1+(1-i)R_2}\bMat{
+                1 & 0  & -i\\
+                0 & -1 & -i\\
+                0 & 0& 0
+            }\pause\xrightarrow{R_2=-R_2}\bMat{
+                1 & 0  & -i\\
+                0 & 1 & i\\
+                0 & 0& 0
+            }
+        \]
+        So, an eigenvector is $\vec{v} = \bMat{i\\-i\\1}$
+    \end{frame}
+    \begin{frame}{Complex Eigenvalues of a Real Matrix Practice $3\times 3$ Solution Part 3}
+        \small
+        Next, we see that
+        \[
+            \Re{\vec{v}} = \bMat{0\\0\\1}\qquad\qquad\Im{\vec{v}} = \bMat{1\\-1\\0}
+        \]\pause
+
+        Which are the first $2$ columns of $C$\pause\ and the last column of $C$ is $\vec{x}$.\pause\
+        This means the block using the real and imaginary components must be in the first two columns of $B$
+        \pause\ and the third column corresponds to our real eigenvalue. In other words, since
+        \[
+            C = \bMat{
+                0 & 1 & -1\\
+                0 & -1& -1\\
+                1 & 0 & 1
+            }
+        \]\pause\ we have that
+        \[
+            B = \bMat{
+                1 & 1 & 0\\
+                -1 & 1 & 0\\
+                0 & 0 & 2
+            }
+        \]
+    \end{frame}
+\end{document}

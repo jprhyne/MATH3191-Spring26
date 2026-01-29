@@ -1,0 +1,126 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+% Date gives the title of the lecture
+\date{Similarity Practice}
+
+\begin{document}
+    \begin{frame}{Example 1 Part 1}
+        Let 
+        \[
+            A = \bMat{
+                4   & 14 & -4\\
+                -12 & 28 & -8\\
+                12  & -13& 18
+            }, \qquad B=\bMat{
+                10 & 0 & 0\\
+                0 & 20 &10\\
+                0 & 0 & 20
+            }, \qquad C=\bMat{
+                2 & 2 & -3\\
+                0 & 2 & -2\\
+                -3&-1 & 0
+            }
+        \]
+        We will demonstrate that $A$ is similar to $B$ using $C$.\pause\ Compute $AC$, and $CB$.
+        \[
+            AC\pause = \bMat{
+                4   & 14 & -4\\
+                -12 & 28 & -8\\
+                12  & -13& 18
+            }\bMat{
+                2 & 2 & -3\\
+                0 & 2 & -2\\
+                -3&-1 & 0
+            } \pause = \bMat{
+                20  & 40 & -40\\
+                0   & 40 & -20\\
+                -30 &-20 & -10
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Example 1 Part 2}
+        \[
+            AC = \bMat{
+                20  & 40 & -40\\
+                0   & 40 & -20\\
+                -30 &-20 & -10
+            }
+        \]\pause
+        Now we compute $CB$
+        \[
+            CB\pause = \bMat{
+                2 & 2 & -3\\
+                0 & 2 & -2\\
+                -3&-1 & 0
+            }\bMat{
+                10 & 0 & 0\\
+                0 & 20 & 10\\
+                0 & 0 & 20
+            }\pause = \bMat{
+                20  & 40 & -40\\
+                0   & 40 & -20\\
+                -30 &-20 & -10
+            }
+        \]\pause
+        Which is the same as $AB$.
+    \end{frame}
+
+    \begin{frame}{Example 2 Part 1}
+        \small
+        Let $A,B$ be given below, then compute a value of $k$ such that $A$ and $B$ are similar.
+        \[
+            A = \bMat{
+                5 & 2\\
+                4 & k
+            },\qquad B=\bMat{
+                1 & 0\\
+                0 & 7
+            }
+        \]\pause
+        This is just asking us to find a $k$ such that $A$ has eigenvalues $1,7$ and is 
+        diagonalizable!\pause\ There are many ways to approach this. The easiest is probably to 
+        write out the characteristic polynomial we want
+        \[
+            f(\lambda) = (\lambda-1)(\lambda-7) \pause = \lambda^2 - 8\lambda + 7
+        \]\pause
+        Then finding the characteristic polynomial of $A$ and setting them equal
+        \[
+            \det{\bMat{
+                5-\lambda & 2\\
+                4 & k-\lambda
+            }} = (5-\lambda)(k-\lambda) - 8 \pause = \lambda^2 - (5+k)\lambda + 5k-8
+        \]
+    \end{frame}
+    \begin{frame}{Example 2 Part 2}
+        So, we will now set these polynomials equal to each other\pause
+        \[
+            \lambda^2 - 8\lambda + 7 = \lambda^2 - (5+k)\lambda + 5k-8
+        \]\pause
+        Remember that $\lambda$ is our variable here, so we treat $k$ as a constant. We are left
+        with the following system to solve
+        \begin{eqnarray*}
+            -(5+k) &=& -8\\
+            5k-8   &=& 7
+        \end{eqnarray*}\pause
+        We can solve this however we want, but the first equation gives us $k=3$ and plugging this into
+        the second gives us what we need, so $k$ must be $3$.
+    \end{frame}
+    \begin{frame}{Example 2 Part 3}
+        This means that we showed
+        \[
+            \bMat{
+                5 & 2\\
+                4 & 3
+            }\textnormal{, and }\bMat{
+                1 & 0\\
+                0 & 7
+            }
+        \]
+        have the same eigenvalues.\pause\ Are we done?\pause\ \rText{No!}\pause\ Just because
+        two matrices have the same eigenvalues doesn't mean that they are similar.\pause\ We need to compute
+        the $C$ that proves these matrices are similar.\pause\
+
+        Now we find the eigenvectors of $A$ and then we would be done!
+    \end{frame}
+\end{document}

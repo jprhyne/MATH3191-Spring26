@@ -1,0 +1,199 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left|#1\right|}
+% Date gives the title of the lecture
+\date{Orthogonality}
+
+\begin{document}
+    \begin{frame}{Orthogonal Complement}
+        \footnotesize
+        Let $V$ be a vector space with an inner product given by $\ip{\cdot}{\cdot}$.
+        \begin{defn}
+            \rText{Orthogonal Complement}: The \bText{orthogonal complement} of a subspace of 
+            $V$ (or equivalently $\R^n,\C^n$), $W$ is given by
+            \[
+                W^\perp = \set{\vec{v}\in V}{\ip{\vec{v}}{\vec{w}} = 0\textnormal{ for all }w\in W}
+            \]\pause
+            We read $W^\perp$ as ``W perp'' or ``The orthogonal complement of W''
+        \end{defn}\pause
+        Note: This is the set of \emph{all} vectors orthogonal to \emph{all} vectors in $W$.
+        \begin{example}Using the standard inner product and $V=\R^n$.
+        Let $W=\Span{\bMat{2\\4\\-6},\bMat{0\\-1\\2}}$, then $W^\perp=\Span{\bMat{-1\\2\\1}}$
+        \end{example}
+    \end{frame}
+    \begin{frame}{Computing Orthogonal Complements}
+        \begin{theorem}
+            Let $W$ be a subspace of V and $A$ be a matrix such that $W = \colS{A}$.
+
+            Then, $$W^\perp = \nullS{A^\top}$$
+        \end{theorem}
+    \end{frame}
+    \begin{frame}{Proving our Equality Part 1}
+        \small
+        \begin{proof}
+        Let 
+            \[
+                A = \bMat{
+                    \vec{v}_1 & \dots & \vec{v}_n
+                }, W = \Span{\vec{v}_1,\dots,\vec{v}_n}
+            \]\pause
+            We will first show that $W^\perp\subseteq\nullS{A^\top}$.\pause
+
+            Let $\vec{x}\in W^\perp$. See that $A^\top = \bMat{
+                    \vec{v}_1^\top \\ \vdots \\ \vec{v}_n^\top
+                }$.\pause\ Since $\vec{x}\in W^\perp$, we know that $\vec{v}_\ell^\top\vec{x}=0$ for 
+                $\ell=1,\dots,n$. So,\pause
+                \[
+                    A^\top\vec{x} = \bMat{
+                        \vec{v}_1^\top \\
+                        \vdots \\
+                        \vec{v}_n
+                    }\vec{x}\pause = \bMat{
+                        \vec{v}_1^\top\vec{x} \\
+                        \vdots \\
+                        \vec{v}_n^\top\vec{x}
+                    }\pause = \bMat{0\\\vdots\\0}\pause = \vec{0}.
+                \]
+                So, $\vec{x}\in\nullS{A^\top}$
+        \end{proof}
+    \end{frame}
+    \begin{frame}{Proving our Equality Part 2}
+        \small
+        \begin{proof}
+        Let 
+            \[
+                A = \bMat{
+                    \vec{v}_1 & \dots & \vec{v}_n
+                }, W = \Span{\vec{v}_1,\dots,\vec{v}_n}
+            \]\pause
+            We will now show that $\nullS{A^\top}\subseteq W^\perp$.\pause
+
+            Let $\vec{x}\in\nullS{A^\top}$. This means $A^\top\vec{x}=\vec{0}$. From the previous
+            slide, we have that\pause
+                \[
+                    A^\top\vec{x} = \bMat{
+                        \vec{v}_1^\top \\
+                        \vdots \\
+                        \vec{v}_n
+                    }\vec{x}\pause = \bMat{
+                        \vec{v}_1^\top\vec{x} \\
+                        \vdots \\
+                        \vec{v}_n^\top\vec{x}
+                    }\pause = \bMat{0\\\vdots\\0}\pause = \vec{0}.
+                \]\pause
+            Now, let $\vec{w}\in W$. This means there exists some $c_1, \dots, c_n$ such that
+            $\vec{w} = c_1\vec{v}_1 + \dots + c_n\vec{v}_n$. See that\pause
+            \[
+                \vec{x}^\top\vec{w} = \vec{x}^\top(c_1\vec{v}_1 + \dots + c_n\vec{v}_n)
+                \pause= c_1\vec{x}^\top\vec{v}_1 + \dots + c_n \vec{x}^\top\vec{v}_n\pause = 0
+            \]
+            So, $\vec{x}\in W^\perp$. Thus, our two spaces are the same!
+        \end{proof}
+    \end{frame}
+    \begin{frame}{Algorithm for Computing Orthogonal Complements}
+        In order to compute the orthogonal complement of a given space,W, we do the following
+        \begin{enumerate}
+            \pause\item Determine a spanning set for our space\pause\ If $W$ is a span, then we just
+                take the inside!
+            \pause\item Write these vectors as rows of a matrix (Call it $A^\top$)
+            \pause\item Compute $\nullS{A^\top}$
+            \pause\item Write out a basis of this nullspace
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Computing Orthogonal Set Example}
+        Let's practice our algorithm!
+        \[
+            W=\Span{\bMat{2\\4\\-6}, \bMat{0\\-1\\2}}
+        \]
+        So we construct and row reduce
+        \[
+            A^\top = \bMat{
+                2 & 4 & -6\\
+                0 & -1&  2
+            }\pause\xrightarrow[R_2=-R_2]{R_1=\frac{R_1}{2}}\bMat{
+                1 & 2 & -3\\
+                0 & 1 & -2
+            }\pause\xrightarrow{R_1 = R_1-2R_2}\bMat{
+                1 & 0 &  1\\
+                0 & 1 & -2
+            }
+        \]
+        So, the null-space is given by the span of $\bMat{-1\\2\\1}$.
+    \end{frame}
+    \begin{frame}{Properties of Orthogonal Complements}
+        Let $W$ be a subspace of our vector space $V$ ($V$ will be finite dimensional, meaning it 
+        has $n$ basis vectors). Then we know
+        \begin{enumerate}
+            \pause\item $W^\perp$ is also a subspace of $V$
+            \pause\item $\left(W^\perp\right)^\perp = W$
+            \pause\item $\dim{W} + \dim{W^\top} = n$.
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Row Space of a Matrix}
+        \begin{defn}
+            \rText{Row Space}: The \bText{row space} of a matrix $A\in\R^{m\times n}$, 
+            denoted $\rowS{A}$ is the span of it's rows or equivalently:\pause
+            \[
+                A = \bMat{
+                    \vec{a}_1^\top\\
+                    \vdots\\
+                    \vec{a}_m^\top
+                }\qquad\qquad\pause\rowS{A} = \Span{\vec{a}_1, \dots, \vec{a}_m}
+            \]
+        \end{defn}
+    \end{frame}
+    \begin{frame}{Fundamental Theorem of Linear Algebra}
+        A fundamental theorem behind much of linear algebra is how our ``fundamental'' subspaces 
+        ($\colS{A},\rowS{A},\nullS{A},\nullS{A^\top}$) relate to each other. It is summarized as
+        \begin{enumerate}
+            \pause\item $\rowS{A}^\perp = \nullS{A}$
+            \pause\item $\colS{A}^\perp = \nullS{A}$
+            \pause\item $\nullS{A}^\perp = \rowS{A}$
+            \pause\item $\nullS{A^\top}^\perp = \colS{A}$
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Orthogonal (Orthonormal) Sets}
+        \begin{defn}
+            \rText{Orthogonal Set}: A set of \emph{non-zero} vectors, 
+            $\setBasic{\vec{u}_1,\dots,\vec{u}_m}$, is an \bText{orthogonal set} if 
+            $\ip{\vec{u}_i}{\vec{u}_j}=0$ for all $i\neq j$.\pause\ We instead say orthonormal
+            if we also have $\ip{\vec{u}_i}{\vec{u}_i}=1$ for all valid $i$.
+        \end{defn}
+        \begin{example}
+            The set $\setBasic{\bMat{1\\1},\bMat{-1\\1}}$ is orthogonal while 
+            $\setBasic{\frac{1}{\sqrt{2}}\bMat{1\\1},\frac{1}{\sqrt{2}}\bMat{-1\\1}}$ is orthonormal
+        \end{example}
+    \end{frame}
+    \begin{frame}{Orthogonal Sets are Linearly Independent}
+        \small
+        \begin{theorem}
+            Let $\setBasic{\vec{u}_1,\dots,\vec{u}_m}$ be an orthogonal set. We also have that
+            these vectors are linearly independent
+        \end{theorem}\pause
+        \begin{proof}
+            We will show the equation 
+            \[
+                c_1\vec{u}_1 + \dots + c_m\vec{u}_m = \vec{0}
+            \]
+            has only the trivial solution $c_1=\dots=c_m=0$.
+
+            We apply both sides of our equality to our inner product with $\vec{u}_\ell$ for some
+            $1\leq\ell\leq m$, which gives us
+            \[
+                0 = \ip{\vec{0}}{\vec{u}_\ell}\pause = 
+                \ip{c_1\vec{u}_1 + \dots + c_m\vec{u}_m}{\vec{u}_\ell}
+                \pause = c_1\ip{\vec{u}_1}{\vec{u}_\ell} + \dots + c_m\ip{\vec{u}_m}{\vec{u}_\ell}
+            \]
+            \vspace{-20pt}
+            \[
+                \pause = c_\ell\ip{\vec{u}_\ell}{\vec{u}_\ell}
+            \]
+            Since we know that $\vec{u}_\ell$ is non-zero, $\ip{\vec{u}_\ell}{\vec{u}_\ell}\neq 0$,
+            thus $c_\ell=0$. Since $\ell$ was some arbitrary index, all must be $0$. Therefore,
+            we have a list of linearly independent vectors.
+        \end{proof}
+    \end{frame}
+\end{document}

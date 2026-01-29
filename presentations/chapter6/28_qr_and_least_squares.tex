@@ -1,0 +1,266 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left|#1\right|}
+% Date gives the title of the lecture
+\date{QR and Least Squares Problems}
+
+\begin{document}
+    \begin{frame}{Orthonormal Basis}
+        \small
+        \begin{defn}
+            \rText{Orthonormal Basis}: We say that a set of vectors $\setBasic{\vec{q}_1,\dots,\vec{q}_n}$
+            is an \bText{orthonormal basis} of some subspace $W$ of $\R^m$ if
+            \begin{enumerate}
+                \pause\item $\setBasic{\vec{q}_1,\dots,\vec{q}_n}$ is an orthonormal set
+                \pause\item $\setBasic{\vec{q}_1,\dots,\vec{q}_n}$ is a basis for $W$.
+            \end{enumerate}
+        \end{defn}
+        \pause
+        \begin{theorem}
+            Let $\setBasic{\vec{q}_1,\dots,\vec{q}_n}$ be an orthonormal basis of $\R^n$. Then, 
+            the $\B$ coordinates for a vector $\vec{x}\in\R^n$ are given by
+            \[
+                \bCoord{\vec{x}}{\B} = \bMat{\vec{q}_1^\top\vec{x} & \dots & \vec{q}_n^\top\vec{x}}
+            \]\pause
+        \end{theorem}
+        This means if we have a basis like this, then our lives are a lot easier!
+    \end{frame}
+    \begin{frame}{Orthonormal Columns}
+        \begin{defn}
+            \rText{Orthonormal Columns}: We say that a matrix $Q\in\R^{m\times n}$ has
+            \bText{orthonormal columns} if $Q^\top Q = I$.\pause\ (\emph{Note}: We don't necessarily
+            have $QQ^\top=I$!)\pause
+        \end{defn}
+        This is just putting an orthonormal set into columns of a matrix!
+    \end{frame}
+    \begin{frame}{Matrices with Orthonormal Columns and our Norm}
+        \begin{theorem}
+            If $Q\in\R^{m\times n}$ such that $Q$ has orthonormal columns, then for any $\vec{x}\in\R^n$, we have
+            \[
+                \norm{Q\vec{x}}{2} = \norm{\vec{x}}{2}
+            \]
+        \end{theorem}\pause
+        \begin{proof}
+            Let $\vec{x}\in\R^n$ and $Q\in\R^{m\times n}$ have orthonormal columns. Then see that
+            \[
+                \norm{Q\vec{x}}{2}\pause = \sqrt{\vec{x}^\top Q^\top Q\vec{x}}
+                \pause=\sqrt{\vec{x}^\top\vec{x}}\pause = \norm{\vec{x}}{2}
+            \]
+        \end{proof}
+    \end{frame}
+    \begin{frame}{Gram-Schmidt Process (Slightly Different Than Our Text!)}
+        Another problem we want to do is take some basis of our space and convert it to a basis
+        of orthonormal vectors.\pause\ One method is the Gram-Schmidt Process, which is given below\pause
+        \begin{defn}
+            \footnotesize
+            Let $\vec{v}_1,\dots,\vec{v}_m$ be a basis for a subspace $W$ of $\R^n$. Then the Gram-Schmidt
+            Process computes $\vec{q}_1,\dots,\vec{q}_m$ such that
+            \[
+                \Span{\vec{v}_1,\dots,\vec{v}_m} = \Span{\vec{q}_1,\dots,\vec{q}_m}\textnormal{ and }
+                \setBasic{\vec{q}_1,\dots,\vec{q}_m}\textnormal{ is an orthonormal set.}
+            \]\pause
+            We compute the $\vec{q}_\ell$ vectors as follows:
+            \[
+                \vec{u}_1 = \vec{v}_1\pause\qquad \vec{q}_1 = \frac{\vec{u}_1}{\norm{\vec{u}_1}{2}}
+            \]\pause\
+            For $\ell=2,\dots, m$:
+            \[
+                \vec{u}_\ell = \vec{v}_\ell - \ip{\vec{v}_\ell}{\vec{q}_{1}}\vec{q}_1 - \cdots - 
+                \ip{\vec{v}_\ell}{\vec{q}_{\ell-1}}\vec{q}_{\ell-1}\pause\qquad 
+                \vec{q}_\ell = \frac{\vec{u}_\ell}{\norm{\vec{u}_\ell}{2}}
+            \]\pause
+        \end{defn}
+        Note: Here, we are using $\ip{\vec{x}}{\vec{y}} = \vec{x}^\top\vec{y}$
+    \end{frame}
+    \begin{frame}{QR Decomposition (From Linear Algebra with Applications)}
+        \begin{theorem}
+            Let $A\in\R^{m\times n}$ be written as $A = \bMat{\vec{v}_1 & \dots & \vec{v}_n}$.
+            There exists exist some $Q\in\R^{m\times n},R\in\R^{n\times n}$ such that $Q^\top Q=I$
+            and $R$ is upper triangular, and these matrices are of the form
+            \[
+                Q = \bMat{
+                    \vec{q}_1 & \dots & \vec{q}_n
+                } \qquad R = \bMat{
+                    \ip{\vec{v}_1}{\vec{q}_1} & \ip{\vec{v}_2}{\vec{q}_1} & \dots & \ip{\vec{v}_n}{\vec{q}_1}\\
+                    0 & \ip{\vec{v}_2}{\vec{q}_2} & \dots & \ip{\vec{v}_n}{\vec{q}_2}\\
+                    \vdots & \ddots & \ddots & \vdots\\
+                    0 & 0 & \dots & \ip{\vec{v}_n}{\vec{q}_n}
+                }
+            \]
+            Where each $\vec{q}_\ell$ is computed via the Gram-Schmidt process
+        \end{theorem}\pause
+        We won't be proving this formula, but if you're interested in what this would look like,
+        \url{https://en.wikipedia.org/wiki/QR\_decomposition\#Using\_the\_Gram\%E2\%80\%93Schmidt\_process}
+        has a write-up of what that proof would look like.
+    \end{frame}
+    \begin{frame}{Alternative Orthogonal Transformation}
+        \begin{theorem}
+            Let $W$ be a subspace of $\R^m$ such that $W=\colS{A}$ for some matrix $A\in\R^{m\times n}$.
+            Then $\vec{x}_W=QQ^\top\vec{x}$ where $A = QR$ from the previous slide.
+        \end{theorem}\pause
+        \begin{proof}
+            Recall that we say $\vec{x}_W = A\vec{c}$ where $\vec{c}$ is a solution to
+            $A^\top A\vec{c} = A^\top\vec{x}$.\pause. So we will show that if we replace $A\vec{c}$ with
+            $QQ^\top\vec{x}$ we also solve this equation!\pause
+            \[
+                A^\top A\vec{c}\pause = A^\top QQ^\top\vec{x}\pause = R^\top Q^\top QQ^\top\vec{x}\pause
+                = R^\top Q^\top\vec{x}\pause = (QR)^\top\vec{x}\pause = A^\top\vec{x}
+            \]
+        \end{proof}
+    \end{frame}
+    \begin{frame}{Matrix Associated With Orthogonal Projection}
+        There are two ways to compute a matrix associated with our orthogonal projection $T$.
+        \begin{enumerate}
+            \pause\item Using our normal equations and projecting the standard basis vectors
+            \pause\item Form $QQ^\top$ where $Q$ is from the $QR$ decomposition
+        \end{enumerate}\pause
+        We will demonstrate both of these methods using $W=\Span{\bMat{1\\0\\-1}, \bMat{1\\1\\0}}$
+    \end{frame}
+    \begin{frame}{Computing Matrix Associated With Orthogonal Projection Method 1}
+        \footnotesize
+        \begin{center}
+            $W=\Span{\bMat{1\\0\\-1}, \bMat{1\\1\\0}}$
+        \end{center}
+        We need to compute $T(\vec{e}_1),T(\vec{e}_2),T(\vec{e}_3)$. For convenience, we recall that
+        $A^\top A=\bMat{2&1\\1&2}$.\pause\ We also have that
+        \[
+            A^\top\vec{e}_1 = \bMat{1\\1}\qquad A^\top\vec{e}_2 = \bMat{0\\1}\qquad A^\top\vec{e}_3 = \bMat{-1\\0}
+        \]\pause
+        We now solve our systems!
+        \[
+            \aMat{cc|c}{
+                2 & 1 & 1\\
+                1 & 2 & 1
+            }\rightarrow\aMat{cc|c}{
+                1 & 0 & \frac{1}{3}\\
+                0 & 1 & \frac{1}{3}
+            }\qquad\pause\aMat{cc|c}{
+                2 & 1 & 0\\
+                1 & 2 & 1
+            }\rightarrow\aMat{cc|c}{
+                1 & 0 & -\frac{1}{3}\\
+                0 & 1 & \frac{2}{3}
+            }\qquad\pause\aMat{cc|c}{
+                2 & 1 &-1\\
+                1 & 2 & 0
+            }\rightarrow\aMat{cc|c}{
+                1 & 0 & -\frac{2}{3}\\
+                0 & 1 & \frac{1}{3}
+            }
+        \]
+        So, we have our matrix
+        \[
+            P = \frac{1}{3}\bMat{A\bMat{1\\1} & A\bMat{-1\\2} & A\bMat{-2\\1}} = \frac{1}{3}\bMat{
+                2 & 1 & -1\\
+                1 & 2 & 1 \\
+                -1& 1 & 2
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Computing Matrix Associated With Orthogonal Projection Method 2 Part 1}
+        \footnotesize
+        \begin{center}
+            $W=\Span{\bMat{1\\0\\-1}, \bMat{1\\1\\0}}$
+        \end{center}
+        Following Gram-Schmidt, we get that
+        \[
+            \vec{q}_1 = \frac{1}{\sqrt{2}}\bMat{1\\0\\-1}
+        \]\pause
+        \[
+            \vec{u}_2 = \bMat{1\\1\\0} - \frac{1}{2}\bMat{1&1&0}\bMat{1\\0\\-1}\bMat{1\\0\\-1}\pause = \frac{1}{2}\bMat{1\\2\\1}
+            \qquad\vec{q}_2 = \frac{\sqrt{2}}{2\sqrt{3}}\bMat{1\\2\\1}\pause = \frac{1}{\sqrt{6}}\bMat{1\\2\\1}
+        \]\pause
+        If we put these in the columns of $Q$ and simplify we get that $Q = \frac{1}{\sqrt{2}}\bMat{
+            1 & \frac{1}{\sqrt{3}}\\
+            0 & \frac{2}{\sqrt{3}}\\
+            -1& \frac{1}{\sqrt{3}}
+        }$
+    \end{frame}
+    \begin{frame}{Computing Matrix Associated With Orthogonal Projection Method 2 Part 2}
+        \footnotesize
+        Now, we compute $QQ^\top$!
+        \[
+            \frac{1}{2}\bMat{
+                1 & \frac{1}{\sqrt{3}}\\
+                0 & \frac{2}{\sqrt{3}}\\
+                -1& \frac{1}{\sqrt{3}}
+            }\bMat{
+                1 & 0 & -1\\
+                \frac{1}{\sqrt{3}} & \frac{2}{\sqrt{3}} & \frac{1}{\sqrt{3}}
+            }\pause = \frac{1}{2}\left(\bMat{1\\0\\-1}\bMat{1&0&-1} + \frac{1}{3}\bMat{1\\2\\1}\bMat{1&2&1}\right)
+        \]
+        \[
+            \pause = \frac{1}{2}\left(\bMat{
+                1 & 0 & -1\\
+                0 & 0 & 0\\
+                -1 &0 & 1
+            } + \frac{1}{3}\bMat{
+                1 & 2 & 1\\
+                2 & 4 & 2\\
+                1 & 2 & 1
+            }\right)\pause = \frac{1}{6}\bMat{
+                4 & 2 & -2\\
+                2 & 4 & 2\\
+                -2 & 2 & 4
+            }\pause = \frac{1}{3}\bMat{
+                2 & 1 & -1\\
+                1 & 2 & 1\\
+                -1 & 1 & 2
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Least-Squares Problem}
+        What do we do if we can't solve the system below exactly?
+        \[
+            A\vec{x} = \vec{b}
+        \]\pause
+        We could give up, but that's no fun!\pause\ Instead, we want to get as close as possible. One 
+        way of saying this is pick an answer such that
+        \[
+            \norm{A\vec{x}-\vec{b}}{2}
+        \]
+        is as small as possible. This means we pick an $\hat{\vec{x}}$ such that $\vec{b} - A\hat{\vec{x}}$
+        is orthogonal to $\vec{b}$.\pause
+
+        But wait, this is very similar to orthogonal projections!
+    \end{frame}
+    \begin{frame}{The Normal Equations are a Least Squares Solution!}
+        \begin{theorem}
+            Let $A\in\R^{m\times n}, \vec{b}\in\R^m$. The solution to
+            \[
+                A^\top A\vec{x} = A^\top\vec{b}
+            \]
+            is an $\vec{x}$ such that
+            \[
+                \norm{A\vec{x}-\vec{b}}{2}
+            \]
+            is minimal.
+        \end{theorem}
+    \end{frame}
+    \begin{frame}{QR Makes This Easier (For Computers)}
+        \small
+        \begin{theorem}
+            Let $A\in\R^{m\times n}, \vec{b}\in\R^m$. The solution to
+            \[
+                R\vec{x} = Q^\top\vec{b}
+            \]
+            is an $\vec{x}$ such that
+            \[
+                \norm{A\vec{x}-\vec{b}}{2}
+            \]
+            is minimal where $Q\in\R^{m\times n},R\in\R^{n\times n}$ is a QR decomposition of $A$.
+        \end{theorem}
+        \begin{proof}
+            As we discussed previously, we can always solve $A\vec{x} = \vec{b}_\colS{A}$.\pause
+            So, we use the fact that $QQ^\top\vec{b}$ projects $\vec{b}$ onto the columnspace of $A$ to get\pause
+            \[
+                A\hat{\vec{x}} = QQ^\top\vec{b}\pause\rightarrow QR\hat{\vec{x}} = QQ^\top\vec{b}\pause
+                \rightarrow R\hat{\vec{x}} = Q^\top\vec{b}
+            \]
+        \end{proof}
+    \end{frame}
+\end{document}

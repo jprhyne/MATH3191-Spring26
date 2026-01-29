@@ -1,0 +1,94 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+\usepackage{3191Style}
+\date{Invertible Matrix Theorem}
+\begin{document}
+    \begin{frame}{Theorem Statement}
+        \begin{theorem}
+            Let $T:\R^n\rightarrow\R^n$ be a linear transformation with associated matrix 
+            $A\in\R^{n\times n}$.
+            \begin{columns}
+                \column{.5\textwidth}
+                \begin{enumerate}
+                    \item $A$ is invertible
+                    \pause
+                    \item $A$ has a pivot in every row
+                    \item $A$ has a pivot in every column
+                    \pause
+                    \item The system $A\vec{x}=\vec{b}$ has a unique solution for all 
+                        $\vec{b}\in\R^n$
+                    \pause
+                    \item $A\vec{x}=\vec{0}$ has only the trivial solution
+                    \pause
+                \end{enumerate}
+                \column{.5\textwidth}
+                \begin{enumerate} \addtocounter{enumi}{5}
+                    \item The columns of $A$ are linearly independent
+                    \pause
+                    \item The columns of $A$ span all of $\R^n$.
+                    \pause
+                    \item $T$ is invertible
+                    \pause
+                    \item $T$ is injective
+                    \pause
+                    \item $T$ is surjective
+                \end{enumerate}
+            \end{columns}
+        \end{theorem}
+        \pause
+        We have the tools to prove all these, but really, it's just a summary of all the 
+        linear transformation and matrix algebra we've done so far!
+    \end{frame}
+
+    \begin{frame}{One-sided inverse Implies the Other!}
+        \begin{theorem}
+            Let $A\in\R^{n\times n}$. If there is some $B\in\R^{n\times n}$ such that 
+            \[
+                BA = I_n\textnormal{ or }AB = I_n
+            \]
+            Then, $A$ is invertible and $A^{-1}=B$.
+        \end{theorem}
+    \end{frame}
+
+    \begin{frame}{$AB=I_n$ case}
+        \iftoggle{showSolutions}{
+            \begin{proof}
+                First, let $B\in\R^{n\times n}$ such that $AB=I_n$. 
+                \pause
+
+                We will show that $T$ is surjective by showing how we can get any $\vec{b}\in\R^{n}$.\pause\\
+                Let $\vec{b}\in\R^{n}$. See that\pause
+                \[
+                    \vec{b} = I_n\vec{b}\pause = AB\vec{b}\pause = A(B\vec{b})\pause = T(B\vec{b})\pause
+                \]
+                Since we have an input, $\vec{x} = B\vec{b}$ such that $T(\vec{x}) = \vec{b}$,\pause
+
+                We know that $T$ is surjective, so by above, $A$ is invertible.\pause
+
+                Also, see that\pause
+            \end{proof}
+        }{}
+    \end{frame}
+
+    \begin{frame}{$BA=I_n$ case}
+        \small
+        \iftoggle{showSolutions}{
+            \begin{proof}
+                Let $B\in\R^{n\times n}$ such that $BA = I_n$.\pause\\
+                We will show that the system $A\vec{x} = \vec{0}$ has only the trivial solution.\pause\\
+                Assume that $\vec{x}\in\R^n$ such that $A\vec{x} = \vec{0}$.\pause\ See that\pause
+                \begin{eqnarray*}
+                    A\vec{x}    &=& \vec{0}\pause\\
+                    BA\vec{x}   &=& B\vec{0}\pause\\
+                    I_n\vec{x}  &=& \vec{0}\pause\\
+                    \vec{x}     &=& \vec{0}\pause
+                \end{eqnarray*}
+                So, if $A\vec{x}=\vec{0}$, then $\vec{x}$ must be $\vec{0}!$\pause, which means $A$ 
+                is invertible.\pause\\
+                Next, we show $B=A^{-1}$\pause
+                \[
+                    A^{-1} = I_nA^{-1}\pause = BAA^{-1}\pause = BI_n\pause = B
+                \]
+            \end{proof}
+        }{}
+    \end{frame}
+\end{document}

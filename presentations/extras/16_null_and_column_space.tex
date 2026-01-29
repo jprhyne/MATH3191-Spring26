@@ -1,0 +1,336 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+% Date gives the title of the lecture
+\date{Null and Column Spaces}
+
+\begin{document}
+    \begin{frame}{Null Space of a Matrix}
+        \begin{defn}
+            \rText{Null Space}: The \bText{null space} of a matrix $A\in\R^{m\times n}$ is defined
+            to be\pause
+            \[
+                \nullS{A} = \set{\vec{x}\in\R^n}{A\vec{x}=\vec{0}_m}
+            \]
+        \end{defn}
+    \end{frame}
+    \begin{frame}{Null Space Example}
+        \small
+        Let
+        \[
+            A = \begin{bmatrix}
+                1 & 1 & 2\\
+                2 & 3 & 6\\
+                3 & 1 & 2
+            \end{bmatrix}
+        \]
+        Find $\nullS{A}$.
+        \iftoggle{showSolutions}{
+            \pause\ 
+            Solve $A\vec{x} = \vec{0}_3$.
+            \[
+                \aMat{ccc|c}{
+                    1 & 1 & 2 & 0\\
+                    2 & 3 & 6 & 0\\
+                    3 & 1 & 2 & 0
+                }\pause\xrightarrow{R_2=R_2-2R_1}\aMat{ccc|c}{
+                    1 & 1 & 2 & 0\\
+                    0 & 1 & 2 & 0\\
+                    3 & 1 & 2 & 0
+                }\pause\xrightarrow{R_3=R_3-3R_1}\aMat{ccc|c}{
+                    1 & 1 & 2 & 0\\
+                    0 & 1 & 2 & 0\\
+                    0 &-1 &-2 & 0
+                }
+            \]
+            \[
+                \pause\xrightarrow{R_3=R_3 + R_2}\aMat{ccc|c}{
+                    1 & 1 & 2 & 0\\
+                    0 & 1 & 2 & 0\\
+                    0 & 0 & 0 & 0
+                }\pause\xrightarrow{R_1=R_1 - R_2}\aMat{ccc|c}{
+                    1 & 0 & 0 & 0\\
+                    0 & 1 & 2 & 0\\
+                    0 & 0 & 0 & 0
+                }\rightarrow\vec{x} = \bMat{0\\-2t\\t}, t\in\R
+            \]
+        }{\vspace{130pt}}
+    \end{frame}
+    \begin{frame}{Null Space is a Subspace.}
+        \footnotesize
+        \begin{theorem}
+            Let $A\in\R^{m\times n}$, then $\nullS{A}$ is a subspace of $\R^n$.
+        \end{theorem}\pause
+        \begin{proof}
+            \begin{enumerate}
+                \item We know that $\vec{x}=\vec{0}$ is always a solution to $A\vec{x}=\vec{0}$
+                \pause\item Let $\vec{u},\vec{v}\in\nullS{A}$, then see that
+                    \[
+                        A(\vec{u} + \vec{v}) = A\vec{u} + A\vec{v}\pause = \vec{0} + \vec{0} = \vec{0}\pause
+                    \]
+                    So, $\vec{u}+\vec{v}\in\nullS{A}$ meaning it is closed under addition
+                \pause\item Let $\vec{u}\in\nullS{A}$, $c\in\R$. See that:\pause
+                    \[
+                        A(c\vec{u}) = cA(\vec{u})\pause = c\vec{0} = \vec{0}\pause
+                    \]
+                    So, $c\vec{u}\in\nullS{A}$ meaning it is closed under multiplication.
+            \end{enumerate}
+        \end{proof}
+    \end{frame}
+    \begin{frame}{Column Space of a Matrix}
+        \begin{defn}
+            \rText{Column Space}: The \bText{column space} of a matrix 
+            $A=\begin{bmatrix}\vec{a}_1 & \dots & \vec{a}_n\end{bmatrix}\in\R^{m\times n}$ is
+            denoted as $\colS{A}$ and is the set of all linear combinations of columns of $A$.
+            \[
+                \colS{A} = \Span{\vec{a}_1,\dots,\vec{a}_n} = \set{\vec{b}\in\R^m}{A\vec{x} = \vec{b}
+                \textnormal{ has a solution}}
+            \]
+        \end{defn}
+    \end{frame}
+    \begin{frame}{Finding a Basis of $\colS{A}$ Example}
+        \small
+        Let 
+        \[
+            A = \bMat{
+                1 & 1 & 2\\
+                2 & 3 & 6\\
+                3 & 1 & 2
+            }
+        \]
+        We want to know what an element of $\colS{A}$ looks like, so we solve
+        $A\vec{x} = \vec{b}$ and determine what $\vec{b}$ has to look like!
+        \[
+            \aMat{ccc|c}{
+                1 & 1 & 2 & b_1\\
+                2 & 3 & 6 & b_2\\
+                3 & 1 & 2 & b_3
+            }\pause\xrightarrow{R_2=R_2-2R_1}\aMat{ccc|c}{
+                1 & 1 & 2 & b_1\\
+                0 & 1 & 2 & b_2-2b_1\\
+                3 & 1 & 2 & b_3
+            }\pause\xrightarrow{R_3=R_3-3R_1}\aMat{ccc|c}{
+                1 & 1 & 2 & b_1\\
+                0 & 1 & 2 & b_2-2b_1\\
+                0 &-2 &-4 & b_3-3b_1
+            }
+        \]
+        \[
+            \pause\xrightarrow{R_3=R_3+2R_2}\aMat{ccc|c}{
+                1 & 1 & 2 & b_1\\
+                0 & 1 & 2 & b_2-2b_1\\
+                0 & 0 & 0 & b_3+2b_2-7b_1
+            }\pause\xrightarrow{R_1=R_1-R_2}\aMat{ccc|c}{
+                1 & 0 & 0 & 3b_1-b_2\\
+                0 & 1 & 2 & b_2-2b_1\\
+                0 & 0 & 0 & b_3+2b_2-7b_1
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Finding a Basis of $\colS{A}$ Example Continued}
+        So, all the systems that we can solve have the form of
+        \[
+            \colS{A} = \set{\vec{b}\in\R^3}{\vec{b} = \begin{bmatrix}
+                b_1\\
+                b_2\\
+                7b_1-2b_2
+            \end{bmatrix}}
+        \]
+        Which can be written as\pause
+        \[
+            b_1\bMat{1\\0\\7} + b_2\bMat{0\\1\\-2}
+        \]
+        Meaning\pause
+        \[
+            \bMat{1\\0\\7},\bMat{0\\1\\-2}
+        \]
+        forms a basis of $\colS{A}$
+    \end{frame}
+    \begin{frame}{An Easier Way to Compute a Basis of $\colS{A}$}
+        \begin{enumerate}
+            \item Reduce to RREF
+            \item The columns of $A$ corresponding to pivot columns form a basis of $\colS{A}$.
+        \end{enumerate}
+        \begin{example}
+            \[
+                A = \bMat{
+                    1 & 1 & 2\\
+                    2 & 3 & 6\\
+                    3 & 1 & 2
+                }\pause\xrightarrow{R_2=R_2-2R_1}\bMat{
+                    1 & 1 & 2\\
+                    0 & 1 & 2\\
+                    3 & 1 & 2
+                }\pause\xrightarrow{R_3=R_3-3R_1}\bMat{
+                    1 & 1 & 2\\
+                    0 & 1 & 2\\
+                    0 &-2 &-4
+                }\pause\xrightarrow{R_3=R_3+2R_2}\bMat{
+                    1 & 1 & 2\\
+                    0 & 1 & 2\\
+                    0 & 0 & 0
+                }
+            \]
+            \[
+                \pause\xrightarrow{R_1=R_1-R_2}\bMat{
+                    1 & 0 & 0\\
+                    0 & 1 & 2\\
+                    0 & 0 & 0
+                }
+            \]
+            So, the first two columns of $A$ are a basis for $\colS{A}$!
+        \end{example}
+    \end{frame}
+    \begin{frame}{Showing These are Both Bases}
+        We will show that
+        \[
+            \Span{\bMat{1\\2\\3},\bMat{1\\3\\1}} = \Span{\bMat{1\\0\\7},\bMat{0\\1\\-2}}
+        \]\pause
+        \[
+            \Span{\bMat{1\\2\\3},\bMat{1\\3\\1}} = \set{\vec{b}\in\R^3}{\vec{b}=
+            \bMat{c_1+c_2\\2c_1+3c_2\\3c_1+c_2}}
+        \]\pause
+        If we define $b_1=c_1+c_2, b_2=2c_1+3c_2,\textnormal{ and } b_3=3c_1+c_2$, then\pause
+        \[
+            7b_1 - 2b_2 = 7(c_1+c_2)-2(2c_1+3c_2)\pause =7c_1+7c_2-4c_1-6c_2\pause = 3c_1+c_2\pause = b_3
+        \]\pause
+        This is exactly what we said the systems we can solve look like!
+    \end{frame}
+    \begin{frame}{The Column Space is a subspace of $\R^m$}
+        We claim that for any $A\in\R^{m\times n}$ that $\colS{A}$ is a subspace of $\R^m$.
+        \begin{enumerate}
+            \pause\item $A\vec{0}_n = \vec{0}_m$, so $\vec{0}\in\colS{A}$.
+            \pause\item Let $\vec{u},\vec{v}\in\colS{A}$. This means there are some $\vec{x},\vec{y}\in\R^n$
+                such that $A\vec{x} = \vec{u}$ and $A\vec{y}=\vec{v}$. See that
+                \[
+                    A(\vec{x}+\vec{y}) = A\vec{x} + A\vec{y} = \vec{u}+\vec{v}
+                \]
+                So, $\vec{u}+\vec{v}\in\colS{A}$.
+            \pause\item Let $\vec{u}\in\colS{A},c\in\R$. Therefore, there is some $\vec{x}\in\R^n$ such that
+                $A\vec{x} = \vec{u}$. See that
+                \[
+                    A(c\vec{x}) = cA\vec{x} = c\vec{u}.
+                \]
+                So, $c\vec{u}\in\colS{A}$!
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{$\colS{A}$ and $\nullS{A}$ Practice}
+        For the following matrix $A\in\R^{4\times 3}$ find a basis for $\colS{A}$ and $\nullS{A}$.
+        \[
+            A = \bMat{
+                1 & 1 & 3\\
+                1 & 3 & 5\\
+                2 & 5 & 9\\
+                1 & 5 & 7
+            }
+        \]
+        \iftoggle{showSolutions}{
+            \[
+                \bMat{
+                    1 & 1 & 3\\
+                    1 & 3 & 5\\
+                    2 & 5 & 9\\
+                    1 & 5 & 7
+                }\pause\xrightarrow[R_3=R_3-2R_1]{R_2=R_2-R_1}\bMat{
+                    1 & 1 & 3\\
+                    0 & 2 & 2\\
+                    0 & 3 & 3\\
+                    1 & 5 & 7
+                }\pause\xrightarrow{R_4=R_4-R_1}\bMat{
+                    1 & 1 & 3\\
+                    0 & 2 & 2\\
+                    0 & 3 & 3\\
+                    0 & 4 & 4
+                }\pause\rightarrow\bMat{
+                    1 & 1 & 3\\
+                    0 & 1 & 1\\
+                    0 & 1 & 1\\
+                    0 & 1 & 1
+                }\pause\rightarrow\bMat{
+                    1 & 0 & 2\\
+                    0 & 1 & 1\\
+                    0 & 0 & 0\\
+                    0 & 0 & 0
+                }
+            \]
+        }{\vspace{130pt}}
+    \end{frame}
+    \iftoggle{showSolutions}{
+        \begin{frame}{$\colS{A}$ and $\nullS{A}$ Practice Continued}
+            So, we have that 
+            \[
+                \nullS{A} =\Span{\bMat{-2\\-1\\1}}
+            \]\pause
+            \[
+                \colS{A} = \Span{\bMat{1\\1\\2\\1},\bMat{1\\3\\5\\5}}
+            \]\pause
+            What do we notice about the dimension of these spaces?
+        \end{frame}
+    }{}
+    \begin{frame}{Relating to Linear Transformations}
+        \small
+        Let $T:\R^n\rightarrow\R^m$ be a linear map, then we define:
+        \begin{defn}
+            \rText{Kernel}: The \bText{kernel} of $T$ is the set of all $\vec{x}\in\R^n$ such that
+            $T(\vec{x}) = \vec{0}_m$.\pause
+
+            This is just the null space of the matrix associated with $T$!
+        \end{defn}
+        \begin{defn}
+            \rText{Image} or \rText{Range}: The \bText{image} or \bText{range} of $T$ denoted
+            \[
+                \image{T}=\range{T}
+            \]
+            is the set of all $\vec{b}\in\R^m$ such that there is some $\vec{x}\in\R^n$ where
+            \[
+                T(\vec{x}) = \vec{b}
+            \]\pause
+            This is just the column space of the matrix associated with $T$!
+        \end{defn}
+    \end{frame}
+    \begin{frame}{Row Space of a Matrix}
+        Let $A\in\R^{m\times n}$, then we can write it as
+        \[
+            A = \bMat{r_1\\r_2\\\vdots\\r_m}
+        \]
+        Where each $r_k^\top\in\R^n$ is a \bText{row} of $A$. 
+
+        \rText{Note}: We are transposing the rows to make them column vectors!\pause
+
+        We define $\rowS{A}$ to be all linear combinations of the rows of $A$. Or:
+        \[
+            \rowS{A} = \set{\vec{b}\in\R^n}{\vec{b} = \sum_{k=1}^mc_kr_k^\top}\pause = \colS{A^\top}
+        \]
+    \end{frame}
+    \begin{frame}{Rank of a Matrix}
+        \begin{defn}
+            \rText{Rank}: The \bText{rank} of a matrix is the number of linearly independent rows 
+            and columns.\pause\ This is also the number of pivots\pause\ and the dimension of $\colS{A}$!
+        \end{defn}
+        \begin{example}
+            Let $A = \bMat{1&1&2\\2&3&6\\3&1&2}$, then we saw that we can row reduce to
+            $
+                \bMat{
+                    1 & 0 & 0\\
+                    0 & 1 & 2\\
+                    0 & 0 & 0
+                }.
+            $\pause
+
+            Which, has $2$ pivots, so $\rank{A}=2$.\pause
+
+            In addition, $\dim{\colS{A}} = \dim{\Span{\vec{a}_1,\vec{a}_2}} = 2$, so our definition is consistent!
+        \end{example}
+    \end{frame}
+    \begin{frame}{Rank-Nullity Theorem}
+        \begin{theorem}
+            Let $A\in\R^{m\times n}$, then we know that
+            \[
+                \rank{A} + \dim{\nullS{A}} = n
+            \]
+            \[
+                \rank{A} + \dim{\nullS{A^\top}} = m
+            \]
+        \end{theorem}
+    \end{frame}
+\end{document}

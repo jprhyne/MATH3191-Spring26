@@ -1,0 +1,6 @@
+# Ignore images from other instructors
+Images/
+# Ignore markdown files used for personal notes
+*md
+# Ignore class 1 information only relevant for persons attending lecture
+class1*

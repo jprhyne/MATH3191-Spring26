@@ -1,0 +1,245 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+% Date gives the title of the lecture
+\date{Change of Basis}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\C}{\mathcal{C}}
+\begin{document}
+    \begin{frame}{Change of Coordinate Matrix in $\R^n$}
+        Recall that if $\B=\setBasic{\vec{b}_1,\dots,\vec{b}_n}$ is a basis of a vector space $V$, then
+        the matrix
+        \[
+            P_\B = \bMat{\bCoord{\vec{b}_1}{\B} & \dots & \bCoord{\vec{b}_n}{\B}}
+        \]
+        Represents our basis vectors as an array of real numbers.\pause\
+        
+        What does this mean for $V=\R^n$?\pause\ Let's compute $P_\B\vec{x}$!\pause\ 
+        \[
+            P_\B\vec{x} = x_1\bCoord{\vec{b}_1}{\B} + \dots + x_n\bCoord{\vec{b}_n}{\B}
+        \]\pause
+        This means if $\vec{x}$ is an array of coordinates for the $\B$ basis, then the output is a
+        vector written in the standard basis!
+    \end{frame}
+    \begin{frame}{Change of Coordinate Matrix in $\R^n$ Example}
+        Consider the basis 
+        \[
+            \B = \setBasic{\bMat{1\\2\\1}, \bMat{0\\1\\2}, \bMat{2\\1\\0}}
+        \]\pause\
+        Then, $P_\B = \bMat{
+            1 & 0 & 2\\
+            2 & 1 & 1\\
+            1 & 2 & 0
+        }$. So, if we say that $\bCoord{\vec{x}}{\B} = \bMat{2\\1\\4}$, and we want to find what
+        it is in the standard basis we compute
+        \[
+            \vec{x} = P_\B\bCoord{\vec{x}}{\B}\pause\ = \bMat{
+            1 & 0 & 2\\
+            2 & 1 & 1\\
+            1 & 2 & 0
+        }\bMat{2\\1\\4}\pause\ = 2\bMat{1\\2\\1} + 1\bMat{0\\1\\2} + 4\bMat{2\\1\\0}\pause\ =
+        \bMat{10\\9\\4}
+        \]
+    \end{frame}
+    \begin{frame}{Change of Coordinate Matrix in $\R^n$ is a Linear Transformation}
+        \begin{theorem}
+            If $V=\R^n$, then the Coordinate Matrix $P_\B$ is a Linear Transformation given by
+            \[
+                P_\B:\bCoord{\vec{x}}{\B}\mapsto\vec{x},
+            \]
+            which changes a vector from $\B$ coordinates to being written in the standard basis\pause\ 
+            and 
+            \[
+                P^{-1}_\B:\vec{x}\mapsto\bCoord{\vec{x}}{\B}
+            \]
+            changes a vector from the standard basis back to $\B$ coordinates.
+        \end{theorem}
+    \end{frame}
+    \begin{frame}{Changing Coordinate From One Basis to Another}
+        In some data science applications, we may want to change problems from one basis to another.
+        \pause
+        \begin{theorem}
+            Let $\B=\setBasic{\vec{b}_1, \dots, \vec{b}_n}$ and $\C=\setBasic{\vec{c}_1,\dots,\vec{c}_n}$
+            be bases for a vector space $V$.\pause\ Then, there exists a unique matrix 
+            $\underset{\C\leftarrow\B}{P}=P^{-1}_\C P_\B$
+        \end{theorem}\pause
+        
+        This is really just saying that we (1) change our vector from being written in $\B$ coordinates
+        to being written in the standard basis\pause\ , then (2) change our vector from the standard
+        basis to $\C$ coordinates.\pause\ 
+
+        Is there a potentially better way?
+    \end{frame}
+    \begin{frame}{A Better Way Without Explicitly Computing an Inverse}
+        Yes!\pause\ 
+
+        We also have that 
+        \[
+            \underset{\C\leftarrow\B}{P}=\bMat{\bCoord{\vec{b}_1}{\C} & \dots &\bCoord{\vec{b}_n}{\C}}
+        \]\pause
+        Which we can solve in one of two ways
+        \begin{columns}
+            \column{.5\textwidth}
+                1) Solve
+                \[
+                    \aMat{c|c}{
+                        P_\C & P_\B
+                    }
+                \]\pause
+                Which is solving the equation
+                \[
+                    P_\C X = P_\B
+                \]\pause
+            \column{.5\textwidth}
+                2) Solve
+                \[
+                    \aMat{c|c}{
+                        P_\C & \vec{y}
+                    }
+                \]\pause
+                Which is solving the equation
+                \[
+                    P_\C\vec{x} = \vec{y}
+                \]
+                then plugging in $\vec{y} = \vec{b}_1,\dots,\vec{b}_n$.\pause
+        \end{columns}
+        Either will give the right answer, it's just a matter of preference!
+    \end{frame}
+    \begin{frame}{Change of Coordinate Example}
+        \footnotesize
+        Consider the following bases of $\R^3$.
+        \[
+            \B = \setBasic{\bMat{1\\2\\1}, \bMat{0\\1\\2}, \bMat{2\\1\\0}}, \C = \setBasic{
+                \bMat{1\\1\\1}, \bMat{0\\1\\1}, \bMat{0\\0\\1}}
+        \]
+        Compute $\underset{\C\leftarrow\B}{P}$.\pause
+        First, we try method $1$.\pause
+        \[
+            \aMat{c|c}{
+                P_\C & P_\B
+            }\pause = \aMat{ccc|ccc}{
+                1 & 0 & 0 & 1 & 0 & 2\\
+                1 & 1 & 0 & 2 & 1 & 1\\
+                1 & 1 & 1 & 1 & 2 & 0
+            }\pause\rightarrow\aMat{ccc|ccc}{
+                1 & 0 & 0 & 1 & 0 & 2\\
+                0 & 1 & 0 & 1 & 1 & -1\\
+                0 & 1 & 1 & 0 & 2 & -2
+            }\pause\rightarrow\aMat{ccc|ccc}{
+                1 & 0 & 0 & 1 & 0 & 2  \\
+                0 & 1 & 0 & 1 & 1 & -1 \\
+                0 & 0 & 1 & -1 & 1 & -1
+            }
+        \]
+        So
+        \[
+            \underset{\C\leftarrow\B}{P} = \bMat{
+                1 & 0 & 2\\
+                1 & 1 & -1\\
+                -1 & 1 & -1
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Change of Coordinate Example}
+        \footnotesize
+        Consider the following bases of $\R^3$.
+        \[
+            \B = \setBasic{\bMat{1\\2\\1}, \bMat{0\\1\\2}, \bMat{2\\1\\0}}, \C = \setBasic{
+                \bMat{1\\1\\1}, \bMat{0\\1\\1}, \bMat{0\\0\\1}}
+        \]
+        Compute $\underset{\C\leftarrow\B}{P}$.
+        Next, we try method $2$.\pause
+        \[
+            \aMat{c|c}{
+                P_\C & \vec{y}
+            }\pause = \aMat{ccc|c}{
+                1 & 0 & 0 & y_1\\
+                1 & 1 & 0 & y_2\\
+                1 & 1 & 1 & y_3
+            }\pause\rightarrow\aMat{ccc|c}{
+                1 & 0 & 0 & y_1\\
+                0 & 1 & 0 & y_2-y_1\\
+                0 & 1 & 1 & y_3-y_1
+            }\pause\rightarrow\aMat{ccc|c}{
+                1 & 0 & 0 & y_1\\
+                0 & 1 & 0 & y_2-y_1\\
+                0 & 0 & 1 & y_3-y_2
+            }
+        \]
+        So the columns of $\underset{\C\leftarrow\B}{P}$ are given by
+        \[
+            \bCoord{\vec{b}_1}{\C} = \bMat{1\\1\\-1}, \bCoord{\vec{b}_2}{\C} = \bMat{0\\1\\1}, 
+            \bCoord{\vec{b}_3}{\C} = \bMat{2\\-1\\-1}\pause\rightarrow\underset{\C\leftarrow\B}{P} = \bMat{
+                1 & 0 & 2\\
+                1 & 1 & -1\\
+                -1 & 1 & -1
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Change of Coordinate Practice}
+        Consider the following bases of $\R^3$.
+        \[
+            \B = \setBasic{\bMat{1\\1\\1}, \bMat{0\\1\\1}, \bMat{0\\0\\1}},
+            \C = \setBasic{\bMat{1\\2\\1}, \bMat{0\\1\\2}, \bMat{2\\1\\0}} 
+        \]\pause
+        Compute $\underset{\C\leftarrow\B}{P}$
+        \iftoggle{showSolutions}{
+            \pause
+            \[
+                \underset{\C\leftarrow\B}{P} = \bMat{
+                    0 & \frac{1}{2} & -\frac{1}{2}\\
+                    \frac{1}{2} & \frac{1}{4} & \frac{3}{4}\\
+                    \frac{1}{2} & -\frac{1}{4}& \frac{1}{4}
+                }
+            \]
+        }{
+        }
+        \vspace{130pt}
+    \end{frame}
+    \begin{frame}{Matrix Vector Space Practice}
+        Let $V$ be the vector space of \rText{symmetric $2\times 2$} real matrices. We have the
+        basis
+        \[
+            \B=\setBasic{\bMat{1&0\\0&0}, \bMat{0&1\\1&0}, \bMat{0&0\\0&1}}.
+        \]
+        Consider the set
+        $
+            \C = \setBasic{\bMat{1&-2\\-2&2}, \bMat{0&2\\2&4}, \bMat{3&-1\\-1&1}}.
+        $
+        Answer the following questions
+        \begin{columns}
+            \column{.5\textwidth}
+            \bText{1)} Show that $\C$ is a basis for $V$.
+
+            \iftoggle{showSolutions}{
+                \only<2->{
+                    Set up and show 
+                    \[
+                        \underset{\B\leftarrow\C}{P} = \bMat{
+                            1 & 0 & 3\\
+                            -2 & 2 & -1\\
+                            2 & 4 & 1
+                        }
+                    \]
+                    is invertible.
+                }
+            }{\vspace{130pt}}
+            \column{.5\textwidth}
+            \bText{2)} Write the matrix corresponding to
+            $
+                \bCoord{\bMat{2\\3\\-2}}{\C}
+            $ in $\B$ coordinates
+
+            \iftoggle{showSolutions}{
+                \only<3->{
+                    \[
+                        \bMat{
+                            -4 & 4\\
+                            4 & 14
+                        }
+                    \]
+                }
+            }{\vspace{100pt}}
+        \end{columns}
+    \end{frame}
+\end{document}

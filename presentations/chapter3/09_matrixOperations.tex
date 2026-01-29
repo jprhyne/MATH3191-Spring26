@@ -1,0 +1,446 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+\usepackage{3191Style}
+\date{Matrix Operations}
+
+\begin{document}
+    \begin{frame}{Representing Matrices}
+
+        \begin{itemize}
+            \item If $A\in\R^{m\times n}$, then it as $m$ rows and $n$ columns\pause
+            \item The $j^\text{th}$ column vector is denoted $\vec{a}_j$\pause
+            \item There are $n$ column vectors, where each $\vec{a}_j$ is in $\R^m$\pause
+            \item The entry in the \rTextWait{$i^\text{th}$ row}{5} and $\bTextWait{j^\text{th}}{6}$ column, is 
+                called $a_{ij}$.\pause\pause\pause
+            \item We \textbf{always} list the row index first then the column\pause
+            \item \rText{Note that in Python indexing starts at $0$ while we use $1$ here}
+        \end{itemize}
+        \onslide<*>
+        \[
+            A = \begin{bmatrix}\vec{a}_1&\vec{a}_2&\dots&\rTextWait{\vec{a}_j}{2-4}&\dots&\vec{a}_n\end{bmatrix}
+                = \begin{bmatrix}
+                    a_{11} & a_{12} & \dots & \bTextWait{a_{1j}}{6} & \dots & a_{1n}\\
+                    a_{21} & a_{22} & \dots & \bTextWait{a_{2j}}{6} & \dots & a_{2n}\\
+                    \vdots & \vdots & \ddots& \bTextWait{\vdots}{6} &       & \vdots\\
+                    \rTextWait{a_{i1}}{5} & \rTextWait{a_{i2}}{5} & \dots & \rTextWait{\bTextWait{a_{ij}}{6}}{5} & \dots & \rTextWait{a_{in}}{5}\\
+                    \vdots & \vdots &       & \bTextWait{\vdots}{6} & \ddots& \vdots\\
+                    a_{m1} & a_{m2} & \dots & \bTextWait{a_{mj}}{6} & \dots & a_{mn}\\
+                \end{bmatrix}
+        \]
+    
+    \end{frame}
+    \begin{frame}{Special Kinds of Matrices}
+        \small
+        \begin{itemize}
+            \item \rTextWait{Zero Matrix}{1}: A matrix with entries all equal to $0$. Sometimes denoted
+                $0_{m\times n}$\pause
+            \item \rTextWait{Square Matrix}{2}: A matrix with the same number of rows and columns. (m=n)\pause
+            \item \rTextWait{Diagonal Elements}{3}: Elements with the same row and column index. ($a_{ii}$)\pause
+            \item \rTextWait{Diagonal Matrix}{4}: A matrix with all elements NOT on the diagonal equal to $0$\pause
+            \item \rTextWait{Identity Matrix}{5}: A diagonal matrix with ones on the diagonal. If there are $n$ rows and columns, then we use $I_n$\pause
+            \item \rTextWait{Symmetric Matrix}{6}: A matrix satisfying $a_{ij} = a_{ji}$ for all valid $i,j$.\pause\ (\rText{So, it must also be square!})
+        \end{itemize}
+        \[
+            \onslide<1->\rTextWait{0_{2\times 3}=\begin{bmatrix}0&0&0\\0&0&0\end{bmatrix}}{1}\qquad
+            \onslide<2->\rTextWait{A=\begin{bmatrix}
+            \rTextWait{0}{3}&0&1\\
+            2&\rTextWait{5}{3}&1\\
+            0&1&\rTextWait{4}{3}
+            \end{bmatrix}}{2} \qquad
+            \onslide<4->\rTextWait{D=\begin{bmatrix}
+                3&0&0\\
+                0&1&0\\
+                0&0&2
+            \end{bmatrix}}{4}\qquad
+            \onslide<5->\rTextWait{I_3=\begin{bmatrix}
+                1&0&0\\
+                0&1&0\\
+                0&0&1
+            \end{bmatrix}}{5}\qquad
+            \onslide<6->\rTextWait{S=\begin{bmatrix}
+                1&2&3\\
+                2&4&8\\
+                3&8&7
+            \end{bmatrix}}{6}
+        \]
+    \end{frame}
+    \begin{frame}{Matrix Arithmetic}
+        \begin{tcolorbox}
+        \begin{itemize}
+            \item Let $A,B\in\R^{m\times n}$ (same size and shape!). The \bTextWait{sum}{1}, 
+                $C = A+B$ is defined as
+                \vspace{-5pt}
+                \[
+                    c_{ij} = a_{ij} + b_{ij}
+                \]
+                \vspace{-20pt}
+                \pause
+            \item Let $A\in\R^{m\times n}$ and $r$ be a scalar. The \bTextWait{scalar multiple}{2}, 
+                $C = rA$ is defined as 
+                \vspace{-5pt}
+                \[
+                    c_{ij} = r\cdot a_{ij}
+                \]
+                \vspace{-20pt}
+                \pause
+            \item Two matrices, $A\in\R^{m_1\times n_1}$ and $B\in\R^{m_2\times n_2}$ are
+                \bText{equal} if
+                \begin{enumerate}
+                    \item $m_1=m_2$\pause
+                    \item $n_1=n_2$ and\pause
+                    \item $a_{ij} = b_{ij}$ for all $i,j$.\pause
+                \end{enumerate}
+        \end{itemize}
+        \end{tcolorbox}
+        \only<1-5>{\vspace{50pt}}
+        \only<6>{
+        \vspace{-10pt}
+        \begin{example}
+            Let $A = \begin{bmatrix}-1&2&1\\0&2&4\end{bmatrix}, 
+                B= \begin{bmatrix}1 & 3 & 4\\0&4&2\end{bmatrix}$. Compute $2A-B$.
+        \end{example}
+    }
+    \end{frame}
+    \begin{frame}{Matrix Addition \& Scalar Multiplication Properties}
+        \begin{tcolorbox}
+            For each of the following properties, let $A,B,C\in\R^{m\times n}$, and $r,s$ be 
+            scalars
+            \begin{columns}
+                \column{.5\textwidth}
+                \begin{enumerate}
+                    \item $A+B = B+A$ \pause
+                    \item $(A+B) + C = A + (B+C)$ \pause
+                    \item $A + 0_{m\times n} = A$\pause
+                \end{enumerate}
+                \column{.5\textwidth}
+                \begin{enumerate}
+                    \addtocounter{enumi}{3}
+                    \item $r(A+B) = rA + rB$ \pause
+                    \item $(r+s)A = rA + sA$ \pause
+                    \item $(r)sA = (rs)A$
+                \end{enumerate}
+            \end{columns}
+        \end{tcolorbox}
+    \end{frame}
+    \begin{frame}{The Transpose}
+        \begin{defn}
+            Let $A\in\R^{m\times n}$. The \bText{transpose} of $A$, denoted $A^\top\in\R^{n\times m}$
+            is the matrix with columns formed from rows of $A$. IE:
+            \[
+                a^\top_{ij} = a_{ji}
+            \]
+            for all valid $i,j$.
+        \end{defn}\pause
+        \begin{columns}
+            \column{.5\textwidth}
+            \begin{example}
+                Give the transpose of
+                \[
+                    A = \begin{bmatrix}
+                        1 & 2 & 3\\
+                        -4&-5 &-6
+                    \end{bmatrix}
+                \]
+            \end{example}\pause
+            \column{.5\textwidth}
+                \[
+                    A^\top = \begin{bmatrix}
+                        1 & -4\\
+                        2 & -5\\
+                        3 & -6
+                    \end{bmatrix}
+                \]
+        \end{columns}
+    \end{frame}
+    \begin{frame}{Matrix Multiplication and Linear Transformations}
+        \small
+        \begin{defn} \rTextWait{Composition of Linear Transformations}{1-4}:
+            Let $T:\R^m\rightarrow\R^p$ and $S:\R^n\rightarrow\R^m$ be linear transformations defined
+            by 
+            \[
+                T(\vec{y}) = A\vec{y}\textnormal{ and } S(\vec{x}) = B\vec{x}
+            \]\pause\ 
+            then we define the \bTextWait{composition}{1-4} of $T$ and $S$ to be
+            \[
+                (T\circ S)(\vec{x}) = T(S(\vec{x})) \pause\ = A(B\vec{x}) \pause\ = AB\vec{x}
+            \]
+        \end{defn}\pause\ 
+        \begin{tcolorbox}
+            Note: $AB$ is only defined with $A$ has the same number of \rText{rows} as $B$ has 
+            \bText{columns}
+        \end{tcolorbox}
+    \end{frame}
+    \begin{frame}{Matrix Multiplication}
+        \begin{defn}
+            \rText{Matrix Product}: Let $A\in\R^{m\times n}$, $B\in\R^{n\times p}$. 
+            We define the product of two matrices $C=AB$ to be the matrix such that for all
+            $\vec{x}\in\R^{p}$ such that $C\vec{x} = A(B\vec{x})$.
+        \end{defn}
+        \pause
+        There are $3$ main ways to compute the \bText{matrix product}, $AB$.\pause
+        \begin{enumerate}
+            \item Column-wise\pause
+            \item Component-wise\pause
+            \item Sums of other matrices
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Matrix Multiplication Method 1 (Column-wise)}
+        \small
+        \begin{tcolorbox}
+            Let $A\in\R^{m\times n},B\in\R^{n\times p}$. Then we define the \bText{matrix product}
+            as: 
+            \[
+                AB = A\begin{bmatrix} \vec{b}_1 & \vec{b}_2 & \dots & \vec{b}_p\end{bmatrix} =
+                    \begin{bmatrix} A\vec{b}_1 & A\vec{b}_2 & \dots & A\vec{b}_p\end{bmatrix}
+            \]
+            where $\vec{b}_k\in\R^n$ are the \rText{columns} of $B$.
+        \end{tcolorbox}\pause
+        \vspace{-10pt}
+        \begin{example}
+            Let $A = \begin{bmatrix}1&-4\\2&-5\\3&-6\end{bmatrix}$ and $B = \begin{bmatrix}
+                2&1\\1&4
+        \end{bmatrix}$. Then \pause
+        \[
+            C = AB = \begin{bmatrix}\begin{bmatrix}1&-4\\2&-5\\3&-6\end{bmatrix}\begin{bmatrix}
+    2\\1\end{bmatrix}
+                & \begin{bmatrix}1&-4\\2&-5\\3&-6\end{bmatrix}\begin{bmatrix}1\\4\end{bmatrix}\end{bmatrix}\pause
+                    = \begin{bmatrix}
+                        -2 & \only<5> {-15}\only<4>{\quad\,\,}\\
+                        -1 & \only<5> {-18}\\
+                         0 & \only<5> {-21}
+                    \end{bmatrix}
+        \]
+        \end{example}
+    \end{frame}
+    \begin{frame}{Matrix Multiplication Method 2 (Component-wise)}
+        \begin{tcolorbox}
+            Let $A\in\R^{m\times n},B\in\R^{n\times p}$. Then we define the \bText{matrix product}
+            as the matrix $C=AB$ where for all $i,j$: 
+            \[
+                c_{ij} = a_{i1}b_{1j} + a_{i2}b_{2j} + \cdots + a_{in}b_{nj}
+            \]
+        \end{tcolorbox}\pause
+        \vspace{-10pt}
+        \begin{example}
+            Let $A = \begin{bmatrix}\rTextWait{1}{4}&\rTextWait{-4}{4}\\\
+            2&-5\\3&-6\end{bmatrix}$ and $B = \begin{bmatrix}
+                \bTextWait{2}{4}&1\\\bTextWait{1}{4}&4
+        \end{bmatrix}$. Then \pause
+        \[
+            C=AB= \begin{bmatrix}
+                c_{11} & c_{12}\\
+                c_{21} & c_{22}\\
+                c_{31} & c_{32}
+            \end{bmatrix}\pause =
+            \begin{bmatrix}
+                \rTextWait{1}{4}\cdot \bTextWait{2}{4}+ \rTextWait{-4}{4}\cdot \bTextWait{1}{4} & 1\cdot1 + -4\cdot4\\
+                2\cdot 2+ -5\cdot 1 & 2\cdot1 + -5\cdot4\\
+                3\cdot 2+ -6\cdot 1 & 3\cdot1 + -6\cdot4
+            \end{bmatrix}\pause = \begin{bmatrix}
+                -2 & -15\\
+                -1 & -18\\
+                0  & -21
+            \end{bmatrix}
+        \]
+        \end{example}
+    \end{frame}
+    \begin{frame}{Matrix Multiplication Method 3 (Sums of other matrices)}
+        \small
+        \begin{tcolorbox}
+            Let $A\in\R^{m\times n},B\in\R^{n\times p}$. Then we define the \bText{matrix product}
+            as: 
+            \[
+                AB = \begin{bmatrix} \vec{a}_1 & \dots & \vec{a}_n\end{bmatrix} \begin{bmatrix}
+                    \vec{b}_1^\top\\\vdots\\\vec{b}_n^\top
+            \end{bmatrix} = \vec{a}_1\vec{b}_1^\top + \cdots + \vec{a}_n\vec{b}_n^\top
+            \]
+            where $\vec{a}_i\in\R^{m\times 1}$ are the \rText{columns} of $A$ and 
+            $\vec{b}_j^\top\in\R^{1\times p}$ are the \bText{rows} of $B$ (\rText{columns} of $B^\top$!)
+        \end{tcolorbox}\pause
+    \end{frame}
+    \begin{frame}{Method 3 Example}
+        \begin{example}
+            Let $A = \begin{bmatrix}
+                \rTextWait{1}{2}&\rTextWait{-4}{3}\\
+                \rTextWait{2}{2}&\rTextWait{-5}{3}\\
+                \rTextWait{3}{2}&\rTextWait{-6}{3}\end{bmatrix}$ and $B = \begin{bmatrix}
+                    \bTextWait{2}{2}&\bTextWait{1}{2}\\\bTextWait{1}{3}&\bTextWait{4}{3}
+        \end{bmatrix}$. Then \pause
+        \[
+            C = AB = \begin{bmatrix}
+                \rTextWait{1}{2}\\
+                \rTextWait{2}{2}\\
+                \rTextWait{3}{2}\end{bmatrix}
+                \begin{bmatrix}\bTextWait{2}{2}&\bTextWait{1}{2}\end{bmatrix} + 
+                \begin{bmatrix}
+                \rTextWait{-4}{3}\\
+                \rTextWait{-5}{3}\\
+                \rTextWait{-6}{3}\end{bmatrix}
+                \begin{bmatrix}\bTextWait{1}{3}&\bTextWait{4}{3}\end{bmatrix}\pause\pause = 
+                    \begin{bmatrix}
+                        2 & 1\\
+                        4 & 2\\
+                        6 & 3
+                    \end{bmatrix} + \begin{bmatrix}
+                        -4&-16\\
+                        -5&-20\\
+                        -6&-24\\
+                    \end{bmatrix}\pause = \begin{bmatrix}
+                        -2 & -15\\
+                        -1 & -18\\
+                        0  & -21
+                    \end{bmatrix}
+        \]
+        \end{example}
+    \end{frame}
+    \begin{frame}{Is It The Correct Shape?}
+
+        {\scriptsize
+        \[
+            A=\begin{bmatrix}3&0\\-1&2\\1&1\end{bmatrix}, B=\begin{bmatrix}4&-1\\0&2\end{bmatrix},
+            C=\begin{bmatrix}1&4&2\\3&1&5\end{bmatrix}, D = \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix},
+            E=\begin{bmatrix}4&6\\0&3\\1&0\end{bmatrix}, F=\begin{bmatrix}1&4\\2&3\end{bmatrix}
+        \]}
+        \begin{columns}
+            \column{.33\textwidth}
+                \includegraphics[scale=.125]{images/manhole.png}
+                \pause
+                \vspace{100pt}
+            \column{.67\textwidth}
+            \vspace{-50pt}
+            \begin{enumerate}
+                \item For which matrices is \rText{addition} with $A$ defined?\pause
+                \item For which matrices is \rText{addition} with $B$ defined?\pause
+                \item For which matrices is \rText{addition} with $C$ defined?\pause
+                \item For which matrices is \bText{multiplication} with $A$ defined?\pause
+                \item For which matrices is \bText{multiplication} with $B$ defined?\pause
+                \item For which matrices is \bText{multiplication} with $C$ defined?
+            \end{enumerate}
+        \end{columns}
+    \end{frame}
+    \begin{frame}{Example}
+
+        \scriptsize
+        \[
+            A=\begin{bmatrix}3&0\\-1&2\\1&1\end{bmatrix}, B=\begin{bmatrix}4&-1\\0&2\end{bmatrix},
+            C=\begin{bmatrix}1&4&2\\3&1&5\end{bmatrix}, D = \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix},
+            E=\begin{bmatrix}4&6\\0&3\\1&0\end{bmatrix}, F=\begin{bmatrix}1&4\\2&3\end{bmatrix}
+        \]
+        Compute (if possible):
+        \begin{columns}
+            \column{.5\textwidth}
+            \only<1->{
+                \begin{enumerate}
+                    \item $AF$
+                \end{enumerate}
+            }
+            \only<2->{
+                This is defined!
+            }
+            \only<4->{
+                \[
+                    AF = \begin{bmatrix}
+                        3&0\\
+                        -1&2\\
+                        1&1
+                    \end{bmatrix}\begin{bmatrix}
+                        1&4\\
+                        2&3
+                    \end{bmatrix} \only<5->{= \begin{bmatrix}
+                        3\\-1\\1
+                    \end{bmatrix}\begin{bmatrix}1&4\end{bmatrix} + \begin{bmatrix}
+                        0\\2\\1
+                    \end{bmatrix}\begin{bmatrix}2&3\end{bmatrix}}
+                \]
+                \only<4,5>{
+                    \vspace{20pt}
+                }
+            }
+            \only<6->{
+                \[
+                    = \begin{bmatrix}
+                        3 & 12\\
+                        -1&-4\\
+                        1 & 4
+                    \end{bmatrix} + \begin{bmatrix}
+                        0 & 0\\
+                        4 & 6\\
+                        2 & 3
+                    \end{bmatrix}
+                    \only<7->{
+                        = \begin{bmatrix}
+                            3 & 12\\
+                            3 & 2 \\
+                            3 & 7
+                        \end{bmatrix}
+                    }
+                \]
+            }
+            \column{.5\textwidth}
+            \only<1->{
+                \begin{enumerate}
+                    \addtocounter{enumi}{1}
+                    \item $FA$
+                \end{enumerate}
+                \only<3->{
+                    Not defined!
+                }
+                \only<4->{
+                    \vspace{80pt}
+                }
+            }
+        \end{columns}
+        \vspace{120pt}
+    \end{frame}
+    \begin{frame}{Now You Try!}
+
+        {\scriptsize
+        \[
+            A=\begin{bmatrix}3&0\\-1&2\\1&1\end{bmatrix}, B=\begin{bmatrix}4&-1\\0&2\end{bmatrix},
+            C=\begin{bmatrix}1&4&2\\3&1&5\end{bmatrix}, D = \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix},
+            E=\begin{bmatrix}4&6\\0&3\\1&0\end{bmatrix}, F=\begin{bmatrix}1&4\\2&3\end{bmatrix}
+        \]}
+        \begin{columns}
+            \column{.5\textwidth}
+            \begin{enumerate}
+                \item $BF$
+                    \iftoggle{showSolutions}{
+                        \only<2->{
+                            \[
+                                BF = \begin{bmatrix}
+                                    2&13\\
+                                    4&6
+                                \end{bmatrix}
+                            \]
+                        }
+                    }{}
+            \end{enumerate}
+            \column{.5\textwidth}
+            \begin{enumerate}
+                \addtocounter{enumi}{1}
+                \item $FB$
+                    \iftoggle{showSolutions}{
+                        \only<3->{
+                            \[
+                                FB = \begin{bmatrix}
+                                    4&7\\
+                                    8&4
+                                \end{bmatrix}
+                            \]
+                        }
+                    }{}
+            \end{enumerate}
+        \end{columns}
+        \vspace{120pt}
+    \end{frame}
+    \begin{frame}{Multiplication and Transpose Properties}
+        \begin{tcolorbox}
+            Let $A,B\in\R^{m\times n}$, $C\in\R^{n\times p}$, and $r$ be a scalar.
+            \begin{enumerate}
+                \item $\left(A^\top\right)^\top = A$\pause
+                \item $(A+B)^\top = A^\top + B^\top$\pause
+                \item $(rA)^\top = rA^\top$\pause
+                \item $(AB)^\top = B^\top A^\top$
+            \end{enumerate}
+        \end{tcolorbox}
+    \end{frame}
+\end{document}

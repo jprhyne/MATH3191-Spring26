@@ -1,0 +1,330 @@
+\documentclass[xcolor=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+
+\setbeamertemplate{itemize/enumerate subbody begin}{\scriptsize}
+
+\date{Applications of Linear Systems}
+
+\begin{document}
+
+
+\begin{frame}{Modeling the US Economy}
+
+  \begin{columns}
+
+    \column{0.7\tw}
+    
+    \bi
+  \ii In 1949, economist Wassily Leontief worked with $250,\!000$ data points produced by the United States BLS.
+      \pause
+  \ii Based on his researched, he initially divided the US economy into 500 different sectors.
+      \pause
+  \ii One of the world's highest powered computers, Harvard's Mark II, could not process so much information.
+      \pause
+  \ii The model had to be further classified into a system of 42 equations of 42 unknowns.
+      \pause
+  \ii Such models are now know as \alert{Leontief production models}.
+      \pause
+  \ii Mark II solved the system in 56 hours.
+  \ei
+  
+  \column{0.3\tw}
+
+  \onslide<3->
+  \includegraphics[width=0.95\tw]{../Images/Chap1/fig-mach-ii.png}
+
+  
+  
+  \end{columns}
+
+  \vspace{20pt}
+  \onslide<1->
+
+  {\footnotesize  Based on \textit{Linear Algebra and Its Applications} by D. Lay, et al.}
+  
+  
+  {\footnotesize  Image Credit: \alert{\href{http://lasierrainformatica.blogspot.com/2013/06/el-harvard-mark-ii.html}{http://lasierrainformatica.blogspot.com/2013/06/el-harvard-mark-ii.html}}}
+  
+\end{frame}
+
+\begin{frame}{Input-Output Model}
+
+  \bi
+  \ii Instead of the 500 sectors Leontief identified, suppose the US economy is divided into 3 different sectors: Renewable Energy, Electricity, and Manufacturing.
+  \pause
+  \ii We can measure the total output for the year in each sector.
+  \pause
+ \ii We also know how each sector's output is divided among the other sectors.
+  \pause
+\ii We can summarize this economy with an \alert{input-output table}.
+  \pause
+  \ei
+
+  \begin{center}
+  \begin{tabular}{|l|c||c|c|c|}
+    \hline
+    &  & \multicolumn{3}{|c|}{Amount Purchased by } \\
+    \hline
+    Sector & Total Output (in Billions) & Renewables & Electricity & Manufacturing \\
+    \hline
+    Renewable Energy & $40$ & $10$ ($25$\%) & $25$ ($62.5$\%) & $5$ ($12.5$\%) \\ 
+    \hline
+   Electricity & $100$ & $7$ ($7$\%) & $18$ ($18$\%) & $75$ ($75$\%) \\
+    \hline
+    Manufacturing & $125$ & $20$ ($16$\%) & $50$ ($40$\%) & $55$ ($44$\%)\\
+    \hline
+ \end{tabular} 
+  \end{center}
+  
+  \end{frame}
+
+
+\begin{frame}{Exchange Tables}
+
+  We can convert the input-output table to an \alert{exchange table} by giving the proportion of the output of each sector that is consumed by each of the other sectors.
+
+  \pause
+  \begin{center}
+\begin{tabular}{|c|c|c|l|}
+    \hline
+    \multicolumn{3}{|c|}{Proportion of Output from:} &  \\
+    \hline
+   Renewable Energy & Electricity & Manufacturing & Purchased by \\
+    \hline
+    $0.25$ & $0.07$ & $0.16$ & Renewable Energy\\
+    \hline
+    $0.625$ & $0.18$ & $0.4$ & Electricity\\
+    \hline
+    $0.125$ & $0.75$ & $0.44$ & Manufacturing\\ 
+    \hline
+\end{tabular}
+\end{center}
+
+  \pause
+{\small
+ \bi
+  \ii The total dollar amount of each sectors output is called the \alert{price} of that sector.
+  \pause
+  \ii Thus, \alert{$p_r$}, \alert{$p_e$}, and \alert{$p_m$} denote total outputs of Renewable Energy, Electricity, and Manufacturing sectors, respectively.
+  \pause
+  \ii Leontief proved that there exists equilibrium prices that can be assigned to the total outputs for each sector in such a way that the income of each sector exactly balances its expenses
+  \pause
+  \ii \colorb{How can we determine the equilibrium prices for each sector?}
+  \ei
+}
+
+\end{frame}
+  
+\begin{frame}{Setting Up a System of Linear Equations}
+
+  {\small
+ \begin{center}
+\begin{tabular}{|c|c|c|l|}
+    \hline
+    \multicolumn{3}{|c|}{Proportion of Output from:} &  \\
+    \hline
+   Renewable Energy & Electricity & Manufacturing & Purchased by \\
+    \hline
+    \colorg{$0.25$} & \colorb{$0.07$} & \alert{$0.16$} & Renewable Energy\\
+    \hline
+    $0.625$ & $0.18$ & $0.4$ & Electricity\\
+    \hline
+    $0.125$ & $0.75$ & $0.44$ & Manufacturing\\ 
+    \hline
+\end{tabular}
+\end{center}
+  }
+  
+ \bi
+ \ii Down each column is the proportion of that sector which is purchased by each of the other three sectors.
+ \ii Across each row we see for a given sector, what proportion of their inputs came from each sector's output.
+ \ii For the renewable energy sector, we therefore have the following linear equation:
+ \begin{align*}
+   \mbox{output from renewables} &= (\mbox{input from renewables}) + (\mbox{input from electricity}) +  (\mbox{input from manufacturing})\\
+   \colorg{p_r} &= \colorg{0.25 p_r} + \colorb{0.07 p_e} + \alert{0.16 p_m}\\
+   \colorg{0.75 p_r}& - \colorb{0.07 p_e} - \alert{0.16 p_m} = 0
+ \end{align*}
+ \ei
+ 
+\end{frame}
+
+\begin{frame}{Setting Up a System of Linear Equations}
+
+  {\small
+ \begin{center}
+\begin{tabular}{|c|c|c|l|}
+    \hline
+    \multicolumn{3}{|c|}{Proportion of Output from:} &  \\
+    \hline
+   Renewable Energy & Electricity & Manufacturing & Purchased by \\
+    \hline
+    \colorg{$0.25$} & \colorb{$0.07$} & \alert{$0.16$} & Renewable Energy\\
+    \hline
+    $0.625$ & $0.18$ & $0.4$ & Electricity\\
+    \hline
+    $0.125$ & $0.75$ & $0.44$ & Manufacturing\\ 
+    \hline
+\end{tabular}
+\end{center}
+  }
+
+
+  Similarly deriving linear equations for the other sectors, we have the following system:
+\[ \begin{array}{ccccccc}
+  \colorg{0.75 p_r} & - & \colorb{0.07 p_e} & - & \alert{0.16 p_m} &=& 0\\
+  \\
+  \colorg{-0.625 p_r} & + & \colorb{0.82 p_e} & - & \alert{0.4 p_m} &=& 0\\
+  \\
+\colorg{-0.125 p_r} & - & \colorb{-0.75 p_e} & + & \alert{0.56 p_m} &=& 0
+  \end{array} \]
+
+\end{frame}
+
+\begin{frame}{Finding the Equilibrium for the Economy}
+
+  We have the following augmented matrix associated to the system:
+
+    \[
+        \aMat{ccc|c}{\colorg{0.75} & \colorb{-0.07} & \alert{-0.16} & 0 \\
+  \colorg{-0.625} & \colorb{0.82} & \alert{-0.4} & 0 \\
+  \colorg{-0.125} & \colorb{-0.75} & \alert{0.56} & 0
+        }\rightarrow\aMat{ccc|c}{\colorg{1} & 0 & \alert{-0.28} & 0\\
+  0 & \colorb{1} & \alert{-0.70} & 0 \\
+  0 & 0 & \alert{0} & 0
+        }
+    \]
+  Notice \alert{$p_m$} is a free variable, and we have equilibrium solution:
+
+  \[ \mathbf{p} = \bbm p_r \\ p_e \\ p_m \ebm =  \bbm 0.28 p_m \\ 0.7 p_m \\ p_m \ebm = p_m \bbm 0.28 \\ 0.7 \\ 1 \ebm \]
+
+  \bi
+  \ii If this economy has \alert{$p_m = 125$ billion dollars},
+  \ii Then if we want to ensure the economy is functioning at is equilibrium level (everything produced is used by other sectors):
+  \bi
+  \ii {\normalsize Set \colorg{$p_r = (0.28)(125) = 35$ billion dollars}, and}
+  \ii  {\normalsize Set \colorb{$p_e = (0.7)(125) = 87.5$ billion dollars}.}
+  \ei
+  \ei
+  
+\end{frame}
+
+\begin{frame}{Network Flow}
+
+  \begin{columns}
+    \column{0.65\tw}
+    {\small
+  \bi
+  \ii A \alert{network} consists of a set of points, called \alert{nodes} with lines, called \alert{branches} connecting some or all of the nodes.
+  \pause
+  \ii The direction of the flow is indicated by each branch (are things flowing in or out of the node?).
+  \pause
+  \ii The flow amount (or rate) is either given or denoted by a variable.
+  \pause
+  \ii We assume the total flow into a network equals the total flow out of the network.
+  \pause
+  \ii The goal is to determine the flow in each branch when partial information is known.
+  \pause
+  \ii Network flows have applications to current flow through a circuit, flow of goods through supply chains, social networks, and \alert{urban planning} to name a few.
+  \ei
+    }
+    
+  \column{0.35\tw}
+
+  \onslide<1->
+  \includegraphics[width=0.95\tw]{../Images/Chap1/fig-social-network.png}
+  \onslide<2->
+  \includegraphics[width=0.95\tw]{../Images/Chap1/fig-node.png}
+  
+  \end{columns}
+
+  \end{frame}
+
+\begin{frame}{Traffic Flow in Baltimore}
+
+  The network in the figure shows the flow of traffic (in vehicles per hour) over several one way streets in downtown Baltimore during a typical early afternoon. Determine the general flow pattern for the network.
+
+  \begin{columns}
+    \column{0.4\tw}
+    
+  \includegraphics[width=0.8\tw]{../Images/Chap1/fig-traffic-network.png}
+
+  \pause
+  \column{0.6\tw}
+  
+  \begin{tabular}{crcl}
+    \hline
+    Intersection & Flow in & & Flow out\\
+    \hline
+    A & $300+500$ & $=$ & $x_1+x_2$\\
+    B & $x_2 + x_4$ & $=$ & $300+x_3$\\
+    C & $100+400$ & $=$ & $x_4+x_5$\\
+    D & $x_1+x_5$ & $=$ & $600$\\
+    \hline
+  \end{tabular}
+
+  \pause
+  \[
+  \begin{array}{ccccccccccc}
+    x_1 & + & x_2 &   &         &    &        &   &          &= & 800\\
+           &     & x_2 & - & x_3 & + & x_4 &   &         &=& 300\\
+           &     &        &    &        &    & x_4 & + & x_5 &=& 500\\
+    x_1 &     &        &    &       &     &        & + & x_5 &=& 600\\
+           &      &        &   & x_3 &    &        &     &        &=& 400
+  \end{array}
+  \]
+
+  \end{columns}
+   
+  \end{frame}
+
+\begin{frame}{Solving the System}
+
+  We need to solve the following nonhomogeneous linear system of equations:
+
+  \begin{columns}[T]
+    \column{0.3\tw}
+
+    \includegraphics[width=0.8\tw]{../Images/Chap1/fig-traffic-network.png}
+    
+      \column{0.7\tw}
+\[   \begin{array}{ccccccccccc}
+    x_1 & + & x_2 &   &         &    &        &   &          &= & 800\\
+           &     & x_2 & - & x_3 & + & x_4 &   &         &=& 300\\
+           &     &        &    &        &    & x_4 & + & x_5 &=& 500\\
+    x_1 &     &        &    &       &     &        & + & x_5 &=& 600\\
+           &      &        &   & x_3 &    &        &     &        &=& 400
+\end{array} \]
+
+\pause
+\end{columns}
+
+   We have an augmented matrix
+
+    \[
+        \aMat{ccccc|c}{
+   $1$ & $1$ & $0$ & $0$ & $0$ & $800$\\
+   $0$ & $1$ & $-1$ & $1$ & $0$ & $300$\\
+   $0$ & $0$ & $0$ & $1$ & $1$ & $500$\\
+   $1$ & $0$ & $0$ & $0$ & $1$ & $600$\\
+   $0$ & $0$ & $1$ & $0$ & $0$ & $400$
+        }\pause\rightarrow\aMat{ccccc|c}{
+   $1$ & $0$ & $0$ & $0$ & $1$ & $600$\\
+   $0$ & $1$ & $0$ & $0$ & $-1$ & $200$\\
+   $0$ & $0$ & $1$ & $0$ & $0$ & $400$\\
+   $0$ & $0$ & $0$ & $1$ & $1$ & $500$\\
+   $0$ & $0$ & $0$ & $0$ & $0$ & $0$
+        }
+   \pause\rightarrow
+   \left\{ \begin{array}{l}
+     x_1=600-x_5\\
+     x_2 = 200 + x_5\\
+     x_3 = 400\\
+     x_4 = 500-x_3\\
+     x_5 \mbox{ is free}
+     \end{array} \right.
+    \]
+
+\end{frame}
+
+  \end{document}

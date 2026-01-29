@@ -1,0 +1,417 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+\usepackage{3191Style}
+\date{Linear Transformations}
+\begin{document}
+\begin{frame}{Interpreting $A\vec{x}=\vec{b}$}
+    The equation $A\vec{x} = \vec{b}$ conceptually is:
+    \pause
+    \begin{itemize}
+        \item Finding some input $\vec{x}$ to give us an output $\vec{b}$\pause
+        \item Making sure $A$ has enough information!\pause
+    \end{itemize}
+    \begin{example}
+        Some mappings we know from this class or previous are:
+        \begin{columns}
+            \column{.5\textwidth}
+            \begin{itemize}
+                \item $f:x\mapsto x^2$ maps from $\R\rightarrow\R$.\pause
+                \item $f:x\mapsto 7x$ maps from $\R\rightarrow\R$.\pause
+                \item $f:\begin{bmatrix}x_1\\x_2\end{bmatrix}\mapsto 
+                        \begin{bmatrix}7x_1\\7x_2\end{bmatrix}$ maps from $\R^2\rightarrow\R^2$.\pause
+            \end{itemize}
+            \column{.5\textwidth}
+            \begin{itemize}
+                \item $f:\begin{bmatrix}x_1\\x_2\end{bmatrix}\mapsto 
+                        \begin{bmatrix}x_2\\x_1\\x_1+x_2\end{bmatrix}$ maps from
+                            $\R^2\rightarrow\R^3$.\pause
+                    \item $T:\vec{x}\mapsto A\vec{x}$ maps from $\R^n\rightarrow\R^m$.
+            \end{itemize}
+        \end{columns}
+    \end{example}
+\end{frame}
+\begin{frame}{Transformations from $\R^n$ to $\R^m$}
+    \begin{defn}
+        \rText{Transformation}: A \bText{transformation} (or a function/mapping) $T$ from $\R^n$ to
+        $\R^m$ is just a rule that assigns each vector $\vec{x}\in\R^n$ to another vector 
+        $T(\vec{x})\in\R^m$.\pause
+        \begin{itemize}
+            \item All possible inputs, $\R^n$ is the \bText{domain} of $T$.\pause
+            \item The set where the mappings will live, $\R^m$ is called the \bText{codomain} of $T$.\pause
+            \item For each $\vec{x}$ in the domain, $T(\vec{x})\in\R^m$ is called the \bText{image}
+                of $\vec{x}$.\pause
+            \item All possible images (or outputs) is called the \bText{range} of $T$.
+        \end{itemize}
+    \end{defn}
+    \vspace{-5pt}
+    \begin{example}
+        Consider
+        \[
+            T(\vec{x}) = A\vec{x} = \begin{bmatrix}1&0\\0&0\\0&1\end{bmatrix}\begin{bmatrix}
+                x_1\\x_2\end{bmatrix}\pause = \begin{bmatrix}x_1\\0\\x_2\end{bmatrix}
+        \]
+    \end{example}
+\end{frame}
+\begin{frame}{Linear Transformations!}
+    \begin{defn}
+        \rText{Linear Transformation}: A transformation $T:\R^n\rightarrow\R^m$ is a 
+        \bText{linear transformation} if and only if 
+        \begin{itemize}
+            \item for all $\vec{u},\vec{v}\in\R^n$, $T(\vec{u}+\vec{v}) = T(\vec{u}) + T(\vec{v})$
+            \item for all $\vec{v}\in\R^n$ and scalars $c$, $T(c\vec{v}) = cT(\vec{v})$
+        \end{itemize}
+    \end{defn}
+    \pause
+    \vspace{60pt}
+    \begin{theorem}
+        Every matrix equation is a linear transformation, and vice versa (but only for 
+        $T:\R^n\rightarrow\R^m$!)
+    \end{theorem}
+\end{frame}
+\begin{frame}{Image of the Zero Vector}
+    \begin{theorem}
+        If $T:\R^n\rightarrow\R^m$ is a linear map, then $T(\vec{0}) = \vec{0}$.
+    \end{theorem}
+    \iftoggle{showSolutions}{
+        \vspace{50pt}
+        \begin{proof}
+            Let $\vec{x}\in\R^n$ and $T(\vec{x})=\vec{b}\in\R^m$. See that\pause
+            \[
+                T(\vec{0}) = T(\vec{x}-\vec{x})\pause = T(\vec{x}) - T(\vec{x})\pause = 
+                \vec{b}-\vec{b}\pause =\vec{0}
+            \]
+        \end{proof}
+    }{
+        \vspace{150pt}
+    }
+\end{frame}
+\begin{frame}{Representing Transformations with Matrices}
+    \begin{theorem}
+        For all $T:\R^n\rightarrow\R^m$ there exists a unique $A\in\R^{m\times n}$ such that
+        \[
+            T(\vec{x}) = A\vec{x}
+        \]
+        and is given by
+        \[
+            A = \begin{bmatrix}T(\vec{e}_1) & \dots & T(\vec{e}_n)\end{bmatrix}
+        \]
+    \end{theorem}
+    \vspace{150pt}
+\end{frame}
+\begin{frame}{Example}
+    Define $T:\R^2\rightarrow\R^3$ such that
+    \[
+        T\left(\begin{bmatrix}x_1\\x_2\end{bmatrix}\right) = \begin{bmatrix}x_2\\x_1\\x_1+x_2\end{bmatrix}
+    \]
+    Find the associated matrix $A$ for this transformation.\pause\ 
+    See that\pause
+    \[
+        T(\vec{e}_1) = \begin{bmatrix}0\\1\\1\end{bmatrix}\pause\qquad T(\vec{e_2}) = \begin{bmatrix}
+            1\\0\\1\end{bmatrix}
+    \]
+    So, \pause
+    \[
+        A = \begin{bmatrix}
+            0&1\\
+            1&0\\
+            1&1
+        \end{bmatrix}
+    \]
+\end{frame}
+\begin{frame}{Another Example}
+    Let $T:\R^2\rightarrow\R^3$ such that
+    \[
+        T\left(\begin{bmatrix}1\\4\end{bmatrix}\right) = \begin{bmatrix}6\\8\\16\end{bmatrix}\qquad\textnormal{ and }
+            T\left(\begin{bmatrix}2\\4\end{bmatrix}\right) = \begin{bmatrix}8\\8\\20\end{bmatrix}
+    \]
+    Construct the $A$ matrix associated with $T$.
+\end{frame}
+\begin{frame}{Another Example continued}
+    Need to be able to find $T(\vec{e}_1)$ and $T(\vec{e}_2)$!\pause
+
+    So, we write $\vec{e}_1$ and $\vec{e}_2$ in terms of our given vectors. So we reduce:
+
+    \[
+        \aMat{cc|c}{
+            1&2&b_1\\
+            4&4&b_2
+        }\pause\rightarrow\aMat{cc|c}{
+            1&2&b_1\\
+            0&-4&b_2-4b_1
+        }\pause\rightarrow\aMat{cc|c}{
+            1&2&b_1\\
+            0&1&b_1-\frac{b_2}{4}
+        }\pause\rightarrow\aMat{cc|c}{
+            1&0&\frac{b_2}{2}-b_1\\
+            0&1&b_1-\frac{b_2}{4}
+        }
+    \]
+    So:\pause
+    \[
+        \vec{e}_1 = -1\begin{bmatrix}1\\4\end{bmatrix}+1\begin{bmatrix}2\\4\end{bmatrix}
+            \qquad\vec{e}_2 = \frac{1}{2}\begin{bmatrix}1\\4\end{bmatrix}+
+                -\frac{1}{4}\begin{bmatrix}2\\4\end{bmatrix}
+    \]
+\end{frame}
+\begin{frame}{Another Example continued}
+    \[
+        T(\vec{e}_1) = T\left(-1\begin{bmatrix}1\\4\end{bmatrix}+1\begin{bmatrix}2\\4\end{bmatrix}\right)
+            \pause = -T\left(\begin{bmatrix}1\\4\end{bmatrix}\right) + 
+            T\left(\begin{bmatrix}2\\4\end{bmatrix}\right)\pause = 
+            -\begin{bmatrix}6\\8\\16\end{bmatrix} + \begin{bmatrix}8\\8\\20\end{bmatrix}
+            \pause = \begin{bmatrix}2\\0\\4\end{bmatrix}\pause
+    \]
+    and
+    \[
+        T(\vec{e}_2) = T\left(\frac{1}{2}\begin{bmatrix}1\\4\end{bmatrix}-\frac{1}{4}\begin{bmatrix}2\\4\end{bmatrix}\right)
+            \pause = \frac{1}{2}T\left(\begin{bmatrix}1\\4\end{bmatrix}\right) -\frac{1}{4} 
+            T\left(\begin{bmatrix}2\\4\end{bmatrix}\right)\pause = 
+            \frac{1}{2}\begin{bmatrix}6\\8\\16\end{bmatrix} -\frac{1}{4} \begin{bmatrix}8\\8\\20\end{bmatrix}
+            \pause = \begin{bmatrix}1\\2\\3\end{bmatrix}\pause
+    \]
+    So:
+    \[
+        A = \begin{bmatrix}T(\vec{e}_1) & T(\vec{e}_2)\end{bmatrix}\pause = \begin{bmatrix}
+            2 & 1\\
+            0 & 2\\
+            4 & 3
+        \end{bmatrix}
+    \]
+\end{frame}
+\begin{frame}{Now You Try!}
+    \scriptsize
+    Let $T:\R^2\rightarrow\R^2$ be such that
+    \[
+        T\left(\begin{bmatrix}1\\1\end{bmatrix}\right) = \begin{bmatrix}3\\1\end{bmatrix}\qquad
+        T\left(\begin{bmatrix}2\\1\end{bmatrix}\right) = \begin{bmatrix}4\\1\end{bmatrix}
+    \]
+    Compute the $A$ associated with $T$.
+    \iftoggle{showSolutions}{
+        \pause
+        \[
+            \aMat{cc|c}{
+                1&2&b_1\\
+                1&1&b_2
+            }\pause\rightarrow\aMat{cc|c}{
+                1&2&b_1\\
+                0&-1&b_2-b_1
+            }\pause\rightarrow\aMat{cc|c}{
+                1&2&b_1\\
+                0&1&b_1-b_2
+            }\pause\rightarrow\aMat{cc|c}{
+                1&0&2b_2-b_1\\
+                0&1&b_1-b_2
+            }
+        \]
+        So, 
+        \[
+            T(\vec{e}_1) = -T\left(\begin{bmatrix}1\\1\end{bmatrix}\right) 
+            + T\left(\begin{bmatrix}2\\1\end{bmatrix}\right)\pause= \begin{bmatrix}1\\0\end{bmatrix},\qquad
+            T(\vec{e}_2) = 2T\left(\begin{bmatrix}1\\1\end{bmatrix}\right) 
+            - T\left(\begin{bmatrix}2\\1\end{bmatrix}\right)\pause= \begin{bmatrix}2\\1\end{bmatrix}
+        \]
+        \pause\ And:
+        \[
+            A = \begin{bmatrix}1&2\\0&1\end{bmatrix}
+        \]
+    }{
+        \vspace{150pt}
+    }
+\end{frame}
+\begin{frame}{Properties of Linear Transformations}
+    \begin{tcolorbox}
+        Let $T:\R^n\rightarrow\R^m$ be a linear transformation The mapping $T$ is said to be:
+        \begin{itemize}
+            \item \rText{Injective} if for each $\vec{b}\in\R^m$, we can find \textbf{at most one} 
+                $\vec{x}$ such that $T(\vec{x})=\vec{b}$\pause
+            \item \bText{Surjective} if for each $\vec{b}\in\R^m$, we can find \textbf{at least one}
+                $\vec{x}$ such that $T(\vec{x})=\vec{b}$
+        \end{itemize}
+    \end{tcolorbox}
+        \vspace{150pt}
+\end{frame}
+\begin{frame}{Python Example}
+    Consider $T: \R^4\rightarrow\R^4$, $\vec{x}\mapsto A\vec{x}$ for
+    \[
+        A = \begin{bmatrix}4 & -2 & 5 & -5 \\
+            -9 & 7 & -8 & 0\\
+            -6&4&5&3\\
+            5&-3&8&-4
+        \end{bmatrix}
+    \]
+    \begin{enumerate}
+        \item Find all $\vec{x}$ such that $T(\vec{x}) = \vec{0}$
+        \item Find all $\vec{x}$ (if any) such that $T(\vec{x}) = \begin{bmatrix}7\\5\\9\\7\end{bmatrix}$
+    \end{enumerate}
+\end{frame}
+\begin{frame}{Geometric Interpretation in $\mathbb{R}^2$}
+
+Consider the linear transformation given by $T: \mathbb{R}^2 \to \mathbb{R}^2: \mathbf{x} \mapsto 0.5 \mathbf{x}$. Find the standard matrix $A$ for this linear transformation. \bs
+
+We have  $\dsty \alert{T(\mathbf{e}_1) = \begin{bmatrix} 0.5 \\ 0 \end{bmatrix}}$ and $\dsty \colorb{T(\mathbf{e}_2) = \begin{bmatrix} 0 \\ 0.5 \end{bmatrix}}$ giving the matrix $\dsty A = \begin{bmatrix} \alert{0.5} & \colorb{0} \\ \alert{0} & \colorb{0.5} \end{bmatrix}$.
+
+\begin{columns}
+
+\column{0.33\tw}
+
+\begin{center}
+\includegraphics[width=0.8\tw]{../Images/Chap1/fig-ele-pic.JPG}
+\end{center}
+
+\column{0.33\tw}
+
+\begin{center}
+\includegraphics[width=0.8\tw]{../Images/Chap1/fig-elephant.png}
+\end{center}
+
+\column{0.33\tw}
+
+\begin{center}
+\includegraphics[width=0.8\tw]{../Images/Chap1/fig-ele-dilate.png}
+\end{center}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Geometric Interpretation in $\mathbb{R}^2$}
+
+Consider the linear transformation given by $\dsty T(\mathbf{x}) = A \mathbf{x} = \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}$ 
+
+We have  $\dsty \alert{T(\mathbf{e}_1) = \begin{bmatrix} -1 \\ 0 \end{bmatrix}}$ and $\dsty \colorb{T(\mathbf{e}_2) = \begin{bmatrix} 0 \\ 1 \end{bmatrix}}$ giving the geometric interpretation seen below.
+
+\begin{columns}
+
+\column{0.5\tw}
+
+\begin{center}
+\includegraphics[width=0.6\tw]{../Images/Chap1/fig-elephant.png}
+\end{center}
+
+\column{0.5\tw}
+
+\begin{center}
+\includegraphics[width=0.6\tw]{../Images/Chap1/fig-ele-reflect.png}
+\end{center}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Contractions and Expansions}
+
+Consider the linear transformation given by $\dsty T(\mathbf{x}) = A \mathbf{x} = \begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}$ 
+
+We have  $\dsty \alert{T(\mathbf{e}_1) = \begin{bmatrix} 1 \\ 0 \end{bmatrix}}$ and $\dsty \colorb{T(\mathbf{e}_2) = \begin{bmatrix} 0 \\ 2 \end{bmatrix}}$ giving the geometric interpretation seen below.
+
+\begin{columns}
+
+\column{0.5\tw}
+
+\begin{center}
+\includegraphics[width=0.6\tw]{../Images/Chap1/fig-elephant2.png}
+\end{center}
+
+\column{0.5\tw}
+
+\begin{center}
+\includegraphics[width=0.6\tw]{../Images/Chap1/fig-ele-expand.png}
+\end{center}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Shear Transformations}
+
+Consider the linear transformation given by $\dsty T(\mathbf{x}) = A \mathbf{x} = \begin{bmatrix} 1 & 0.75 \\ 0 & 1 \end{bmatrix}$ 
+
+
+\begin{columns}
+
+\column{0.5\tw}
+
+\begin{center}
+\includegraphics[width=0.6\tw]{../Images/Chap1/fig-elephant.png}
+\end{center}
+
+\column{0.5\tw}
+
+\begin{center}
+\includegraphics[width=0.6\tw]{../Images/Chap1/fig-ele-shear.png}
+\end{center}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Projections}
+
+Consider the linear transformation given by $\dsty T(\mathbf{x}) = A \mathbf{x} = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}$ 
+
+
+\begin{columns}
+
+\column{0.5\tw}
+
+\begin{center}
+\includegraphics[width=0.6\tw]{../Images/Chap1/fig-elephant.png}
+\end{center}
+
+\column{0.5\tw}
+
+\begin{center}
+\includegraphics[width=0.6\tw]{../Images/Chap1/fig-ele-project.png}
+\end{center}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}
+    \begin{theorem}
+        A linear transformation $T:\R^n\rightarrow\R^m$ is injective if and only if $T(\vec{x})=\vec{0}$
+        has only the trivial solution
+    \end{theorem}
+    \iftoggle{showSolutions}{
+        \begin{proof}
+            $\implies$ direction. Assume that $T$ is injective and there is some $\vec{v}\neq\vec{0}$
+            such that $T(\vec{v}) = \vec{0}$. Well, this contradicts the fact that $T$ is injective
+            because $T(\vec{0}) = T(\vec{v}) = \vec{0}$.\\
+            $\impliedby$ direction. Assume $T$ is not injective. This means there are some
+            $\vec{u}$ and $\vec{v}$ such that $\vec{u}\neq\vec{v}$, and $T(\vec{u})=T(\vec{v})=
+            \vec{b}\in\R^m$ and $T(\vec{x}) = \vec{0}$ has only the trivial solution. See that
+            \[
+                T(\vec{u}-\vec{v}) = T(\vec{u}) - T(\vec{v}) = \vec{b}-\vec{b} = \vec{0}
+            \]
+            Since $\vec{u}\neq\vec{v}$, we know that $\vec{u}-\vec{v}\neq\vec{0}$. This contradicts
+            the fact that $T(\vec{x})=\vec{0}$ has only the trivial solution.
+        \end{proof}
+    }{
+        \vspace{150pt}
+    }
+\end{frame}
+\begin{frame}{Summary}
+    \begin{tcolorbox}
+        A linear transformation $T:\R^n\rightarrow\R^m$ with associated matrix $A$ is \rText{injective}
+        if and only if
+        \begin{itemize}
+            \item $T(\vec{x}) = \vec{0}$ has only the trivial solution.\pause
+            \item The solution set to $A\vec{x} = \vec{0}$ has no free variables.\pause
+            \item The matrix $A$ has a pivot in every column.\pause
+            \item \rText{The columns of $A$ are linearly independent}.
+        \end{itemize}
+    \end{tcolorbox}
+    \onslide<5->{
+    \begin{tcolorbox}
+        A linear transformation $T:\R^n\rightarrow\R^m$ with associated matrix $A$ is 
+        \bText{surjective} if and only if
+        \begin{itemize}
+            \item For any $\vec{b}\in\R^m$, there exists at least one $\vec{x}\in\R^n$ such that
+                $A\vec{x}=\vec{b}$.
+            \onslide<6->{
+            \item \bText{The columns of A span all of $\R^m$}.
+            }
+        \end{itemize}
+    \end{tcolorbox}
+    }
+\end{frame}
+\end{document}

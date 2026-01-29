@@ -1,0 +1,173 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+% Date gives the title of the lecture
+\date{Similar Matrices}
+\newcommand{\B}{\mathcal{B}}
+
+\begin{document}
+    \begin{frame}{Diagonal Matrices}
+        Recall that a diagonal matrix looks something like
+        \[
+            D = \bMat{
+                1 & 0 & 0\\
+                0 & 3 & 0\\
+                0 & 0 & 2
+            }
+        \]\pause
+        And we can see that computing $D\vec{x}$ is pretty easy!
+        \[
+            D\vec{x} = \bMat{
+                1 & 0 & 0\\
+                0 & 3 & 0\\
+                0 & 0 & 2
+            }\bMat{
+                x_1\\x_2\\x_3
+            }\pause = \bMat{
+                x_1\\
+                3x_2\\
+                2x_3
+            }
+        \]\pause
+        So, our lives could be easier if we can find a diagonal matrix that a given matrix behaves like!
+    \end{frame}
+    \begin{frame}{Similarity}
+        \small
+        \begin{defn}
+            Let $A,B\in\R^{n\times n}$. Then we say that $A$ and $B$ are \bText{similar} if there is
+            some $C\in\R^{n\times n}$ such that $C$ is invertible and
+            \[
+                A = CBC^{-1}
+            \]\pause
+            Or equivalently without using an inverse
+            \[
+                AC = CB
+            \]\pause
+        \end{defn}
+        \begin{example}
+            If 
+            \[
+                A=\bMat{
+                    -12 & 15\\
+                    -10 & 13
+                }, B=\bMat{
+                    3 & 0\\
+                    0 &-2
+                }, C=\bMat{
+                    1&3\\
+                    1&2
+                }
+            \]
+            Then
+            $A$ and $B$ are similar as $AC=CB$.
+        \end{example}
+    \end{frame}
+    \begin{frame}{Computing Large Matrix Powers}
+        One application of similar matrices is that we can compute matrix powers really easy!\pause\
+        Let $A,B,C\in\R^{n\times n}$ such that
+        \[
+            A = CBC^{-1}
+        \]\pause
+        Then for any $k\geq 1$ we have that
+        \[
+            A^k = \underbrace{A\cdots A}_{k\textnormal{ times}}\pause = CB^kC^{-1}
+        \]\pause
+        Which is really easy to compute if $B$ is diagonal or some other nice structure!
+    \end{frame}
+    \begin{frame}{Similarity Transformation}
+        Let $A,B,C\in\R^{n\times n}$ such that
+        \[
+            A = CBC^{-1}.
+        \]\pause
+        We sometimes call this a \bText{similarity transformation from $A$ to $B$}.\pause\
+        We will see why this is important in the next few slides!
+    \end{frame}
+    \begin{frame}{Similarity Transformation as a Change of Basis}
+        Let's consider an invertible $C\in\R^{n\times n}$ with columns denoted 
+        $\vec{v}_1,\dots,\vec{v}_n$ as follows
+        \[
+            C = \bMat{
+                \vec{v}_1 & \dots & \vec{v}_n
+            }
+        \]\pause
+        Since $C$ is invertible, $\vec{v}_1,\dots,\vec{v}_n$ are linearly independent!\pause\ So, 
+        this means
+        \[
+            \B=\setBasic{\vec{v}_1,\dots,\vec{v}_n}
+        \]
+        forms a basis of $\R^{n}$, so we can talk about $\B$-Coordinates!
+    \end{frame}
+    \begin{frame}{$\B$-Coordinates of $\vec{x}$}
+        \pause\
+        So, if we want to find the $\B$-Coordinates of some vector $\vec{x}$ we would get
+        \[
+            \bCoord{\vec{x}}{\B} = \bMat{c_1\\\vdots\\c_n}\textnormal{ where } \vec{x} = 
+            c_1\vec{v}_1 + \dots + c_n\vec{v}_n
+        \]\pause\
+        This means that 
+        \[
+            C\bCoord{\vec{x}}{\B} = \vec{x} \leftrightarrow C^{-1}\vec{x} = \bCoord{\vec{x}}{\B}
+        \]\pause\
+        So $C^{-1}$ takes a vector in the standard basis and converts it to coordinates in the 
+        $\B$ basis.\pause\
+        Or, in otherwords, we're finding a basis under which the matrix $A$ behaves ``like'' $B$ does!
+    \end{frame}
+    \begin{frame}{Putting it All Together for Similarity Transformations}
+        Since $C^{-1}$ takes a vector $\vec{x}$ and computes the $\B$-Coordinates of that vector and $C$
+        returns it to the standard coordinates, we see that:\pause\
+        \[
+            A\vec{x} = CBC^{-1}\vec{x}\pause =\bTextWait{C(\rTextWait{B(\bTextWait{C^{-1}\vec{x}}{4})}{5})}{6}
+        \]
+        performs the following actions
+        \begin{enumerate}
+            \pause\item \bTextWait{Computes the $\B$-Coordinates of $\vec{x}$}{4}
+            \pause\item \rTextWait{Transforms $\bCoord{\vec{x}}{\B}$ via $B$. IE 
+                $\bCoord{\vec{y}}{\B} = B\bCoord{\vec{x}}{\B}$}{5}
+            \pause\item \bTextWait{Returns $\bCoord{\vec{y}}{\B}$ to the standard coordinates}{6}
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Similarity Transformations Preserve Eigenvalues!}
+        The final properties that we will discuss are how eigenpairs behave under similarity transformations
+        \pause\
+        We first claim that the eigenvalues are preserved. See that
+        \[
+            \det{A-\lambda I} = \det{CBC^{-1} -\lambda CC^{-1}}\pause = \det{C(B-\lambda I)C^{-1}}
+        \]
+        \vspace{-20pt}
+        \[
+            \pause = \det{C}\det{B-\lambda I}\det{C^{-1}}\pause = \det{B-\lambda I}
+        \]\pause
+        So, any value $\lambda$ that makes $\det{A-\lambda I}=0$ will necessarily make 
+        $\det{B-\lambda I}=0$, so the eigenvalues must be the same!
+    \end{frame}
+    \begin{frame}{Similarity Transformations Also Transform Eigenvectors}
+        We claim that if $(\lambda,\vec{v})$ is an eigenpair of $A$, 
+        then $(\lambda, C^{-1}\vec{v})$ is an eigenvector of $B$. See that
+        \[
+            BC^{-1}\vec{v}\pause = (C^{-1}C)BC^{-1}\vec{v}\pause = C^{-1}A\vec{v}\pause = 
+            \lambda C^{-1}\vec{v}
+        \]\pause
+        So $(\lambda,C^{-1}\vec{v})$ is an eigenpair of $B$.\pause\
+
+        Similarly if $(\lambda,\vec{v})$ is an eigenpair of $B$ then $(\lambda,C\vec{v})$ is an eigenpair
+        of $A$. See that\pause
+        \[
+            AC\vec{v}\pause = (CBC^{-1})C\vec{v}\pause = CB\vec{v}\pause = \lambda C\vec{v}
+        \]\pause
+        So $(\lambda,C\vec{V})$ is an eigenpair of $A$!\pause\
+
+        This means we can think of eigenvectors of $A$ and $B$ as the same objects just with different
+        coordinates!
+    \end{frame}
+    \begin{frame}{Geometry of Similarity Transformations}
+        See Section 5.3 of textbook. The images there are much better than what I will come up with
+    \end{frame}
+    \begin{frame}{Some More Statements About Similarity}
+        Some more properties that are nice to know are as follows
+        \begin{enumerate}
+            \pause\item The only matrix similar to $I_n$ is $I_n$ itself
+            \pause\item The only matrix similar to $0_{n\times n}$ is $0_{n\times n}$
+            \pause\item Similarity has nothing to do with row equivalence
+        \end{enumerate}
+    \end{frame}
+\end{document}

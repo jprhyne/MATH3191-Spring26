@@ -1,0 +1,463 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+\usepackage{3191Style}
+\date{Matrix Inverses}
+
+\begin{document}
+    \begin{frame}{The Inverse of a Map}
+        \begin{tcolorbox}
+            Recall that for a function $f$, it's \rText{inverse function} $f^{-1}$ is a function
+            that ``undoes'' what $f$ did. Or in other words:\pause
+            \begin{itemize}
+                \item $f^{-1}(f(x)) = x$ for all $x$ in the domain of $f$.\pause
+                \item $f(f^{-1}(y)) = y$ for all $x$ in the domain of $f^{-1}$.\pause
+            \end{itemize}
+        \end{tcolorbox}
+        \only<4->{
+            \begin{example}
+                If $f(x) = 2x$, then $f^{-1}(x) = \pause\frac{x}{2}$.\pause
+
+                If $f(x) = \frac{x}{5} - 7$, then $f^{-1}(x) = \pause (x+7)\cdot 5$.
+            \end{example}
+        }
+    \end{frame}
+    \begin{frame}{The Inverse of a Matrix}
+        Let $A\in\R^{n\times n}$. The \rText{inverse matrix} if it exists, is denoted $A^{-1}$ and
+        is the unique matrix such that:\pause
+        \begin{itemize}
+            \item $AA^{-1} = I_n$\pause
+            \item $A^{-1}A = I_n$\pause
+        \end{itemize}
+        \begin{example}
+            Let $A = \begin{bmatrix}1 & 0 \\ 0 & 5\end{bmatrix}$.
+            \begin{itemize}
+                \item What is $A$?\pause\ \bText{Vertical expansion} by factor of $5$.\pause
+                \item How do we undo $A$?\pause\ \bText{Vertical compression} by factor of $5$.\pause
+            \end{itemize}
+            So:\pause
+            \[
+                A^{-1} = \begin{bmatrix}1 & 0\\0&\frac{1}{5}\end{bmatrix}
+            \]
+        \end{example}
+    \end{frame}
+    \begin{frame}{Elementary Matrices}
+        \scriptsize
+        \begin{defn}
+            \rText{Elementary Matrices}: An \bText{elementary matrix} is one attainable by performing
+            \textbf{one} row operation on an identity matrix.
+        \end{defn}
+        \pause
+        \begin{example}
+            \[
+                E_1 = \begin{bmatrix}1&0\\0&5\end{bmatrix}\pause, E_2 = \begin{bmatrix}1&0&0\\0&1&-2\\0&0&1\end{bmatrix}
+                \pause, E_3 = \begin{bmatrix}
+                    1&0&0&0\\
+                    0&0&0&1\\
+                    0&0&1&0\\
+                    0&1&0&0
+                \end{bmatrix}
+            \]
+        \end{example}
+        We can also find $E^{-1}_2$ and $E^{-1}_3$!
+        \pause
+        \begin{example}
+            \[
+                E^{-1}_2 = \begin{bmatrix}1&0&0\\0&1&2\\0&0&1\end{bmatrix}
+                    \pause, E^{-1}_3 = \begin{bmatrix}
+                    1&0&0&0\\
+                    0&0&0&1\\
+                    0&0&1&0\\
+                    0&1&0&0
+                \end{bmatrix}
+            \]
+        \end{example}
+    \end{frame}
+    \begin{frame}{Demonstrating $E^{-1}_2$}
+        Recall
+        \[
+            E_2 = \begin{bmatrix}1&0&0\\0&1&-2\\0&0&1\end{bmatrix}, 
+            E^{-1}_2 = \begin{bmatrix}1&0&0\\0&1&2\\0&0&1\end{bmatrix}
+        \]
+        \pause
+        \[
+            E^{-1}_2E_2 = \begin{bmatrix}1&0&0\\0&1&2\\0&0&1\end{bmatrix}\begin{bmatrix}1&0&0\\0&1&-2\\0&0&1\end{bmatrix} 
+                \pause = \begin{bmatrix}1\\0\\0\end{bmatrix}\begin{bmatrix}1&0&0\end{bmatrix} + \begin{bmatrix}0\\1\\0\end{bmatrix}
+                    \begin{bmatrix}0&1&-2\end{bmatrix} + \begin{bmatrix}0\\2\\1\end{bmatrix}\begin{bmatrix}0&0&1\end{bmatrix}\pause
+        \]
+        \[
+            =\begin{bmatrix}1&0&0\\0&0&0\\0&0&0\end{bmatrix} + \begin{bmatrix}0&0&0\\0&1&-2\\0&0&0\end{bmatrix}
+                + \begin{bmatrix}0&0&0\\0&0&2\\0&0&1\end{bmatrix}\pause = \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix}
+                    \pause\checkmark
+        \]
+        Are we done?\pause\ No! Need to show $E_2E_2^{-1}=I_3$!
+    \end{frame}
+    \begin{frame}{Showing $E_2E_2^{-1}=I_3$}
+        Your turn!
+        \[
+            E_2 = \begin{bmatrix}1&0&0\\0&1&-2\\0&0&1\end{bmatrix}, 
+            E^{-1}_2 = \begin{bmatrix}1&0&0\\0&1&2\\0&0&1\end{bmatrix}
+        \]
+        \iftoggle{showSolutions}{
+        \[
+            E_2E^{-1}_2 = \begin{bmatrix}1&0&0\\0&1&-2\\0&0&1\end{bmatrix}\begin{bmatrix}1&0&0\\0&1&2\\0&0&1\end{bmatrix} 
+                \pause = \begin{bmatrix}1\\0\\0\end{bmatrix}\begin{bmatrix}1&0&0\end{bmatrix} + \begin{bmatrix}0\\1\\0\end{bmatrix}
+                    \begin{bmatrix}0&1&2\end{bmatrix} + \begin{bmatrix}0\\-2\\1\end{bmatrix}\begin{bmatrix}0&0&1\end{bmatrix}\pause
+        \]
+        \[
+            =\begin{bmatrix}1&0&0\\0&0&0\\0&0&0\end{bmatrix} + \begin{bmatrix}0&0&0\\0&1&2\\0&0&0\end{bmatrix}
+                + \begin{bmatrix}0&0&0\\0&0&-2\\0&0&1\end{bmatrix}\pause = \begin{bmatrix}1&0&0\\0&1&0\\0&0&1\end{bmatrix}
+                    \pause\checkmark
+        \]
+        }{\vspace{130pt}}
+    \end{frame}
+    \begin{frame}{Inverse Properties}
+        \begin{tcolorbox}
+            Let $A,B\in\R^{n\times n}$ such that both are invertible. Then we know that\pause
+            \begin{itemize}
+                \item \rTextWait{$A^{-1}$ is invertible and $\left(A^{-1}\right)^{-1} = A$}{4-7}\pause
+                \item \bTextWait{$AB$ is invertible and $(AB)^{-1}=B^{-1}A^{-1}$}{8-}\pause
+            \end{itemize}
+        \end{tcolorbox}
+        \iftoggle{showSolutions}{
+            \only<1-3>{\vspace{130pt}}
+            \only<4->{
+                \begin{columns}
+                    \column{.5\textwidth}
+                    \rTextWait{
+                        \[
+                             A^{-1}A \pause = I_n\pause
+                        \]
+                        \[
+                            AA^{-1\pause} = I_n\pause
+                        \]
+                    }{4-7}
+                    \column{.5\textwidth}
+                    \bTextWait{
+                        \[
+                            (AB)B^{-1}A^{-1}\pause = A(BB^{-1})A^{-1}\pause = A(I_n)A^{-1}\pause
+                        \]
+                        \vspace{-20pt}
+                        \[
+                            = (AI_n)A^{-1}\pause = AA^{-1}\pause = I_n\pause
+                        \]
+                        \[
+                            B^{-1}A^{-1}(AB)\pause = B(AA^{-1})B^{-1}\pause = B(I_n)B^{-1}\pause
+                        \]
+                        \vspace{-20pt}
+                        \[
+                            = (BI_n)B^{-1}\pause = BB^{-1}\pause = I_n
+                        \]
+                    }{8-}
+                \end{columns}
+                \vspace{50pt}
+            }
+        }{\vspace{130pt}}
+    \end{frame}
+    \begin{frame}{More Inverse Properties}
+        \begin{tcolorbox}
+            Let $A\in\R^{n\times n}$, then if $A$ is invertible, so is $A^\top$ and \pause
+            \[
+                \left(A^\top\right)^{-1} = \left(A^{-1}\right)^\top
+            \]
+        \end{tcolorbox}
+        \pause
+        \only<1-2>{\vspace{130pt}}
+        \only<3->{
+            \[
+                A^\top\left(A^{-1}\right)^\top\pause = (A)^\top\left(A^{-1}\right)^\top\pause = 
+                \left(A^{-1}A\right)^\top\pause = I_n^\top\pause = I_n\pause
+            \]
+            \[
+                \left(A^{-1}\right)^\top A^\top\pause = \left(A^{-1}\right)^\top (A)^\top\pause =
+                \left(AA^{-1}\right)^\top\pause = I_n^\top\pause = I_n
+            \]
+            \vspace{100pt}
+        }
+    \end{frame}
+    \begin{frame}{Product of Elementary Matrices}
+        \small
+        Let $A = \begin{bmatrix}0&1&-2\\1&0&0\\0&0&5\end{bmatrix}$. Write $A$ as a product of
+            elementary matrices.\pause
+            \begin{columns}
+                \column{.25\textwidth}
+                    \begin{enumerate}
+                        \item $R_2 = R_2 - 2R_3$
+                        \only<4->{\item Swap $R_1$ and $R_2$}
+                        \only<6->{\item $R_3 = 5R_3$.}
+                    \end{enumerate}
+                \column{.75\textwidth}
+                \[
+                    \only<3->{
+                    E_1 = \begin{bmatrix}
+                        1&0&0\\
+                        0&1&-2\\
+                        0&0&1
+                    \end{bmatrix},} 
+                    \only<5->{E_2 = \begin{bmatrix}
+                        0 & 1 & 0\\
+                        1 & 0 & 0\\
+                        0 & 0 & 1
+                    \end{bmatrix},}
+                    \only<7->{E_3 = \begin{bmatrix}
+                        1&0&0\\
+                        0&1&0\\
+                        0&0&5
+                    \end{bmatrix}}
+                \]
+            \end{columns}
+            \pause\pause\pause\pause\pause\pause
+            \[
+                A=E_3E_2E_1\pause =\begin{bmatrix}
+                        1&0&0\\
+                        0&1&0\\
+                        0&0&5
+                    \end{bmatrix}\begin{bmatrix}
+                        0 & 1 & 0\\
+                        1 & 0 & 0\\
+                        0 & 0 & 1
+                    \end{bmatrix}\begin{bmatrix}
+                        1&0&0\\
+                        0&1&-2\\
+                        0&0&1
+                    \end{bmatrix}\pause = \begin{bmatrix}
+                        0&1&-2\\
+                        1&0&0\\
+                        0&0&5
+                    \end{bmatrix}
+            \]
+            \pause
+            \[
+                A^{-1} = E_1^{-1}E_2^{-1}E^{-1}_3\pause = \begin{bmatrix}
+                        1&0&0\\
+                        0&1&2\\
+                        0&0&1
+                    \end{bmatrix}\pause\begin{bmatrix}
+                        0 & 1 & 0\\
+                        1 & 0 & 0\\
+                        0 & 0 & 1
+                    \end{bmatrix}\pause\begin{bmatrix}
+                        1&0&0\\
+                        0&1&0\\
+                        0&0&\frac{1}{5}
+                    \end{bmatrix}\pause = \begin{bmatrix}
+                        0 & 1 & 0\\
+                        1 & 0 & \frac{2}{5}\\
+                        0 & 0 & \frac{1}{5}
+                    \end{bmatrix}
+            \]
+    \end{frame}
+    \begin{frame}{How to Compute $A^{-1}$ in General?}
+        \small
+        We can perform \rText{Gaussian Elimination} on $\aMat{c|c}{A&I_n}$!\pause
+        
+        If $A$ is \bText{row equivalent} to $I_n$ (IE we reduce the left part to $I_n$), then\pause
+        \begin{itemize}
+            \item $\aMat{c|c}{A&I_n}$ is row equivalent to $\aMat{c|c}{I_n&A^{-1}}$\pause
+            \item Otherwise, $A^{-1}$ doesn't exist!\pause
+        \end{itemize}
+        \begin{example}
+            \[
+                \aMat{c|c}{A&I_n}\pause = \aMat{ccc|ccc}{
+                    0 & 1 & -2 & 1 & 0 & 0 \\
+                    1 & 0 & 0 &  0 & 1 & 0 \\
+                    0 & 0 & 5 &  0 & 0 & 1
+                }\pause\rightarrow\aMat{ccc|ccc}{
+                    1 & 0 & 0 &  0 & 1 & 0 \\
+                    0 & 1 & -2 & 1 & 0 & 0 \\
+                    0 & 0 & 5 &  0 & 0 & 1
+                }\pause\rightarrow\aMat{ccc|ccc}{
+                    1 & 0 & 0 &  0 & 1 & 0 \\
+                    0 & 1 & -2 & 1 & 0 & 0 \\
+                    0 & 0 & 1 &  0 & 0 & \frac{1}{5}
+                }\pause
+            \]
+            \[\rightarrow\aMat{ccc|ccc}{
+                    1 & 0 & 0 &  0 & 1 & 0 \\
+                    0 & 1 & 0 &  1 & 0 & \frac{2}{5} \\
+                    0 & 0 & 1 &  0 & 0 & \frac{1}{5}
+                }
+            \]
+        \end{example}
+    \end{frame}
+    \begin{frame}{How to Compute $A^{-1}$ Practice $3\times 3$}
+        If possible, find the inverse of the given matrices.
+        \begin{columns}
+            \column{.5\textwidth}
+            \[
+                \begin{bmatrix}
+                    1 & 0 & 3\\
+                    0 & -2&-2\\
+                    1 & -3& 1
+                \end{bmatrix}
+            \]
+            \column{.5\textwidth}
+            \[
+                \begin{bmatrix}
+                    2 & 0 & 1\\
+                    0 & 1 & 3\\
+                   -4 & 0 &-2
+                \end{bmatrix}
+            \]
+        \end{columns}
+        \vspace{130pt}
+    \end{frame}
+    \iftoggle{showSolutions}{
+        \begin{frame}{$A^{-1}$ Solution 1}
+            \scriptsize
+            \[
+                A = \begin{bmatrix}
+                        1 & 0 & 3\\
+                        0 & -2&-2\\
+                        1 & -3& 1
+                    \end{bmatrix}
+            \]
+            \pause
+            \[
+                \aMat{ccc|ccc}{
+                    1 & 0 & 3 & 1 & 0 & 0\\
+                    0 & -2&-2 & 0 & 1 & 0\\
+                    1 & -3& 1 & 0 & 0 & 1
+                }\xrightarrow{R_3=R_3-R1}\aMat{ccc|ccc}{
+                    1 & 0 & 3 & 1 & 0 & 0\\
+                    0 & -2&-2 & 0 & 1 & 0\\
+                    0 & -3& -2& -1& 0 & 1
+                }\pause\xrightarrow{R_2=-\frac{R_2}{2}}\aMat{ccc|ccc}{
+                    1 & 0 & 3 & 1 & 0 & 0\\
+                    0 & 1 & 1 & 0 & -\frac{1}{2} & 0\\
+                    0 & -3& -2& -1& 0 & 1
+                }
+            \]
+            \[
+                \pause\xrightarrow{R_3=R_3+3R_2}\aMat{ccc|ccc}{
+                    1 & 0 & 3 & 1 & 0 & 0\\
+                    0 & 1 & 1 & 0 & -\frac{1}{2} & 0\\
+                    0 & 0 & 1& -1& -\frac{3}{2} & 1
+                }\pause\xrightarrow{R_2=R_2-R_3}\aMat{ccc|ccc}{
+                    1 & 0 & 3 & 1 & 0 & 0\\
+                    0 & 1 & 0 & 1 & 1 & -1\\
+                    0 & 0 & 1& -1& -\frac{3}{2} & 1
+                }
+            \]
+            \[
+                \pause\xrightarrow{R_1-3R_3}\aMat{ccc|ccc}{
+                    1 & 0 & 0 & 4 & \frac{9}{2} & -3\\
+                    0 & 1 & 0 & 1 & 1 & -1\\
+                    0 & 0 & 1& -1& -\frac{3}{2} & 1
+                }
+            \]
+        \end{frame}
+        \begin{frame}{$A^{-1}$ Solution 2}
+            \[
+                A = \begin{bmatrix}
+                    2 &0& 1\\
+                    0 &1& 3\\
+                    -4&0&-2
+                \end{bmatrix}
+            \]
+            \[
+                \aMat{ccc|ccc}{
+                    2 &0& 1&1&0&0\\
+                    0 &1& 3&0&1&0\\
+                    -4&0&-2&0&0&1
+                }\xrightarrow{R_3=R_3+2R_1}\aMat{ccc|ccc}{
+                    2 &0& 1&1&0&0\\
+                    0 &1& 3&0&1&0\\
+                    \rTextWait{0}{2-}&\rTextWait{0}{2-}&\rTextWait{0}{2-}&\rTextWait{0}{2-}
+                    &\rTextWait{0}{2-}&\rTextWait{1}{2-}
+                }
+            \]
+            \pause
+            \rText{Can't find the inverse!}
+        \end{frame}
+    }{}
+    \begin{frame}{How to Compute $A^{-1}$ Practice $2\times 2$}
+        If possible, find the inverse of the given matrices.
+        \begin{columns}
+            \column{.5\textwidth}
+            \[
+                \begin{bmatrix}
+                    3 & 6 \\
+                    1 & 2
+                \end{bmatrix}
+            \]
+            \column{.5\textwidth}
+            \[
+                \begin{bmatrix}
+                   -2 & 4 \\
+                   -3 & 1
+                \end{bmatrix}
+            \]
+        \end{columns}
+        \vspace{130pt}
+    \end{frame}
+    \iftoggle{showSolutions}{
+        \begin{frame}{$A^{-1}$ solution 3}
+            \[
+                A = \begin{bmatrix}
+                        3 & 6 \\
+                        1 & 2
+                    \end{bmatrix}
+            \]
+            \[
+                \aMat{cc|cc}{
+                    3&6&1&0\\1&2&0&1
+                }\xrightarrow{R_2=R_2-\frac{R_1}{3}}\aMat{cc|cc}{
+                    3&6&1&0\\
+                    \rTextWait{0}{2-}&\rTextWait{0}{2-}&\rTextWait{-\frac{1}{3}}{2-}&\rTextWait{1}{2-}
+                }
+            \]
+            \pause
+            \rText{Can't find the inverse!}
+        \end{frame}
+        \begin{frame}{$A^{-1}$ solution 4}
+            \[
+                A = \begin{bmatrix}
+                   -2 & 4 \\
+                   -3 & 1
+                \end{bmatrix}
+            \]
+            \[
+                \aMat{cc|cc}{
+                    -2 & 4 & 1 & 0\\
+                    -3 & 1 & 0 & 1
+                }\xrightarrow{R_2=R_2-\frac{3R_1}{2}}\aMat{cc|cc}{
+                    -2 & 4 & 1 & 0\\
+                    0 & -5 & -\frac{3}{2} & 1
+                }\pause\xrightarrow[R_2=\frac{-R_2}{5}]{R_1=\frac{-R_1}{2}}\aMat{cc|cc}{
+                    1 & -2 & -\frac{1}{2} & 0\\
+                    0 &  1 & \frac{3}{10} & -\frac{1}{5}
+                }
+            \]
+            \[
+                \pause\xrightarrow{R_1=R_1+2R_2}\aMat{cc|cc}{
+                    1 & 0 & \frac{1}{10} & -\frac{2}{5}\\
+                    0 & 1 & \frac{3}{10} & -\frac{1}{5}
+                }
+            \]
+        \end{frame}
+    }{}
+    \begin{frame}{Solving a System With $A^{-1}$}
+        \small
+        Let's say we know $A^{-1}$. How can we solve linear systems like $A\vec{x} = \vec{b}$?\pause
+
+        \[
+            A\vec{x} = \vec{b} \pause\rightarrow A^{-1}A\vec{x} = A^{-1}\vec{b} \pause\rightarrow \vec{x} = A^{-1}\vec{b}
+        \]
+        \pause
+        This gives us our potential method as\pause
+        \begin{tcolorbox}
+        \begin{enumerate}
+            \item Write our system as $A\vec{x} = \vec{b}$.\pause
+            \item find $A^{-1}$\pause
+                \begin{enumerate}
+                    \item If we cannot, then we must use GE as normal\pause
+                    \item If we can, then continue\pause
+                \end{enumerate}
+            \item Multiply both sides of (1) by $A^{-1}$.\pause
+            \item Solution is $\vec{x} = A^{-1}\vec{b}$
+        \end{enumerate}
+        \end{tcolorbox}
+        \begin{tcolorbox}
+            Note: If $A$ is \textbf{NOT} square, then we cannot find an inverse!
+        \end{tcolorbox}
+    \end{frame}
+\end{document}

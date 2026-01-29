@@ -1,0 +1,293 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+\usepackage{3191Style}
+\date{Matrix Equations}
+
+\begin{document}
+    \begin{frame}
+        \begin{definition}{Matrix-Vector Products}
+            \rText{Matrix-Vector Product}: Let $A\in\R^{m\times n}$ be an $m\times n$ matrix\pause\ 
+            where each column is given by $\vec{a}_1,\dots, \vec{a}_n$ are column vectors in $\R^m$\pause\pause , and let 
+            $\vec{x}\in\R^n$ be a column vector. Then we define the \bText{matrix-vector product} of $A$ and $x$
+            to be
+            \pause
+            \[
+                \onslide<3->A\onslide<5->\vec{x} \onslide<3->= \begin{bmatrix}
+                    \vec{a}_1 & \dots & \vec{a}_n
+                \end{bmatrix}\onslide<5->\begin{bmatrix}
+                    x_1\\\vdots\\x_n
+                \end{bmatrix} \pause= \vec{a}_1x_1 + \cdots + \vec{a}_nx_n \pause= \sum_{k=1}^n \vec{a}_kx_k
+            \]
+        \end{definition}
+        \pause
+        \begin{tcolorbox}
+            What does this mean about the relation between the columns and $A$ and the number of 
+            elements in $\vec{x}$?\iftoggle{showSolutions}{
+                \rText{$\vec{x}$ must have the same number of elements as $A$ does rows!}
+            }{}
+        \end{tcolorbox}
+    \end{frame}
+    \begin{frame}{Matrix-Vector Product Practice}
+        \small
+        Determine if each of the following matrix-vector products are defined. If they are, then
+        compute the product.
+        \begin{columns}
+            \column{.5\textwidth}
+            \begin{enumerate}[a)]
+                \item $\displaystyle A = \onslide<2>\underbrace{\onslide<1->\begin{bmatrix}
+                        2 & -4 & 3 & 1\\
+                        6 & 2 & 1 & 9 \\
+                        1 & 0 & 2 & -1\\
+                \end{bmatrix}\onslide<2>}_{\rText{4}}\onslide<1->$ and $\displaystyle \vec{x} = 
+                    \onslide<2>\left.\onslide<1->\begin{bmatrix}
+                    -1\\-1\\5\\2
+                    \end{bmatrix}\onslide<2>\right\}\bText{4}\onslide<1->$
+            \end{enumerate}
+            \column{.5\textwidth}
+            \begin{enumerate}[a)]
+                    \addtocounter{enumi}{1}
+                \item $\displaystyle A = \onslide<3>\underbrace{\onslide<1->\begin{bmatrix}
+                        2 & -4 & 3 & 1\\
+                        6 & 2 & 1 & 9 \\
+                        1 & 0 & 2 & -1\\
+                \end{bmatrix}\onslide<3> }_{\rText{4}}\onslide<1->$ and $\displaystyle \vec{x} = 
+                    \onslide<3->\left.\onslide<1->\begin{bmatrix}
+                    -1\\-1\\5
+                \end{bmatrix}\onslide<3>\right\}\bText{3}\onslide<1->$
+            \end{enumerate}
+        \end{columns}
+        \vfill
+        \pause\pause\pause
+        For (a):
+
+        \[
+            A\vec{x} = \pause\begin{bmatrix}
+                        2 & -4 & 3 & 1\\
+                        6 & 2 & 1 & 9 \\
+                        1 & 0 & 2 & -1\\
+                \end{bmatrix}\begin{bmatrix}
+                    -1\\-1\\5\\2
+                \end{bmatrix}\pause = -1\begin{bmatrix}2\\6\\1\end{bmatrix}-1\begin{bmatrix}-4\\2\\0\end{bmatrix}
+                    +5\begin{bmatrix}3\\1\\2\end{bmatrix} + 2\begin{bmatrix} 1\\9\\-1\end{bmatrix}
+                       \pause = \begin{bmatrix}
+                            -2+4+15+2\\
+                            -6-2+5+18\\
+                            -1-0+10-2
+                        \end{bmatrix} \pause= \begin{bmatrix}
+                            19\\15\\7
+                        \end{bmatrix}
+        \]
+    \end{frame}
+        \begin{frame}{Matrix-Vector Product Properties}
+            \scriptsize
+            \begin{tcolorbox}
+                Let $A\in\R^{m\times n}$, $\vec{u},\vec{v}\in\R^n$, and $c$ be a scalar. Then we know
+                \begin{itemize}
+                    \item $A(\vec{u}+\vec{v}) = A\vec{u} + A\vec{v}$
+                    \item $A(c\vec{v}) = cA\vec{v}$
+                \end{itemize}
+            \end{tcolorbox}
+                \vfill
+                \pause
+                \begin{proof}
+                    We will demonstrate that $A(\vec{u}+\vec{v}) = A\vec{u} + A\vec{v}$.
+
+                    \begin{eqnarray*}
+                        A(\vec{u}+\vec{v}) &=& A\begin{bmatrix}
+                            u_1+v_1\\
+                            \vdots\\
+                            u_n+v_n
+                        \end{bmatrix} \pause = \vec{a}_1(u_1+v_1) + \cdots + \vec{a}_n(u_n+v_n) \\
+                        \pause &=& \vec{a}_1u_1 + \vec{a}_1v_1 + \cdots + \vec{a}_nu_n + \vec{a}_nv_n\pause = \vec{a}_1u_1 + \cdots + \vec{a}_nu_n + \vec{a}_1v_1 + \cdots + \vec{a}_nv_n \\
+                        \pause &=& A\vec{u} + A\vec{v}
+                    \end{eqnarray*}
+                \end{proof}
+        \end{frame}
+    \begin{frame}{Revisiting Span}
+        \begin{example}
+            \small
+            Determine if $\vec{b}=\begin{bmatrix} 6\\-2\\-10\end{bmatrix}$ is in 
+                $
+                    \Span{\begin{bmatrix}1\\0\\-2\end{bmatrix},\begin{bmatrix}0\\1\\-1\end{bmatrix}}
+                $
+        \end{example}
+        \pause
+        We solve either
+        \begin{columns}
+            \column{.5\textwidth}
+            \begin{eqnarray*}
+                1x_1 + 0x_2 &=& 6\\
+                0x_1 + 1x_2 &=&-2\\
+                -2x_1 + -1x_2 &=& -10
+            \end{eqnarray*}
+            \column{.5\textwidth}
+            \[
+                \aMat{cc|c}{
+                    1&0&6\\
+                    0&1&-2\\
+                    -2&-1&-10
+                }
+            \]
+        \end{columns}
+        \pause
+        Or solve $A\vec{x} = \vec{b}$ where
+        \[
+            A = \begin{bmatrix}
+                1&0\\0&1\\-2&-1
+            \end{bmatrix}\text{ and }\vec{b} = \begin{bmatrix}
+                6\\-2\\-10
+            \end{bmatrix}
+        \]
+    \end{frame}
+    \begin{frame}{Span with Matrix-Vector Products}
+        \begin{tcolorbox}
+            If $A\in\R^{m\times n}$ has columns $\vec{a}_1,\dots,\vec{a}_n$ and $b\in\R^m$, then
+            the matrix equation $A\vec{x}=\vec{b}$ has the same solution as 
+            \[
+                x_1\vec{a}_1 + \dots + x_n\vec{a}_n
+            \]
+        \end{tcolorbox}
+        \vspace{70pt}
+        \begin{theorem}
+            The equation $A\vec{x}=\vec{b}$ has a solution if and only if $\vec{b}$ is a linear 
+            combination of the columns of matrix $A$.
+        \end{theorem}
+    \end{frame}
+    \begin{frame}{Span with General Vectors}
+        \scriptsize
+        We've answered questions about if a particular vector is in the span of others, but what
+        about \rText{all} vectors?
+        \pause
+        \begin{example}
+            Are all vectors $\vec{b}=\begin{bmatrix}b_1\\b_2\\b_3\end{bmatrix}\in\R^3$ in
+            $\Span{
+                \begin{bmatrix}
+                    1\\1\\-3
+                \end{bmatrix}, \begin{bmatrix}
+                    1\\0\\2
+                \end{bmatrix}, \begin{bmatrix}
+                    6\\8\\6
+                \end{bmatrix}
+            }$?
+        \end{example}
+        \pause
+        \begin{solution}
+            Set up the augmented system and reduce!
+            \[
+                \aMat{ccc|c}{
+                    1&1&6&b_1\\
+                    1&0&8&b_2\\
+                    -3&2&6&b_3
+                }\pause\rightarrow\aMat{ccc|c}{
+                    1&1&6&b_1\\
+                    0&-1&2&b_2-b_1\\
+                    -3&2&6&b_3
+                }\pause\rightarrow\aMat{ccc|c}{
+                    1&1&6&b_1\\
+                    0&-1&2&b_2-b_1\\
+                    0&5&24&b_3+3b_1
+                }
+            \]
+            \[
+                \pause\rightarrow\aMat{ccc|c}{
+                    1&1&6&b_1\\
+                    0&-1&2&b_2-b_1\\
+                    0&0&34&b_3+3b_1+5(b_2-b_1)
+                }.\pause\textnormal{ See that regardless of $b_1,b_2,b_3$, we can get an answer!}
+            \]
+        \end{solution}
+    \end{frame}
+    \begin{frame}
+        \begin{theorem}
+            Let $A\in\R^{m\times n}$. The following 4 statements are equivalent.
+            \begin{enumerate}
+                \item The equation $A\vec{x}=\vec{b}$ has a solution for every $\vec{b}\in\R^m$
+                \item All vectors $\vec{b}\in\R^m$ can be written as linear combinations of columns
+                    of $A$.
+                \item The columns of $A$ span all of $\R^m$.
+                \item $A$ has a pivot in every row.
+            \end{enumerate}
+        \end{theorem}
+    \end{frame}
+    \begin{frame}{Span Practice}
+        For each of the following matrices, determine if their columns span all of $\R^3$.
+        \begin{columns}
+            \column{.5\textwidth}
+            \begin{enumerate}
+                \item \[
+                        A = \begin{bmatrix}
+                            3 & -2 & 7\\
+                            1 & 1 & 4\\
+                            6 & 1 & 19
+                        \end{bmatrix}
+                    \]
+                    \iftoggle{showSolutions}{
+                        \pause
+                        \[
+                            \begin{bmatrix}
+                            3 & -2 & 7\\
+                            1 & 1 & 4\\
+                            6 & 1 & 19
+                            \end{bmatrix}\pause\rightarrow\begin{bmatrix}
+                            1 & 1 & 4\\
+                            3 & -2 & 7\\
+                            6 & 1 & 19
+                            \end{bmatrix}
+                        \]
+                        \[
+                            \pause\rightarrow\begin{bmatrix}
+                            1 & 1 & 4\\
+                            0 & -5 & -5\\
+                            0 & -5 & -5
+                            \end{bmatrix}\pause\rightarrow\begin{bmatrix}
+                            1 & 1 & 4\\
+                            0 & -5 & -5\\
+                            0 & 0 & 0
+                            \end{bmatrix}
+                        \]
+                        \pause\rText{NO!}
+                    }{}
+            \end{enumerate}
+            \column{.5\textwidth}
+            \begin{enumerate}
+                    \addtocounter{enumi}{1}
+                \onslide<1->\item \[
+                        A = \begin{bmatrix}
+                            3 & -2 & 1\\
+                            1 & 1 & 2\\
+                            3 & 4 & 1
+                        \end{bmatrix}
+                    \]
+                    \iftoggle{showSolutions}{
+                        \onslide<5->
+                        \pause
+                        \[
+                            \begin{bmatrix}
+                            3 & -2 & 1\\
+                            1 & 1 & 2\\
+                            3 & 4 & 1
+                            \end{bmatrix}\pause\rightarrow\begin{bmatrix}
+                            1 & 1 & 2\\
+                            3 & -2 & 1\\
+                            3 & 4 & 1
+                            \end{bmatrix}
+                        \]
+                        \[
+                            \pause\rightarrow\begin{bmatrix}
+                            1 & 1 & 2\\
+                            0 & -5 & -5\\
+                            0 & -1 & -5
+                            \end{bmatrix}\pause\rightarrow\begin{bmatrix}
+                            1 & 1 & 2\\
+                            0 & -5 & -5\\
+                            0 & 0 & -4
+                            \end{bmatrix}
+                        \]
+                        \pause\rText{YES!}
+                    }{}
+            \end{enumerate}
+        \end{columns}
+        \iftoggle{showSolutions}{}{
+            \vspace{170pt}
+        }
+    \end{frame}
+\end{document}

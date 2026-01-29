@@ -1,0 +1,289 @@
+% on slide 7.
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+% Date gives the title of the lecture
+\date{Diagonalizability}
+
+\begin{document}
+    \begin{frame}{Diagonal Matrix Arithmetic}
+        To motivate this section, let's look at how diagonal matrices multiply
+        Let $D_1=\bMat{x&0&0\\0&y&0\\0&0&z},D_2=\bMat{a&0&0\\0&b&0\\0&0&c}$, see that\pause
+        \[
+            D_1D_2 = \bMat{x&0&0\\0&y&0\\0&0&z}\bMat{a&0&0\\0&b&0\\0&0&c} \pause =
+            \bMat{x\\0\\0}\bMat{a&0&0} + \bMat{0\\y\\0}\bMat{0&b&0} + \bMat{0\\0\\z}\bMat{0&0&z}\pause
+        \]
+        \[
+            \bMat{
+                xa & 0 & 0\\
+                0 & 0 & 0\\
+                0 & 0 & 0
+            }+\bMat{
+                0 & 0 & 0\\
+                0 & yb & 0\\
+                0 & 0 & 0
+            }+\bMat{
+                0 & 0 & 0\\
+                0 & 0 & 0\\
+                0 & 0 & zc
+            }\pause = \bMat{
+                xa & 0 & 0\\
+                0 & yb & 0\\
+                0 & 0 & zc
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Powers of Diagonal Matrices}
+        From the previous slide, we see that for any diagonal
+        $D=\bMat{
+            x&0&0\\
+            0&y&0\\
+            0&0&z
+        }$, we have
+        \[
+            D^n = \bMat{
+            x^n&0&0\\
+            0&y^n&0\\
+            0&0&z^n
+        }
+        \]
+    \end{frame}
+    \begin{frame}{Diagonalizability}
+        \begin{defn}
+            \rText{Diagonalizable}: We say that a matrix $A\in\R^{n\times n}$ is 
+            \bText{diagonalizable} if it is similar to a diagonal matrix.\pause
+
+            Or equivalently, $A$ is \bText{diagonalizable} if there exists an invertible 
+            $C\in\R^{n\times n}$, and diagonal $D\in\R^{n\times n}$ such that
+            \[
+                A = CDC^{-1}
+            \]
+        \end{defn}
+        \pause\
+        An application is in computing matrix powers!
+        \[
+            A^n = \left(CDC^{-1}\right)^n\pause =\underbrace{CDC^{-1}CDC^{-1}\cdots 
+            CDC^{-1}CDC^{-1}}_{n\textnormal{ times}}\pause =CD^nC^{-1}
+        \]
+    \end{frame}
+    \begin{frame}{Diagonalization Theorem}
+        \small
+        \begin{theorem}
+            Let $A\in\R^{n\times n}$. Then, $A$ is diagonalizable if and only if it has $n$ linearly
+            independent eigenvectors.
+        \end{theorem}\pause
+        This means that if $A=CDC^{-1}$, then we have that 
+        \[
+            C = \bMat{\vec{v}_1 & \vec{v}_2 &  \dots & \vec{v}_n}\qquad D = \bMat{
+                \lambda_1 & 0 & \dots & 0\\
+                0 & \lambda_2 & \ddots & 0\\
+                \vdots & \ddots & \ddots & \vdots\\
+                0 & 0 & \dots & \lambda_n
+            }
+        \]
+        where $(\vec{v}_1,\lambda_1),\dots,(\vec{v}_n,\lambda_n)$ are each eigenpairs.\pause\\
+        \begin{tcolorbox}
+            Remember that eigenvectors associated with distinct eigenvalues are linearly independent.\pause\
+            So, if $A$ has $n$ distinct eigenvalues, then it is diagonalizable!
+        \end{tcolorbox}
+    \end{frame}
+    \begin{frame}{Diagonalization is not Unique $2\times 2$ Example}
+        Consider $A = \bMat{1&2\\0&4}$. We see that for $V_1,V_2,D\in\R^{2\times 2}$ as given below,
+        \[
+            V_1 = \bMat{
+                1 & 2\\
+                0 & 3
+            }, V_2 = \bMat{
+                2 & 2 \\
+                0 & 3
+            }, D = \bMat{1 & 0\\0 & 4}
+        \]\pause
+        We have
+        \[
+            AV_1 = V_1D\qquad AV_2 = V_2D
+        \]\pause
+        But $V_1\neq V_2$.
+    \end{frame}
+    \begin{frame}{Diagonalization}
+        In order to diagonalize a matrix, $A\in\R^{n\times n}$, we do the following
+        \begin{enumerate}
+            \pause\item Compute all eigenvalues $\lambda_1,\dots, \lambda_k$ \pause ($k$ may not be $n$)
+            \pause\item Compute a basis for each $E(A,\lambda_\ell)$.
+            \pause\item If the total number of basis vectors is less than $n$, then $A$ is not
+                diagonalizable, Otherwise, continue
+            \pause\item Now $\vec{v}_1,\dots,\vec{v}_n$ (Eigenspace basis vectors!) form the columns
+                of $C$, and their associated eigenvalues form the diagonal of $D$.
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Diagonalization Example}
+        Let $A=\bMat{
+            2 & 0 & 2\\
+            0 & 1 & 0\\
+            2 & 0 & 5
+        }$ which has characteristic polynomial $-\lambda^3+8\lambda^2-13\lambda+6$, which has roots
+        $1,6$. So we compute a basis for $E(A,1)$ and $E(A,6)$. We first do $E(A,1)$.
+        \[
+            \bMat{
+                2 & 0 & 2\\
+                0 & 1 & 0\\
+                2 & 0 & 5
+            }\pause\xrightarrow{B=A-I}\bMat{
+                1 & 0 & 2\\
+                0 & 0 & 0\\
+                2 & 0 & 4
+            }\pause\xrightarrow{R_2\leftrightarrow R_3}\bMat{
+                1 & 0 & 2\\
+                2 & 0 & 4\\
+                0 & 0 & 0
+            }\pause\xrightarrow{R_2=R_2-2R_1}\bMat{
+                1 & 0 & 2\\
+                0 & 0 & 0\\
+                0 & 0 & 0
+            }
+        \]
+        Whose null space has a basis of $\setBasic{\bMat{-2\\0\\1}, \bMat{0\\1\\0}}$.
+    \end{frame}
+    \begin{frame}{Diagonalization Example Part 2}
+        Now, we compute a basis for $E(A,6)$. For
+        \[
+            A = \bMat{
+                2 & 0 & 2\\
+                0 & 1 & 0\\
+                2 & 0 & 5
+            }
+        \]\pause
+        \[
+            \bMat{
+                2 & 0 & 2\\
+                0 & 1 & 0\\
+                2 & 0 & 5
+            }\pause\xrightarrow{B=A-6I}\bMat{
+                -4 & 0 & 2\\
+                0 & -5 & 0\\
+                2 & 0 & -1
+            }\pause\xrightarrow{R_3=R_3-\frac{1}{2}R_1}\bMat{
+                -4 & 0 & 2\\
+                0 & -5 & 0\\
+                0 & 0 & 0
+            }\pause\xrightarrow[R_2=-\frac{R_2}{5}]{R_1=-\frac{R_1}{4}}\bMat{
+                1 & 0 & \frac{1}{2}\\
+                0 & 1 & 0\\
+                0 & 0 & 0
+            }
+        \]
+        whose null space has a basis of $\setBasic{\bMat{-\frac{1}{2}\\0\\1}}$.
+    \end{frame}
+    \begin{frame}{Diagonalization Example Part 3}
+        So we can say that $A$ is similar to $D=\bMat{1 & 0 & 0\\0 & 1 & 0 \\ 0 & 0 & 6}$ with 
+        $C=\bMat{
+            -2 & 0 & -\frac{1}{2}\\
+            0 & 1 & 0\\
+            1 & 0 & 1
+        }$\pause or
+        \[
+            \bMat{
+                2 & 0 & 2\\
+                0 & 1 & 0\\
+                2 & 0 & 5
+            }\bMat{
+                -2 & 0 & -\frac{1}{2}\\
+                0 & 1 & 0\\
+                1 & 0 & 1
+            } = \bMat{
+                -2 & 0 & -\frac{1}{2}\\
+                0 & 1 & 0\\
+                1 & 0 & 1
+            }\bMat{
+                1 & 0 & 0\\
+                0 & 1 & 0\\
+                0 & 0 & 6
+            }
+        \]
+    \end{frame}
+    \begin{frame}{Multiplicity of a Root Review}
+        Recall that in the context of polynomials the \bText{multiplicity} of a root is the number
+        of times it is present in factored form.\pause
+        \begin{example}
+            For the polynomial $x^3 - 3x + 2$, we can factor it into
+            \[
+                (x-1)^2(x+2)
+            \]
+            So, $x=1$ is a root with multiplicity $2$ and $x=-2$ is a root with multiplicity $1$.
+        \end{example}
+    \end{frame}
+    \begin{frame}{Eigenvalue Multiplicities}
+        \begin{defn}
+            Let $A\in\R^{n\times n}$ with $\lambda$ as an eigenvalue of $A$.
+
+            \rText{Algebraic Multiplicity}: The \bText{algebraic multiplicity} of $\lambda$ is the
+            multiplicity as a root of the characteristic polynomial of $A$.\pause\\
+            \bText{Geometric Multiplicity}: The \bText{geometric multiplicity} of $\lambda$ is
+            the dimension of it's eigenspace (or $\dim{E(A,\lambda)}$).
+        \end{defn}
+        \pause
+        \begin{tcolorbox}
+            Let $A\in\R^{n\times n}$ and $\lambda$ be an eigenvalue of $A$. Then
+            \[
+                1\leq(\textnormal{the geometric multiplicity of }\lambda)\leq(\textnormal{the algebraic multiplicity of }\lambda)
+            \]
+        \end{tcolorbox}
+    \end{frame}
+    \begin{frame}{Variant of Diagonalizability Theorem}
+        \begin{theorem}
+            Let $A\in\R^{n\times  n}$. The following are equivalent:
+            \begin{enumerate}
+                \pause\item $A$ is diagonalizable
+                \pause\item The sum of the geometric multiplicities of all eigenvalues of $A$ is equal to $n$.
+            \end{enumerate}
+        \end{theorem}
+    \end{frame}
+    \begin{frame}{Finding Multiplicity Example}
+        Let $A = \bMat{
+            1 &-2 & 1\\
+            0 &-3 & 2\\
+            2 & 3 &-1
+        }$. Find the algebraic and geometric multiplicities of $1$.
+        \pause
+
+        The characteristic polynomial of $A$ is
+        \[
+            -\lambda^3 - 3\lambda^2 + 9\lambda -5\pause = -(\lambda-1)^2(\lambda+5)
+        \]\pause
+        So the algebraic multiplicity of $1$ is $2$.\pause\\
+        We now row reduce $A-I$\pause
+        \[
+            \bMat{
+                0 &-2 & 1\\
+                0 &-4 & 2\\
+                2 & 3 &-2
+            }\pause\xrightarrow{R_1\leftrightarrow R_3}\bMat{
+                2 & 3 &-2\\
+                0 &-4 & 2\\
+                0 &-2 & 1
+            }\pause\xrightarrow{R_3=R_3-\frac{1}{2}R_2}\bMat{
+                2 & 3 &-2\\
+                0 &-4 & 2\\
+                0 & 0 & 0
+
+            }
+        \]\pause
+        There are $2$ pivot variables, so $\dim{E(A,1)}=2$ 
+
+
+    \end{frame}
+    \begin{frame}{Finding Multiplicities Practice}
+        Let $A=\bMat{1&1\\0&1}$. It has only $1$ as an eigenvalue. Compute the algebraic
+        and geometric multiplicities of $1$.
+    \end{frame}
+    \begin{frame}{Multiplicities for Similar Matrices}
+        \begin{theorem}
+            Let $A,B\in\R^{n\times n}$ such that $A$ and $B$ are similar \textbf{and} $\lambda$ be an eigenvalue of both $A,B$. Then:
+            \begin{enumerate}
+                \pause\item The algebraic multiplicity of $\lambda$ is the same for $A$ and
+                    $B$.
+                \pause\item The geometric multiplicity of $\lambda$ is the same for $A$ and
+                    $B$.
+            \end{enumerate}
+        \end{theorem}
+    \end{frame}
+\end{document}

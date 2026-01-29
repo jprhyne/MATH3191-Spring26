@@ -1,0 +1,220 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+% Date gives the title of the lecture
+\date{Eigenvalues and Eigenvectors}
+
+\begin{document}
+    \begin{frame}{Eigenvalues and Eigenvectors\footnote{Aside: The word ``eigen'' comes from 
+        German and roughly translates to either ``own/self'' or ``characteristic''.}}
+        \begin{defn}
+            Let $A\in\R^{n\times n}$, then we define:
+            \begin{enumerate}
+                \pause\item An \rText{eigenvector} of $A$ is a vector $\vec{v}\neq\vec{0}$ such that
+                    $A\vec{v} = \lambda\vec{v}$ for some scalar $\lambda$.
+                \pause\item An \rText{eigenvalue} of $A$ is a scalar $\lambda$ such that there is
+                    some $\vec{v}\neq\vec{0}$ such that $A\vec{v} = \lambda\vec{v}$.
+            \end{enumerate}
+        \end{defn}\pause
+        \begin{tcolorbox}
+            Note: Since the definitions of eigenvalues and eigenvectors depend on each other, we sometimes
+            refer to the ordered pair
+            \[
+                (\lambda,\vec{v})
+            \]
+            as an \bText{eigenpair} of $A$.
+        \end{tcolorbox}
+    \end{frame}
+    \begin{frame}{Another Framing of Eigenvalues and Eigenvectors}
+        From the definition of the eigenpair $(\lambda,\vec{v})$, we see that $\vec{v}$ is a non-trivial
+        solution to the system
+        \[
+            \vec{0} = A\vec{v} - \lambda\vec{v} = (A-\lambda I_n)\vec{v}
+        \]\pause
+        So, if $\lambda$ is an eigenvalue of $A$, then the matrix $A-\lambda I$ has a non-trivial
+        null space, and the eigenvectors will be the vectors of this null space!
+    \end{frame}
+    \begin{frame}{Finding Eigenvectors for an Eigenvalue Example}
+        Let's verify if $\lambda=2$ is an eigenvalue of the following matrix, and if it is, 
+        find an eigenvector.
+        \[
+            A = \bMat{
+                3 & 4 & 6\\
+                2 & 12&14\\
+                1 & 6 &10
+            }
+        \]\pause
+        \[
+            \bMat{
+                3 & 4 & 6\\
+                2 & 12&14\\
+                1 & 6 &10
+            }\pause\xrightarrow{A=A-\lambda I}\bMat{
+                1 & 4 & 6\\
+                2 & 10&14\\
+                1 & 6 &8
+            }\pause\xrightarrow[R_3=R_3-R_1]{R_2=R_2-2R_1}\bMat{
+                1 & 4 & 6\\
+                0 & 2 & 2\\
+                0 & 2 & 2
+            }\pause\xrightarrow{R_3=R_3-R_2}\bMat{
+                1 & 4 & 6\\
+                0 & 2 & 2\\
+                0 & 0 & 0
+            }
+        \]
+        So $\lambda=2$ is an eigenvalue! Let's find an eigenvector.
+        \[
+            \pause\xrightarrow{R_2=\frac{R_2}{2}}\bMat{
+                1 & 4 & 6\\
+                0 & 1 & 1\\
+                0 & 0 & 0
+            }\pause\xrightarrow{R_1=R_1-4R_2}\bMat{
+                1 & 0 & 2\\
+                0 & 1 & 1\\
+                0 & 0 & 0
+            }\pause\rightarrow \vec{v} = \bMat{-2\\-1\\1}\textnormal{ is an eigenvector of }A.
+        \]
+
+    \end{frame}
+    \begin{frame}{Finding Eigenvectors for an Eigenvalue Practice}
+        Determine if $\lambda=1$ is an eigenvalue of the following matrix and if so, determine
+        an eigenvector associated with $\lambda=1$.
+        \[
+            A = \bMat{
+                2 & 2 & 9\\
+                2 & 8 &30\\
+                1 & 4 &18
+            }
+        \]
+        \iftoggle{showSolutions}{
+            \pause
+            \[
+                \left(1,\bMat{-1\\-4\\1}\right)
+            \]
+            is an eigenpair. See that\pause
+            \[
+                A\vec{v} = \bMat{
+                    2 & 2 & 9\\
+                    2 & 8 &30\\
+                    1 & 4 &18
+                }\bMat{-1\\-4\\1}\pause = -\bMat{2\\2\\1}-4\bMat{2\\8\\4}+\bMat{9\\30\\18}
+                \pause = \bMat{-2-8+9\\-2-32+30\\-1-16+18} = \bMat{
+                    -1\\
+                    -4\\
+                    1
+                }\pause = 1\vec{v}
+            \]
+        }{
+            \vspace{130pt}
+        }
+    \end{frame}
+    \begin{frame}{Eigenspace}
+        \begin{defn}
+            We define the \rText{Eigenspace} of $A$ associated with eigenvalue $\lambda$ to be
+            \[
+                E\left(A,\lambda\right) = \set{\vec{v}\in\R^n}{A\vec{v} = \lambda\vec{v}}
+            \]\pause
+            Or equivalently
+            \[
+                E\left(A,\lambda\right) = \nullS{A-\lambda I_n}
+            \]\pause
+        \end{defn}
+        Since the eigenspace is really just a nullspace, we know how to find a basis of it!
+    \end{frame}
+    \begin{frame}{Basis for an Eigenspace}
+        A basis for an eigenspace of $E(A,\lambda)$ is just a basis for $\nullS{A-\lambda I_n}$.
+        So, in order to find such a basis, we can
+        \begin{enumerate}
+            \pause\item Set up $A-\lambda I_n$.
+            \pause\item Reduce to RREF
+            \pause\item Write out a basis of this space as before
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Basis for an Eigenspace Example}
+        Find a basis for the eigenspaces $E(A,1)$ for 
+        \[
+            A = \bMat{
+                7 & 0 & 6\\
+                -3& 4 &-6\\
+                -3& 0 &-2
+            }
+        \]\pause
+        \[
+            \bMat{
+                7 & 0 & 6\\
+                -3& 4 &-6\\
+                -3& 0 &-2
+            }\pause\xrightarrow{A=A-\lambda I}\bMat{
+                6 & 0 & 6\\
+                -3& 3 &-6\\
+                -3& 0 &-3
+            }\pause\xrightarrow{R_1 = \frac{R_1}{6}}\bMat{
+                1 & 0 & 1\\
+                -3& 3 &-6\\
+                -3& 0 &-3
+            }\pause\xrightarrow[R_3=R_3+3R_1]{R_2=R_2+3R_1}\bMat{
+                1 & 0 & 1\\
+                0 & 3 &-3\\
+                0 & 0 & 0
+            }
+        \]
+        \[
+            \pause\xrightarrow{R_2=\frac{R_2}{3}}\bMat{
+                1 & 0 & 1\\
+                0 & 1 &-1\\
+                0 & 0 & 0
+            }\pause\rightarrow \nullS{A-I} = \Span{\bMat{-1\\1\\1}}
+        \]
+    \end{frame}
+    \begin{frame}{Basis for an Eigenspace Practice}
+        Find a basis for the eigenspaces $E(A,4)$ for 
+        \[
+            A = \bMat{
+                7 & 0 & 6\\
+                -3& 4 &-6\\
+                -3& 0 &-2
+            }
+        \]
+        \iftoggle{showSolutions}{
+            \pause
+            \[
+                E(A,4) = \Span{\bMat{-2\\0\\1}, \bMat{0\\1\\0}}
+            \]
+        }{\vspace{130pt}}
+    \end{frame}
+    \begin{frame}{The Eigenspace Associated With $0$}
+        What does $E(A,0)$ look like?\pause
+        \[
+            E(A,0) = \nullS{A-0I} = \nullS{A}
+        \]\pause
+        So, if this space has a non-trivial basis, then $A\vec{x}=\vec{0}$ has a non-trivial solution!\pause
+
+        Meaning we can say that a matrix is \rText{invertible} if and only if $0$ is \bText{not} an
+        eigenvalue of $A$.
+    \end{frame}
+    \begin{frame}{Linearly Independent Eigenvectors}
+        \small
+        \begin{theorem}
+            If $(\lambda_1, \vec{v}_1)$ and $(\lambda_2,\vec{v}_2)$ are two eigenpairs of a matrix
+            $A$ such that $\lambda_1\neq\lambda_2$, then $\vec{v}_1$ and $\vec{v}_2$ are linearly
+            independent.
+        \end{theorem}\pause
+        \begin{proof}
+            We will prove this via a contradiction. IE assume $\lambda_1\neq\lambda_2$ but 
+            $\vec{v}_1$ and $\vec{v}_2$ are linearly dependent.\pause\ Then, we show that this 
+            leads to nonsense.\pause\ If $\vec{v}_1$ and $\vec{v}_2$ are linearly dependent, 
+            then there is some constant $c$ such that $\vec{v}_1=c\vec{v}_2$.\pause\ See that
+            \[
+                \lambda_1\vec{v}_1 = A\vec{v}_1\pause\ = cA\vec{v}_2\pause\ 
+                = \lambda_2 c\vec{v}_2 =\pause\ \lambda_2\vec{v}_1
+            \]
+            So, 
+            \[
+                \lambda_1\vec{v}_1-\lambda_2\vec{v}_1 = \vec{0}\pause
+            \]
+            meaning that $\lambda_1=\lambda_2$, which contradicts our assumption that these eigenvalues
+            are distinct.
+        \end{proof}
+    \end{frame}
+\end{document}

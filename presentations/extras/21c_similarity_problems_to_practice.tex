@@ -1,0 +1,36 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+% Date gives the title of the lecture
+\date{Similarity Practice}
+
+\begin{document}
+    \begin{frame}{Matrix Similarity Practice}
+        I am listing out 5 matrices here $A-E$. If you'd like some practice, show that
+        (1) $A$ is similar to $B$ using $C$, (2) $B$ is similar to $D$ using $E$, and (3)
+        show that $A$ is similar to $D$ using $CE$. Or in other words
+        \begin{enumerate}
+            \item $AC = CB$
+            \item $BE = ED$
+            \item $A(CE) = (CE)D$
+        \end{enumerate}
+        \[
+            A = \bMat{
+                2 & 1\\
+                1 & 2
+            },B = \bMat{
+                3 & 2\\
+                0 & 1
+            }, C= \bMat{
+                1 & 0\\
+                1 & 2
+            }, D = \bMat{
+                3 & 0\\
+                0 & 1
+            }, E = \bMat{
+                1 & -1\\
+                0 & 1
+            }
+        \]
+    \end{frame}
+\end{document}

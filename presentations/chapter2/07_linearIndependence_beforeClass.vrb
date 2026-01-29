@@ -1,0 +1,32 @@
+\frametitle{Example}
+Determine whether the equation
+    \[
+        x_1\begin{bmatrix}2\\1\\0\end{bmatrix} + x_2\begin{bmatrix}-1\\6\\3\end{bmatrix} + x_3
+            \begin{bmatrix}6\\-10\\-6\end{bmatrix} = \begin{bmatrix}0\\0\\0\end{bmatrix}
+    \]
+    has a non-trivial solution.
+    \pause
+    \begin{columns}
+        \column{.5\textwidth}
+        \[
+            \aMat{ccc|c}{
+                2 & -1 & 6 & 0\\
+                1 & 6  &-10& 0\\
+                0 & 3  &-6 & 0
+            }\pause\rightarrow\aMat{ccc|c}{
+                1 & 0 & \rTextWait{2}{4-} & 0 \\
+                0 & 1 & \rTextWait{-2}{4-} & 0 \\
+                0 & 0 & \rTextWait{0}{4-} & 0
+            }
+        \]\pause
+        Since $\rText{x_3}$ is a free variable, we have non-trivial solutions
+        \column{.5\textwidth}\pause
+        Python code to get this answer!
+        \begin{verbatim}
+import sympy as sym
+A = sym.Matrix([[2, -1, 6, 0],
+                [1, 6, -10, 0],
+                [0, 3, -6, 0]])
+display(A.rref())
+        \end{verbatim}
+    \end{columns}

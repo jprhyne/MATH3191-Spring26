@@ -1,0 +1,336 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+% Date gives the title of the lecture
+\date{Vector Spaces}
+
+\begin{document}
+    \begin{frame}{What is a Vector Space?}
+        \footnotesize
+        A \rText{Vector Space} is a set $V$ that contains our \textit{vectors}, a set
+        $F$ that contains our scalars with a \bText{vector addition} operation and 
+        \bText{scalar multiplication} operation where the following properties are
+        true for every $\vec{u},\vec{v},\vec{w}\in V$ and $c,d\in F$.
+        \begin{columns}
+            \column{.5\textwidth}
+            \begin{enumerate}
+                \pause\item $V$ is closed under addition:\pause\\
+                    $\vec{u} + \vec{v}\in V$
+                \pause\item Vector addition is commutative:\pause\\
+                    $\vec{u}+\vec{v} = \vec{v}+\vec{u}$.
+                \pause\item Vector addition is associative:\pause\\
+                    $(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{w})$
+                \pause\item Additive Identity:\pause\\
+                    There exists some $\vec{0}\in V$ where $\vec{v} + \vec{0} = \vec{v}$
+                \pause\item Additive Inverse:\pause\ 
+                    for each $\vec{u}\in V$, there is some $-\vec{u}\in V$ such that
+                    $\vec{u} + (-\vec{u}) = \vec{0}$
+            \end{enumerate}
+            \column{.5\textwidth}
+            \begin{enumerate}\addtocounter{enumi}{5}
+                \pause\item $V$ is closed under scalar multiplication:\pause\\
+                    $c\vec{v}\in V$.
+                \pause\item Scalar multiplication distributes over vector addition:\pause\\
+                    $c(\vec{u} + \vec{v}) = c\vec{u} + c\vec{v}$.
+                \pause\item Scalar multiplication distributes over scalar addition:\pause\\
+                    $(c+d)\vec{v} = c\vec{v} + d\vec{v}$
+                \pause\item Scalar multiplication is associative:\pause\\
+                    $c(d\vec{v}) = (cd)\vec{v}$
+                \pause\item Multiplicative Identity:\pause\\
+                    There exists some $1\in F$ such that $1\vec{u} = \vec{u}$.
+            \end{enumerate}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}{What are some examples?}
+        $V=\R^n, F = \R$.\pause\ See Slide 8 of Lecture slide 3 for properties 2-5 and 7-10.
+
+        For properties 1 and 2, we have the definitions of vector addition and scalar multiplication that guarantees this!
+        \vspace{130pt}
+    \end{frame}
+    \begin{frame}{More Examples}
+        $V = \P_2$ is the set of all polynomials with real coefficients of degree $2$ or less.\pause\\
+        $F = \R$, with the operations we'd expect.
+        \begin{columns}
+            \column{.5\textwidth}
+                \begin{enumerate}
+                    \pause\item $(a_2x^2 + a_1x + a_0) + (b_2x^2 + b_1x + b_0) = 
+                        (a_2 + b_2)x^2 + (a_1+b_1)x + (a_0 + b_0)$
+                    \pause\item $f(x) + g(x) = g(x) + f(x)$
+                    \pause\item $(f(x) + g(x)) + h(x) = f(x) + (g(x) + h(x))$
+                    \pause\item $\vec{0} = 0x^2 + 0x + 0$
+                    \pause\item $-f(x) = -a_2x^2 - a_1x - a_0$
+                \end{enumerate}
+            \column{.5\textwidth}
+                \begin{enumerate}\addtocounter{enumi}{5}
+                    \pause\item $cf(x) = ca_2x^2 + ca_1x + ca_0$
+                    \pause\item $c(f(x) + g(x)) = cf(x) + cg(x)$
+                    \pause\item $(c+d)f(x) = cf(x) + df(x)$
+                    \pause\item $c(df(x)) = (cd)f(x)$
+                    \pause\item $1f(x) = f(x)$
+                \end{enumerate}
+        \end{columns}
+    \end{frame}
+    \begin{frame}{Is this a Vector Space?}
+        $V = \R^3, F=\R$ using standard scalar multiplication but $\vec{u}+\vec{v} =\begin{bmatrix}
+            u_1+v_2\\
+            u_2+v_2\\
+            u_3+v_3
+        \end{bmatrix}$
+        \vspace{130pt}
+    \end{frame}
+    \begin{frame}{Uniqueness of $\vec{0}$}
+        \begin{theorem} 
+            If $V$ is a vector space, then the $\vec{0}$ element is unique
+        \end{theorem}
+        \iftoggle{showSolutions}{
+            \pause
+            \begin{proof}
+                Let $\vec{w}\in V$ such that for every $\vec{u}\in V$ we have
+                \[
+                    \vec{w}+\vec{u} = \vec{u}+\vec{w} = \vec{u} 
+                \]\pause
+                By taking $\vec{u}=\vec{0}$, we have:\pause
+                \begin{eqnarray*}
+                    \vec{0}+\vec{w} &=& \vec{0}\pause\\
+                    \vec{w}+\vec{0} &=& \vec{w}\pause
+                \end{eqnarray*}
+                Thus, we see that $\vec{w} = \vec{0}$
+            \end{proof}
+        }{\vspace{130pt}}
+    \end{frame}
+    \begin{frame}{Uniqueness of Additive Inverse}
+        \begin{theorem}
+            If $V$ is a vector space, then for every $\vec{u}\in V$, we have that
+            $-\vec{u}$ is unique.
+        \end{theorem}
+        \iftoggle{showSolutions}{
+            \pause
+            \begin{proof}
+                Let $\vec{u}\in V$, and suppose there are two additive identities IE that
+                $-\vec{u}_1,-\vec{u}_2\in V$ such that $\vec{u}+(-\vec{u}_1) = \vec{0} =
+                \vec{u} + (-\vec{u}_2)$ See that\pause
+                \[
+                    \vec{u} + (-\vec{u}_1) = 0\rightarrow -\vec{u}_2 + (\vec{u} + (-\vec{u}_1)) = -\vec{u}_2\pause\rightarrow (-\vec{u}_2 + \vec{u})+ -\vec{u}_1 = -\vec{u}_2
+                \]
+                \[
+                    \pause\rightarrow -\vec{u}_1 = -\vec{u}_2
+                \]
+            \end{proof}
+        }{\vspace{130pt}}
+    \end{frame}
+    \begin{frame}{Vector Space Practice}
+        Work with your neighbors to determine if the following spaces are vector spaces
+        \begin{columns}
+            \column{.5\textwidth}
+            $V = \R^3,F=\R$ with the usual vector addition and  $c\vec{u} = \begin{bmatrix}
+                -cu_1\\-cu_2\\-cu_3
+            \end{bmatrix}$.
+            \column{.5\textwidth}
+            $V = \R^{3\times 3},F=\R$  with the standard operations.
+        \end{columns}
+        \vspace{130pt}
+    \end{frame}
+    \begin{frame}{Vector Subspaces}
+        \begin{defn}
+            A subspace of a vector space $V$ is a subset $H$ of $V$ ($H\subseteq V$) that has the following
+            properties (using the same vector addition, scalar multiplication, and $F$)
+            \begin{enumerate}
+                \pause\item The $\vec{0}$ from $V$ is in $H$.
+                \pause\item $H$ is closed under vector addition: for each $\vec{u},\vec{v}\in H$, we have
+                    $\vec{u} + \vec{v}\in H$.
+                \pause\item $H$ is closed under scalar multiplication: for each $c\in F$
+                    and $\vec{v}\in H$, we have $c\vec{v}\in  H$.
+            \end{enumerate}
+        \end{defn}
+    \end{frame}
+    \begin{frame}{Is it a Subspace?}
+        Determine with your neighbors if each of the following sets are subspaces of
+        $V=\R^3$.
+        \begin{columns}
+            \column{.5\textwidth}
+            \[
+                H = \set{\vec{v}\in\R^3}{\vec{v} = \begin{bmatrix}
+                    3a+b\\
+                    a+5\\
+                    2a-5b
+                \end{bmatrix}\textnormal{ for }a,b\in\R}
+            \]
+            \column{.5\textwidth}
+            \[
+                H = \set{\vec{v}\in\R^3}{\vec{v} = \begin{bmatrix}
+                    a\\0\\b
+                \end{bmatrix}\textnormal{ for }a,b\in\R}
+            \]
+        \end{columns}
+        \vspace{130pt}
+    \end{frame}
+    \begin{frame}{Spanning Sets and Subspaces}
+        Let $\vec{v}_1,\dots,\vec{v}_p$ denote a set of $p$ vectors in $V$. Then
+        $\Span{\vec{v}_1,\dots,\vec{v}_p}$ is a subspace of $V$.
+        \begin{enumerate}
+            \pause\item $\Span{\vec{v}_1,\dots,\vec{v}_p}$ is the \rText{subspace spanned by $\vec{v}_1,\dots,\vec{v}_p$}
+            \pause\item Given any subspace $H$ of $V$, a \rText{spanning set for $H$} is a set
+                $\setBasic{\vec{v}_1,\dots,\vec{v}_p}$ of vectors in $H$ such that
+                $H = \Span{\vec{v}_1,\dots,\vec{v}_p}$
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Example}
+        Determine if $H=\set{A\in\R^{3\times 3}}{A = \begin{bmatrix}
+            a & 0 & 0\\
+            0 & b & 0\\
+            0 & 0 & c
+        \end{bmatrix}, a + b + c = 0}$ is a subspace of $\R^{3\times 3}$ and if so, give a spanning set
+        for $H$.\pause
+        Show that $\vec{0}\in H$, Show that we are closed under ``vector'' addition, and show we 
+        are closed under scalar multiplication.
+        \begin{enumerate}
+            \pause\item Set $a=b=c=0$, clearly $a+b+c=0$ and then we have the $0$ matrix!
+            \pause\item Let $A,B\in H$. See that
+                \[
+                    A + B = \begin{bmatrix}
+                        a_1 + a_2 & 0 & 0\\
+                        0 & b_1 + b_2 & 0\\
+                        0 & 0 & c_1 + c_2
+                    \end{bmatrix}
+                \]\pause
+                and $(a_1+a_2) + (b_1+b_2) + (c_1+c_2) = a_1 + b_1 + c_1 + a_2 + b_2 + c_2 \pause = 0 + 0 = 0$, so $A+B\in H$.
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Example continued}
+        Determine if $H=\set{A\in\R^{3\times 3}}{A = \begin{bmatrix}
+            a & 0 & 0\\
+            0 & b & 0\\
+            0 & 0 & c
+        \end{bmatrix}, a + b + c = 0}$ is a subspace of $\R^{3\times 3}$ and if so, give a spanning set
+        for $H$.
+        \begin{enumerate}\addtocounter{enumi}{2}
+            \pause\item let $x\in\R$. See that
+                \[
+                    xA= \begin{bmatrix}
+                        xa & 0 & 0\\
+                        0 & xb & 0\\
+                        0 & 0 & xc
+                    \end{bmatrix}
+                \]\pause
+                And 
+                \[
+                    xa + xb + xc = x(a+b+c)\pause = x\cdot 0 = 0\pause
+                \]
+        \end{enumerate}
+        So, $H$ is a subspace of $\R^3$!
+    \end{frame}
+    \begin{frame}{Example continued pt. 2}
+        See that our ``vectors'' are $3\times 3$ matrices, so our spanning set will 
+        have these kinds of matrices!\pause\ 
+        Define
+        \[
+            \vec{v}_1 = \begin{bmatrix}
+                2 & 0 & 0\\
+                0 &-1 & 0\\
+                0 & 0 &-1
+            \end{bmatrix}, \vec{v}_2 = \begin{bmatrix}
+               -1 & 0 & 0\\
+                0 & 2 & 0\\
+                0 & 0 &-1
+            \end{bmatrix}, \vec{v}_3 = \begin{bmatrix}
+               -1 & 0 & 0\\
+                0 &-1 & 0\\
+                0 & 0 & 2
+            \end{bmatrix}\pause
+        \]
+        See that
+        \[
+            \Span{\vec{v}_1,\vec{v}_2,\vec{v}_3} = \set{A\in\R^{3\times 3}}{
+                A = a\vec{v}_1 + b\vec{v}_2 + c\vec{v}_3, \textnormal{ for }a,b,c\in\R
+            }
+        \]\pause
+        And
+    \end{frame}
+    \begin{frame}{Example continued pt. 3}
+        \[
+            a\vec{v}_1 + b\vec{v}_2 + c\vec{v}_3 = a\begin{bmatrix}
+                2 & 0 & 0\\
+                0 &-1 & 0\\
+                0 & 0 &-1
+            \end{bmatrix} + b\begin{bmatrix}
+               -1 & 0 & 0\\
+                0 & 2 & 0\\
+                0 & 0 &-1
+            \end{bmatrix} + c\begin{bmatrix}
+               -1 & 0 & 0\\
+                0 &-1 & 0\\
+                0 & 0 & 2
+            \end{bmatrix}
+        \]\pause 
+        \[ = \begin{bmatrix}
+                2a-b-c & 0 & 0\\
+                0 & -a+2b-c & 0\\
+                0 & 0 & -a-b+2c
+            \end{bmatrix}
+        \]
+        Where
+        \[
+            2a-b-c+(-a+2b-c) + (-a-b+2c)\pause = 0
+        \]
+    \end{frame}
+    \begin{frame}{Basis of a Vector Space}
+        \begin{defn}
+            \rText{Basis}: A \bText{basis} of a vector space $V$ is a set of $v_1,\dots,v_p\in V$
+            such that
+            \begin{enumerate}
+                \pause\item $\Span{v_1,\dots,v_p} = V$ 
+                \pause\item $v_1,\dots,v_p$ are linearly independent
+            \end{enumerate}
+        \end{defn}
+        \pause
+        \begin{example}
+            \[
+            \vec{v}_1 = \begin{bmatrix}
+                2 & 0 & 0\\
+                0 &-1 & 0\\
+                0 & 0 &-1
+            \end{bmatrix}, \vec{v}_2 = \begin{bmatrix}
+               -1 & 0 & 0\\
+                0 & 2 & 0\\
+                0 & 0 &-1
+            \end{bmatrix}, \vec{v}_3 = \begin{bmatrix}
+               -1 & 0 & 0\\
+                0 &-1 & 0\\
+                0 & 0 & 2
+            \end{bmatrix}\pause
+            \]
+            is a basis of
+            \[
+                H = \set{A\in\R^{3\times 3}}{A = \begin{bmatrix}
+                    a & 0 & 0\\
+                    0 & b & 0\\
+                    0 & 0 & c
+                \end{bmatrix}, a+b+c=0}
+            \]
+        \end{example}
+    \end{frame}
+    \begin{frame}{Length of Basis and Dimension of Vector Space}
+        \begin{theorem}
+            All bases of a vector space $V$ have the same number of elements
+        \end{theorem}
+        \vspace{100pt}
+        \pause
+        \begin{defn}
+            The \bText{dimension} of a vector space, denoted $\dim{V}$ is the length of a basis
+            of $V$.
+        \end{defn}
+    \end{frame}
+    \begin{frame}{Spanning and Independent List of Correct Size is a Basis}
+        \begin{theorem}
+            Let $V$ be a vector space with $n=\dim{V}$. Then, any linearly independent list of 
+            $n$ vectors, $\vec{v}_1,\dots,\vec{v}_n\in V$ forms a basis of $V$.
+        \end{theorem}\pause\vspace{90pt}
+        \begin{theorem}
+            Let $V$ be a vector space with $n=\dim{V}$. Then, any spanning of 
+            $n$ vectors, $\vec{v}_1,\dots,\vec{v}_n\in V$ such that $\Span{\vec{v}_1,\dots,\vec{v}_n} = V$
+            is also a basis of $V$.
+        \end{theorem}
+        \vspace{130pt}
+    \end{frame}
+\end{document}

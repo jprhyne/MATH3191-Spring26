@@ -1,0 +1,160 @@
+\documentclass[xcoler=dvipsnames, aspectratio=169]{beamer}
+
+\usepackage{3191Style}
+% Date gives the title of the lecture
+\date{Characteristic Polynomial}
+
+\begin{document}
+    \begin{frame}{Eigenpair Reminder}
+        Remember that we defined an eigenpair of $A$ as an ordered pair $(\lambda,\vec{v})$ such that
+        \[
+            A\vec{v} = \lambda\vec{v}
+        \]\pause
+        We've discussed how to confirm a proposed $\lambda$ is actually an eigenvalue and to compute
+        associated eigenvectors.\pause\ 
+
+        What about how to compute the eigenvalues themselves?
+    \end{frame}
+    \begin{frame}{Computing Eigenvalues}
+        Recall that if $\lambda$ is an eigenvalue of a matrix $A$, then 
+        \[
+            (A-\lambda I)\vec{v} = \vec{0}
+        \]
+        has a non-trivial solution.\pause\ In other words, $A-\lambda I$ is not invertible!\pause\
+
+        So, we can figure out all $\lambda$ values such that
+        \[
+            \det{A-\lambda I} = 0
+        \]
+    \end{frame}
+    \begin{frame}{Characteristic Polynomial}
+        \small
+        \begin{defn}
+            Let $A\in\R^{n\times n}$. The \bText{characteristic polynomial} of $A$ is the function
+            $f(\lambda)$ given by
+            \[
+                f(\lambda) = \det{A-\lambda I}
+            \]
+        \end{defn}\pause
+        \begin{theorem}
+            The roots of $f(\lambda)$ are exactly the eigenvalues of $A$.
+        \end{theorem}\pause
+        \begin{proof}
+            Let $\lambda$ be an eigenvalue of $A$, then $A-\lambda I$ is not invertible, so
+            $\det{A-\lambda I}=0$, so $f(\lambda) = \det{A-\lambda I} = 0$.\pause\
+
+            Let $\lambda$ be a root of $f(\lambda)$, then
+            \[
+                0 = f(\lambda) = \det{A-\lambda I}.
+            \]
+            So, $A-\lambda I$ is not invertible, so $\lambda$ is an eigenvalue of $A$.
+        \end{proof}
+    \end{frame}
+    \begin{frame}{Rational Root Theorem\footnote{A proof can be found at 
+        \url{https://en.wikipedia.org/wiki/Rational_root_theorem}}}
+        \footnotesize
+        \begin{theorem}
+            Let $f(\lambda) = c_0 + c_1\lambda + \dots + c_{n-1}\lambda^{n-1} + c_n\lambda^n$ 
+            be a polynomial with integer coefficients.\pause\ Then, all rational factors of $f$ 
+            are of the form
+            \[
+                x = \frac{p}{q}
+            \]
+            Where $p$ is an integer factor of $c_0$ and $q$ is an integer factor of $c_n$.
+        \end{theorem}\pause
+        \begin{example}
+            Consider $f(x) = x^3+x^2-10x+8$. Then our possible roots are
+            \[
+                \setBasic{\pm 1, \pm 2, \pm 4, \pm 8}
+            \]
+            And we plug in these values to see which one(s) are actual roots. 
+        \end{example}
+        Note: We may not have rational roots depending on the polynomial itself (complex roots!)
+    \end{frame}
+    \begin{frame}{Finding Eigenvalues Example}
+        \small
+        Let $A\in\R^{3\times 3}$ as given below. Then compute all the eigenvalues of $A$.
+        \[
+            A = \bMat{
+                4 & 1 &-1\\
+                1 & 4 &-3\\
+                -4&-4 & 5
+            }
+        \]\pause
+        \[
+            \det{A-\lambda I} = \det{\bMat{
+                4-\lambda & 1 &-1\\
+                1 & 4-\lambda &-3\\
+                -4&-4 & 5-\lambda
+            }} = -\lambda^3 +13\lambda^2 -39\lambda + 27 
+        \]\pause
+        Our rational roots theorem states that the possible rational eigenvalues are:
+        \[
+            \setBasic{\pm 1, \pm 3, \pm 9, \pm 27}
+        \]
+        So, we plug these in and find that $1,3,9$ are the eigenvalues.
+    \end{frame}
+    \begin{frame}{Finding Eigenvalues Practice}
+        Let $A\in\R^{2\times 2}$ as given below. Then compute all the eigenvalues of $A$.
+        \[
+            A = \bMat{
+                5 & -3\\
+                3 & -5
+            }
+        \]
+        \iftoggle{showSolutions}{
+            \pause
+            \[
+                f(\lambda) = \lambda^2 - 16
+            \]
+            which has roots\pause
+            \[
+                \lambda=\pm 4
+            \]
+        }{\vspace{130pt}}
+    \end{frame}
+    \begin{frame}{Trace of a Matrix}
+        \begin{defn}
+            Let $A\in\R^{n\times n}$. Then we define the \bText{trace} of $A$ as
+            \[
+                \trace{A} = a_{11} + \dots + a_{nn}
+            \]
+            where
+            \[
+                A = \bMat{
+                    \rText{a_{11}} & a_{12} & \dots & a_{1n}\\
+                    a_{21} & \rText{a_{22}} & \dots & a_{2n}\\
+                    \vdots & \vdots & \ddots& \vdots\\
+                    a_{n1} & a_{n2} & \dots & \rText{a_{nn}}
+                }
+            \]
+        \end{defn}
+    \end{frame}
+    \begin{frame}{Properties of the characteristic polynomial}
+        Let $A\in\R^{n\times n}$. Then we know that 
+        \[
+            f(\lambda) = (-1)^n\lambda^n + (-1)^{n-1}\trace{A}\lambda^{n-1} + \dots + \det{A}
+        \]\pause
+        This means if $A\in\R^{2\times 2}$ of the form
+        \[
+            A = \bMat{
+                a_{11} & a_{12}\\
+                a_{21} & a_{22}
+            }
+        \]\pause\ 
+        then the characteristic polynomial has the form:\pause
+        \[
+            f(\lambda) = \lambda^2 + (a_{11}+a_{22})\lambda + (a_{11}a_{22} - a_{12}a_{21})
+        \]
+
+    \end{frame}
+    \begin{frame}{What About Larger Problems? (IE $n\geq 5$)}
+        It's great that we can solve these small problems by hand, but what about larger ones?\pause\
+        Well, The Abel–Ruffini theorem\footnote{More information can be found here: 
+        \url{https://en.wikipedia.org/wiki/Abel\%E2\%80\%93Ruffini_theorem}} 
+        states that we cannot always solve for these eigenvalues when we have $n\geq 5$.\pause\
+
+        However, we can still try to solve these problems! We will achieve this via some methods
+        we learn later in the semester, and is how we currently compute eigenvalues in practice.
+    \end{frame}
+\end{document}
