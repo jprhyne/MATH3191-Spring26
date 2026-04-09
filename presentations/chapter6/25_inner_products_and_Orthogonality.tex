@@ -4,23 +4,24 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\abs}[1]{\left|#1\right|}
-\renewcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
 
 % Date gives the title of the lecture
 \date{Inner Products and Orthogonality}
 
 \begin{document}
     \begin{frame}{Inner Product}
-        Let $(V,\F)$ be a vector space where $V$ is the set our vectors come from and $\F$ is the 
+        Let $(V,\F)$ be a vector space where $V$ is the set our vectors come from and $\F$ is the
         set our scalars come from (You can think of this as $\R$ or $\C$)\pause
         \begin{defn}
-            \rText{Inner Product}: An \bText{inner product} is a function 
-            $\ip{\cdot}{\cdot}:V\times V\rightarrow \F$ with the following properties for 
+            \rText{Inner Product}: An \bText{inner product} is a function
+            $\ip{\cdot}{\cdot}:V\times V\rightarrow \F$ with the following properties for
             all $\vec{u},\vec{v},\vec{w}\in V$, and $a,b\in\F$.
             \begin{enumerate}
                 \pause\item $\ip{\vec{u}}{\vec{v}} = \overline{\ip{\vec{v}}{\vec{u}}}$\pause
                     \quad\text{Note: If $\F=\R$, then we omit the conjugate!}
-                \pause\item $\ip{a\vec{u} + b\vec{v}}{\vec{w}} = a\ip{\vec{u}}{\vec{w}} + 
+                \pause\item $\ip{a\vec{u} + b\vec{v}}{\vec{w}} = a\ip{\vec{u}}{\vec{w}} +
                     b\ip{\vec{v}}{\vec{w}}$
                 \pause\item $\ip{\vec{v}}{\vec{v}}\geq 0$
                 \pause\item $\ip{\vec{v}}{\vec{v}} = 0$ if and only if $\vec{v}=\vec{0}$.
@@ -61,7 +62,7 @@
             \ip{\vec{x}}{\vec{x}}\pause = \sum_{k=1}^n x_k\overline{x_k}
             \pause = \sum_{k=1}^n \abs{x_k}^2\pause \geq 0
         \]\pause
-        In addition, the only time $\sum_{k=1}^n \abs{x_k}^2=0$ is when all components are 0 or 
+        In addition, the only time $\sum_{k=1}^n \abs{x_k}^2=0$ is when all components are 0 or
         if $\vec{x}=\vec{0}$
     \end{frame}
     \begin{frame}{Dot Product}
@@ -72,7 +73,7 @@
             \]
         \end{defn}\pause
         \begin{theorem}
-            The \bText{dot product} is an inner product.
+            The \bText{dot product} is an inner product for $\R^n$. (Not $\C^n$. Think about why this might be!)
         \end{theorem}\pause
         \begin{proof}
             The 2 previous slides prove this.
@@ -80,7 +81,7 @@
         Note: For this course, we will only consider this inner product unless stated otherwise
     \end{frame}
     \begin{frame}{Norms}
-        Let $(V,\F)$ be a vector space where $V$ is the set our vectors come from and $\F$ is the 
+        Let $(V,\F)$ be a vector space where $V$ is the set our vectors come from and $\F$ is the
         set our scalars come from (You can think of this as $\R$ or $\C$)\pause
         \begin{defn}
             \rText{Norm}: A \bText{norm} is a function given by $\norm{\cdot}:V\rightarrow\R$
@@ -106,13 +107,14 @@
         \end{proof}
     \end{frame}
     \begin{frame}{Example of a Norm}
-        If $V=\R^n$ and $\F=\R$, then the induced norm is often called the ``Euclidean Norm'' and
+        If $V=\C^n$ and $\F=\C$, then the induced norm is often called the ``Euclidean Norm'' and
         denoted as follows\pause
         \[
-            \norm{\vec{x}}_2 = \sqrt{\vec{x}^\top\vec{x}}\pause = \sqrt{\sum_{k=1}^nx_k^2}
+            \norm{\vec{x}}_2 = \sqrt{\vec{x}^*\vec{x}}\pause = \sqrt{\sum_{k=1}^n|x_k|^2}
         \]\pause
+        For this course, we will consider only this norm unless stated otherwise. (If $V=\R^n$, then
+        this is the same as omitting the absolute value!)
 
-        For this course, we will consider only this norm unless stated otherwise.
     \end{frame}
     \begin{frame}{Unit Vector}
         \begin{defn}
@@ -147,9 +149,9 @@
         \begin{columns}
             \column{.5\textwidth}
             Using the law of cosines\footnote{\url{https://en.wikipedia.org/wiki/Law\_of\_cosines}},
-            we have that 
+            we have that
             \[
-                \norm{\vec{y}-\vec{x}}^2 = \norm{\vec{x}}^2 + \norm{\vec{y}}^2 
+                \norm{\vec{y}-\vec{x}}^2 = \norm{\vec{x}}^2 + \norm{\vec{y}}^2
                 -2\norm{\vec{x}}\norm{\vec{y}}\cos(\theta)
             \]\pause
             \vspace{-10pt}
@@ -169,13 +171,13 @@
         Let $(V,\F)$ be a vector space where $V$ denotes the set our vectors come from, $\F$ is the
         set our scalars come from, and we have some inner product $\ip{\cdot}{\cdot}$.
         \begin{defn}
-            \rText{Orthogonal Vectors}: We say that 2 vectors, 
+            \rText{Orthogonal Vectors}: We say that 2 vectors,
             ($\vec{x},\vec{y}\in V$) are \bText{orthogonal} (or \bText{perpendicular}) if
             \[
                 \ip{\vec{x}}{\vec{y}} = 0
             \]\pause
         \end{defn}
-        Note that assuming we have non-zero vectors, the angle between $\vec{x},\vec{y}$ 
+        Note that assuming we have non-zero vectors, the angle between $\vec{x},\vec{y}$
         would be $90^\circ$!\pause
         \begin{tcolorbox}
             Since orthogonality is closely tied to our inner product, we will use our standard one
@@ -184,7 +186,7 @@
     \end{frame}
     \begin{frame}{Special Case for Orthogonality}
         \begin{theorem}
-            If $V=\R^n$ (or equivalently $\C^n$) with the usual inner product, then $\vec{0}$ is 
+            If $V=\R^n$ (or equivalently $\C^n$) with the usual inner product, then $\vec{0}$ is
             orthogonal to every vector.
         \end{theorem}
         \vspace{50pt}

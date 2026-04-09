@@ -50,10 +50,10 @@
     \end{frame}
     \begin{frame}{Diagonalizability}
         \begin{defn}
-            \rText{Diagonalizable}: We say that a matrix $A\in\R^{n\times n}$ is 
+            \rText{Diagonalizable}: We say that a matrix $A\in\R^{n\times n}$ is
             \bText{diagonalizable} if it is similar to a diagonal matrix.\pause
 
-            Or equivalently, $A$ is \bText{diagonalizable} if there exists an invertible 
+            Or equivalently, $A$ is \bText{diagonalizable} if there exists an invertible
             $C\in\R^{n\times n}$, and diagonal $D\in\R^{n\times n}$ such that
             \[
                 A = CDC^{-1}
@@ -62,7 +62,7 @@
         \pause\
         An application is in computing matrix powers!
         \[
-            A^n = \left(CDC^{-1}\right)^n\pause =\underbrace{CDC^{-1}CDC^{-1}\cdots 
+            A^n = \left(CDC^{-1}\right)^n\pause =\underbrace{CDC^{-1}CDC^{-1}\cdots
             CDC^{-1}CDC^{-1}}_{n\textnormal{ times}}\pause =CD^nC^{-1}
         \]
     \end{frame}
@@ -72,7 +72,7 @@
             Let $A\in\R^{n\times n}$. Then, $A$ is diagonalizable if and only if it has $n$ linearly
             independent eigenvectors.
         \end{theorem}\pause
-        This means that if $A=CDC^{-1}$, then we have that 
+        This means that if $A=CDC^{-1}$, then we have that
         \[
             C = \bMat{\vec{v}_1 & \vec{v}_2 &  \dots & \vec{v}_n}\qquad D = \bMat{
                 \lambda_1 & 0 & \dots & 0\\
@@ -174,7 +174,7 @@
         whose null space has a basis of $\setBasic{\bMat{-\frac{1}{2}\\0\\1}}$.
     \end{frame}
     \begin{frame}{Diagonalization Example Part 3}
-        So we can say that $A$ is similar to $D=\bMat{1 & 0 & 0\\0 & 1 & 0 \\ 0 & 0 & 6}$ with 
+        So we can say that $A$ is similar to $D=\bMat{1 & 0 & 0\\0 & 1 & 0 \\ 0 & 0 & 6}$ with
         $C=\bMat{
             -2 & 0 & -\frac{1}{2}\\
             0 & 1 & 0\\
@@ -264,12 +264,9 @@
                 2 & 3 &-2\\
                 0 &-4 & 2\\
                 0 & 0 & 0
-
             }
         \]\pause
-        There are $2$ pivot variables, so $\dim{E(A,1)}=2$ 
-
-
+        There are $2$ pivot variables, so $\dim{E(A,1)}=2$
     \end{frame}
     \begin{frame}{Finding Multiplicities Practice}
         Let $A=\bMat{1&1\\0&1}$. It has only $1$ as an eigenvalue. Compute the algebraic

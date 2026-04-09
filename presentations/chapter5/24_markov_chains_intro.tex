@@ -5,10 +5,10 @@
 \begin{document}
     \begin{frame}{Stochastic Matrix}
         \begin{defn}
-            \rText{Stochastic Matrix}: We say that a matrix, $A\in\R^{n\times n}$, is a 
+            \rText{Stochastic Matrix}: We say that a matrix, $A\in\R^{n\times n}$, is a
             \bText{stochastic matrix} if and only if
             \begin{enumerate}
-                \pause\item All elements of $A$ are non-negative. 
+                \pause\item All elements of $A$ are non-negative.
                     IE for all $1\leq i,j\leq n$, $a_{ij}\geq 0$
                 \pause\item All columns sum to $1$.
             \end{enumerate}
@@ -26,7 +26,7 @@
     \begin{frame}{Positive Stochastic Matrix}
         \begin{defn}
             \rText{Positive Stochastic Matrix}: We say that a matrix, $A\in\R^{n\times n}$, is a
-            \bText{positive stochastic matrix} if and only if 
+            \bText{positive stochastic matrix} if and only if
             \begin{enumerate}
                 \pause\item $A$ is a stochastic matrix
                 \pause\item All elements of $A$ are positive.
@@ -76,19 +76,19 @@
             eigenvalue of $A$ and if $\lambda$ is an eigenvalue of $A$ then $\abs{\lambda}\leq 1$
         \end{theorem}\pause
         \begin{proof}
-            First we show that $1$ is an eigenvalue of $A$. Recall that $A$ and $A^\top$ have the 
+            First we show that $1$ is an eigenvalue of $A$. Recall that $A$ and $A^\top$ have the
             same eigenvalues. Since we know that $A$ is stochastic, we know it's columns sum to $1$.
-            Therefore, the rows of $A^\top$ also sum to $1$.\pause\ In other words, for each 
+            Therefore, the rows of $A^\top$ also sum to $1$.\pause\ In other words, for each
             $1\leq i\leq n$
             \[
-                \sum_{j=1}^n\left(A^\top\right)_{ij}\pause = 
+                \sum_{j=1}^n\left(A^\top\right)_{ij}\pause =
                 \sum_{j=1}^n A_{ji}\pause = 1
             \]
             Let $\vec{1}_n$ be the vector of all $1$'s, then\pause
             \[
                 A^\top\vec{1}_n = \vec{1}_n
             \]
-            So, $(\lambda,\vec{1}_n)$ is an eigenpair of $A$.
+            So, $\lambda=1$ is an eigenvalue of $A$.
         \end{proof}
     \end{frame}
     \begin{frame}{Eigenvalues of Stochastic Matrices Part 2}
@@ -107,12 +107,12 @@
             \[
                 (\lambda\vec{x}) = \lambda x_j = \sum_{i=1}^n A_{ij}x_i
             \]\pause\
-            If we pick the index $j$ such that $\abs{x_j}\leq\abs{x_i}$ for all $i$, 
+            If we pick the index $j$ such that $\abs{x_i}\leq\abs{x_j}$ for all $i$,
             then we have that\pause\
             \[
                 \abs{\lambda x_j} = \abs{\lambda}\abs{x_j}\pause = \abs{\sum_{i=1}^n A_{ij}x_i}
                 \pause\leq \sum_{i=1}^n\abs{A_{ij}}\abs{x_i}\pause = \sum_{i=1}^nA_{ij}\abs{x_i}
-                \pause\leq \sum_{i=1}^nA_{ij}\abs{x_j}\pause = \abs{x_j}\sum_{i=1}^nA_{ij}\pause = 
+                \pause\leq \sum_{i=1}^nA_{ij}\abs{x_j}\pause = \abs{x_j}\sum_{i=1}^nA_{ij}\pause =
                 \abs{x_j}
             \]\pause\
             Dividing by $\abs{x_j}$ gives us that $\abs{\lambda}\leq 1$
@@ -149,7 +149,7 @@
             \end{center}
             \column{.5\textwidth}
             \begin{enumerate}
-                \pause\item If we assign each node a number from $1$ to $n$ where $n$ is 
+                \pause\item If we assign each node a number from $1$ to $n$ where $n$ is
                     the number of states we have we can collect these in a transition matrix $P$.\pause\
                     \[
                         P = \bMat{
@@ -158,37 +158,65 @@
                         }
                     \]
                     \vspace{-12pt}
-                \pause\item $P_{ij}$ is the probability of going from state $i$ to state $j$.
+                \pause\item $P_{ji}$ is the probability of going from state $i$ to state $j$.
                 \pause\item $P$ is also a stochastic matrix!
             \end{enumerate}
         \end{columns}
     \end{frame}
     \begin{frame}{Markov Chains in a Nutshell}
-        \begin{tcolorbox}
-            An intuitive view of a Markov Chain is a math model describing some kind of ``experiment''
-            a large number of times under the same condition
-            \only<1>{\vspace{63pt}}
-            \only<2->{
-                \begin{itemize}
-                    \only<2->{\item Each experiment has the same $n$ possible outcomes}
-                    \only<2>{\vspace{46pt}}
-                    \only<3->{\item There is some set of probabilistic rules that determine how the system moves
-                        from one state to another}
-                    \only<3>{\vspace{18pt}}
-                    \only<4->{\item These probabilities only depend on the current state}
-                \end{itemize}
-            }
-        \end{tcolorbox}
+        \instring{handout}{\jobname}{
+            \begin{tcolorbox}
+                An intuitive view of a Markov Chain is a math model describing some kind of ``experiment''
+                a large number of times under the same condition
+                    \begin{itemize}
+                        \item Each experiment has the same $n$ possible outcomes
+                        \item There is some set of probabilistic rules that determine how the system moves
+                            from one state to another
+                        \item These probabilities only depend on the current state
+                    \end{itemize}
+            \end{tcolorbox}
+            This can be applied to many fields including: Epidemiology, Finance, Statistics, etc.
+        }{
+            \instring{beforeClass}{\jobname}{
+                \begin{tcolorbox}
+                    An intuitive view of a Markov Chain is a math model describing some kind of ``experiment''
+                    a large number of times under the same condition
+                        \begin{itemize}
+                            \item Each experiment has the same $n$ possible outcomes
+                            \item There is some set of probabilistic rules that determine how the system moves
+                                from one state to another
+                            \item These probabilities only depend on the current state
+                        \end{itemize}
+                \end{tcolorbox}
+                This can be applied to many fields including: Epidemiology, Finance, Statistics, etc.
+            }{
+                \begin{tcolorbox}
+                    An intuitive view of a Markov Chain is a math model describing some kind of ``experiment''
+                    a large number of times under the same condition
+                    \only<1>{\vspace{63pt}}
+                    \only<2->{
+                        \begin{itemize}
+                            \only<2->{\item Each experiment has the same $n$ possible outcomes}
+                            \only<2>{\vspace{46pt}}
+                            \only<3->{\item There is some set of probabilistic rules that determine how the system moves
+                                from one state to another}
+                            \only<3>{\vspace{18pt}}
+                            \only<4->{\item These probabilities only depend on the current state}
+                        \end{itemize}
+                    }
+                \end{tcolorbox}
         \only<1-4>{\vspace{12pt}}
         \only<5>{This can be applied to many fields including: Epidemiology, Finance, Statistics, etc.}
+            }
+        }
     \end{frame}
     \begin{frame}{Markov Chains in Terms of Linear Algebra}
         \begin{tcolorbox}
             A more formal definition with the tools that we have is as follows:
 
             A \bText{Markov chain} is a sequence of \bText{state vectors}
-            $\vec{x}_0,\vec{x}_1,\vec{x}_2,\dots$ in $\R^{n}$ and a 
-            
+            $\vec{x}_0,\vec{x}_1,\vec{x}_2,\dots$ in $\R^{n}$ and a
+
             \bText{stochastic} (transition) \bText{matrix} $P$ such that for $k=0,1,2,\dots$
             \[
                 \vec{x}_{k+1} = P\vec{x}_k
@@ -205,14 +233,14 @@
         \[
             \vec{x}_3 = P\vec{x}_2\pause = P(P\vec{x}_1)\pause = P(P(P\vec{x}_0))\pause = P^3\vec{x}_0
         \]\pause
-        We just compute 
+        We just compute
         \[
             P^3 = \bMat{
                 .844 & .78\\
                 .156 & .22
             }
         \]\pause
-        So, 
+        So,
         \[
             \vec{x}_3 = P^3\vec{x}_0\pause = \bMat{
                 .844 & .78\\
@@ -239,7 +267,7 @@
     \begin{frame}{Steady State (Equilibrium)}
         \begin{defn}
             \rText{Steady State}: The \bText{steady state} of a stochastic matrix $A$ is an eigenvector
-            $\vec{v}$ associated with $\lambda=1$ such that all the entries are \emph{positive} and 
+            $\vec{v}$ associated with $\lambda=1$ such that all the entries are \emph{positive} and
             sum to $1$.
         \end{defn}\pause
         This solution is a representation of what happens in the long run of a Markov chain!\pause
@@ -248,7 +276,7 @@
         has more than one basis vector.
     \end{frame}
     \begin{frame}{Steady State of a Positive Stochastic Matrix}
-        However, if $A\in\R^{n\times n}$ is a \emph{positive} stochastic matrix, then we know 
+        However, if $A\in\R^{n\times n}$ is a \emph{positive} stochastic matrix, then we know
         $\dim{E(A,1)} = 1$.\pause\ Meaning, it's a lot easier! We can just:
         \begin{enumerate}
             \pause\item Solve $(A-I_n)\vec{v}=\vec{0}$
@@ -268,12 +296,12 @@
         See Jupyter Notebook
     \end{frame}
     \begin{frame}{A Practical Application: PageRank}
-        The original algorithm that Google used in it's search engine was based on PageRank, which 
+        The original algorithm that Google used in it's search engine was based on PageRank, which
         ranks websites based on the number of links to and from it.
 
         \vspace{10pt}
 
-        The textbook discusses it in the end of chapter 5.6: \url{https://textbooks.math.gatech.edu/ila/stochastic-matrices.html}. 
+        The textbook discusses it in the end of chapter 5.6: \url{https://textbooks.math.gatech.edu/ila/stochastic-matrices.html}.
 
         \vspace{10pt}
 

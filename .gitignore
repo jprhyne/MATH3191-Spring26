@@ -13,3 +13,5 @@
 syllabus/
 # Exclude spreadsheet with student information
 LateDays.ods
+# Exclude my xournall++ files
+*.xopp

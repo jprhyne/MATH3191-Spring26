@@ -4,6 +4,8 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
 % Date gives the title of the lecture
 \date{Orthogonality}
 
@@ -12,7 +14,7 @@
         \footnotesize
         Let $V$ be a vector space with an inner product given by $\ip{\cdot}{\cdot}$.
         \begin{defn}
-            \rText{Orthogonal Complement}: The \bText{orthogonal complement} of a subspace of 
+            \rText{Orthogonal Complement}: The \bText{orthogonal complement} of a subspace of
             $V$ (or equivalently $\R^n,\C^n$), $W$ is given by
             \[
                 W^\perp = \set{\vec{v}\in V}{\ip{\vec{v}}{\vec{w}} = 0\textnormal{ for all }w\in W}
@@ -34,7 +36,7 @@
     \begin{frame}{Proving our Equality Part 1}
         \small
         \begin{proof}
-        Let 
+        Let
             \[
                 A = \bMat{
                     \vec{v}_1 & \dots & \vec{v}_n
@@ -44,13 +46,13 @@
 
             Let $\vec{x}\in W^\perp$. See that $A^\top = \bMat{
                     \vec{v}_1^\top \\ \vdots \\ \vec{v}_n^\top
-                }$.\pause\ Since $\vec{x}\in W^\perp$, we know that $\vec{v}_\ell^\top\vec{x}=0$ for 
+                }$.\pause\ Since $\vec{x}\in W^\perp$, we know that $\vec{v}_\ell^\top\vec{x}=0$ for
                 $\ell=1,\dots,n$. So,\pause
                 \[
                     A^\top\vec{x} = \bMat{
                         \vec{v}_1^\top \\
                         \vdots \\
-                        \vec{v}_n
+                        \vec{v}_n^\top
                     }\vec{x}\pause = \bMat{
                         \vec{v}_1^\top\vec{x} \\
                         \vdots \\
@@ -63,7 +65,7 @@
     \begin{frame}{Proving our Equality Part 2}
         \small
         \begin{proof}
-        Let 
+        Let
             \[
                 A = \bMat{
                     \vec{v}_1 & \dots & \vec{v}_n
@@ -124,7 +126,7 @@
         So, the null-space is given by the span of $\bMat{-1\\2\\1}$.
     \end{frame}
     \begin{frame}{Properties of Orthogonal Complements}
-        Let $W$ be a subspace of our vector space $V$ ($V$ will be finite dimensional, meaning it 
+        Let $W$ be a subspace of our vector space $V$ ($V$ will be finite dimensional, meaning it
         has $n$ basis vectors). Then we know
         \begin{enumerate}
             \pause\item $W^\perp$ is also a subspace of $V$
@@ -134,7 +136,7 @@
     \end{frame}
     \begin{frame}{Row Space of a Matrix}
         \begin{defn}
-            \rText{Row Space}: The \bText{row space} of a matrix $A\in\R^{m\times n}$, 
+            \rText{Row Space}: The \bText{row space} of a matrix $A\in\R^{m\times n}$,
             denoted $\rowS{A}$ is the span of it's rows or equivalently:\pause
             \[
                 A = \bMat{
@@ -146,24 +148,24 @@
         \end{defn}
     \end{frame}
     \begin{frame}{Fundamental Theorem of Linear Algebra}
-        A fundamental theorem behind much of linear algebra is how our ``fundamental'' subspaces 
+        A fundamental theorem behind much of linear algebra is how our ``fundamental'' subspaces
         ($\colS{A},\rowS{A},\nullS{A},\nullS{A^\top}$) relate to each other. It is summarized as
         \begin{enumerate}
             \pause\item $\rowS{A}^\perp = \nullS{A}$
-            \pause\item $\colS{A}^\perp = \nullS{A}$
+            \pause\item $\colS{A}^\perp = \nullS{A^\top}$
             \pause\item $\nullS{A}^\perp = \rowS{A}$
             \pause\item $\nullS{A^\top}^\perp = \colS{A}$
         \end{enumerate}
     \end{frame}
     \begin{frame}{Orthogonal (Orthonormal) Sets}
         \begin{defn}
-            \rText{Orthogonal Set}: A set of \emph{non-zero} vectors, 
-            $\setBasic{\vec{u}_1,\dots,\vec{u}_m}$, is an \bText{orthogonal set} if 
+            \rText{Orthogonal Set}: A set of \emph{non-zero} vectors,
+            $\setBasic{\vec{u}_1,\dots,\vec{u}_m}$, is an \bText{orthogonal set} if
             $\ip{\vec{u}_i}{\vec{u}_j}=0$ for all $i\neq j$.\pause\ We instead say orthonormal
             if we also have $\ip{\vec{u}_i}{\vec{u}_i}=1$ for all valid $i$.
         \end{defn}
         \begin{example}
-            The set $\setBasic{\bMat{1\\1},\bMat{-1\\1}}$ is orthogonal while 
+            The set $\setBasic{\bMat{1\\1},\bMat{-1\\1}}$ is orthogonal while
             $\setBasic{\frac{1}{\sqrt{2}}\bMat{1\\1},\frac{1}{\sqrt{2}}\bMat{-1\\1}}$ is orthonormal
         \end{example}
     \end{frame}
@@ -174,7 +176,7 @@
             these vectors are linearly independent
         \end{theorem}\pause
         \begin{proof}
-            We will show the equation 
+            We will show the equation
             \[
                 c_1\vec{u}_1 + \dots + c_m\vec{u}_m = \vec{0}
             \]
@@ -183,7 +185,7 @@
             We apply both sides of our equality to our inner product with $\vec{u}_\ell$ for some
             $1\leq\ell\leq m$, which gives us
             \[
-                0 = \ip{\vec{0}}{\vec{u}_\ell}\pause = 
+                0 = \ip{\vec{0}}{\vec{u}_\ell}\pause =
                 \ip{c_1\vec{u}_1 + \dots + c_m\vec{u}_m}{\vec{u}_\ell}
                 \pause = c_1\ip{\vec{u}_1}{\vec{u}_\ell} + \dots + c_m\ip{\vec{u}_m}{\vec{u}_\ell}
             \]

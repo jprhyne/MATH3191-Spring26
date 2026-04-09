@@ -10,19 +10,20 @@
         Recall that if $\B=\setBasic{\vec{b}_1,\dots,\vec{b}_n}$ is a basis of a vector space $V$, then
         the matrix
         \[
-            P_\B = \bMat{\bCoord{\vec{b}_1}{\B} & \dots & \bCoord{\vec{b}_n}{\B}}
+            P_\B = \bMat{\bCoord{\vec{b}_1}{\C} & \dots & \bCoord{\vec{b}_n}{\C}}
         \]
-        Represents our basis vectors as an array of real numbers.\pause\
-        
-        What does this mean for $V=\R^n$?\pause\ Let's compute $P_\B\vec{x}$!\pause\ 
+        Represents our basis vectors as an array of real numbers. Where $\C$ is the ``standard''
+        basis for our vector space. (In $\R^n$, these are the columns of the identity matrix)\pause\
+
+        What does this mean for $V=\R^n$?\pause\ Let's compute $P_\C\vec{x}$!\pause\
         \[
-            P_\B\vec{x} = x_1\bCoord{\vec{b}_1}{\B} + \dots + x_n\bCoord{\vec{b}_n}{\B}
+            P_\B\vec{x} = x_1\bCoord{\vec{b}_1}{\C} + \dots + x_n\bCoord{\vec{b}_n}{\C}
         \]\pause
         This means if $\vec{x}$ is an array of coordinates for the $\B$ basis, then the output is a
         vector written in the standard basis!
     \end{frame}
     \begin{frame}{Change of Coordinate Matrix in $\R^n$ Example}
-        Consider the basis 
+        Consider the basis
         \[
             \B = \setBasic{\bMat{1\\2\\1}, \bMat{0\\1\\2}, \bMat{2\\1\\0}}
         \]\pause\
@@ -47,8 +48,8 @@
             \[
                 P_\B:\bCoord{\vec{x}}{\B}\mapsto\vec{x},
             \]
-            which changes a vector from $\B$ coordinates to being written in the standard basis\pause\ 
-            and 
+            which changes a vector from $\B$ coordinates to being written in the standard basis\pause\
+            and
             \[
                 P^{-1}_\B:\vec{x}\mapsto\bCoord{\vec{x}}{\B}
             \]
@@ -60,20 +61,20 @@
         \pause
         \begin{theorem}
             Let $\B=\setBasic{\vec{b}_1, \dots, \vec{b}_n}$ and $\C=\setBasic{\vec{c}_1,\dots,\vec{c}_n}$
-            be bases for a vector space $V$.\pause\ Then, there exists a unique matrix 
+            be bases for a vector space $V$.\pause\ Then, there exists a unique matrix
             $\underset{\C\leftarrow\B}{P}=P^{-1}_\C P_\B$
         \end{theorem}\pause
-        
+
         This is really just saying that we (1) change our vector from being written in $\B$ coordinates
         to being written in the standard basis\pause\ , then (2) change our vector from the standard
-        basis to $\C$ coordinates.\pause\ 
+        basis to $\C$ coordinates.\pause\
 
         Is there a potentially better way?
     \end{frame}
     \begin{frame}{A Better Way Without Explicitly Computing an Inverse}
-        Yes!\pause\ 
+        Yes!\pause\
 
-        We also have that 
+        We also have that
         \[
             \underset{\C\leftarrow\B}{P}=\bMat{\bCoord{\vec{b}_1}{\C} & \dots &\bCoord{\vec{b}_n}{\C}}
         \]\pause
@@ -168,7 +169,7 @@
         \]
         So the columns of $\underset{\C\leftarrow\B}{P}$ are given by
         \[
-            \bCoord{\vec{b}_1}{\C} = \bMat{1\\1\\-1}, \bCoord{\vec{b}_2}{\C} = \bMat{0\\1\\1}, 
+            \bCoord{\vec{b}_1}{\C} = \bMat{1\\1\\-1}, \bCoord{\vec{b}_2}{\C} = \bMat{0\\1\\1},
             \bCoord{\vec{b}_3}{\C} = \bMat{2\\-1\\-1}\pause\rightarrow\underset{\C\leftarrow\B}{P} = \bMat{
                 1 & 0 & 2\\
                 1 & 1 & -1\\
@@ -180,7 +181,7 @@
         Consider the following bases of $\R^3$.
         \[
             \B = \setBasic{\bMat{1\\1\\1}, \bMat{0\\1\\1}, \bMat{0\\0\\1}},
-            \C = \setBasic{\bMat{1\\2\\1}, \bMat{0\\1\\2}, \bMat{2\\1\\0}} 
+            \C = \setBasic{\bMat{1\\2\\1}, \bMat{0\\1\\2}, \bMat{2\\1\\0}}
         \]\pause
         Compute $\underset{\C\leftarrow\B}{P}$
         \iftoggle{showSolutions}{
@@ -213,7 +214,7 @@
 
             \iftoggle{showSolutions}{
                 \only<2->{
-                    Set up and show 
+                    Set up and show
                     \[
                         \underset{\B\leftarrow\C}{P} = \bMat{
                             1 & 0 & 3\\
