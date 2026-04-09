@@ -2,5 +2,6 @@
 *md
 # Exclude exam files
 **/test/
+**/feedback/
+**/submissions/
 # Exclude exam 2 for now
-2/

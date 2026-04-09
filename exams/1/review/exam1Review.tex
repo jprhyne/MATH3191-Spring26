@@ -1,6 +1,33 @@
 \documentclass[12pt]{exam}
 
 \usepackage{mystyle}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
 
 \title{MATH 3191 Exam 1 Review}
 
@@ -15,11 +42,36 @@ The exam will take the following format
         is true or false (A beginning of what a proof might look like)
     \item Longer response questions that will require you to compute a numerical answer and show work
         on how it was achieved
-    \item Final question on lecture based content (No video exclusive content)
+    \item Questions on lecture based content (No video exclusive content, but from the pdfs themselves)
 \end{enumerate}
+Note: Since this is a takehome exam, this exam will be fairly long (4-6 questions in each section. I haven't made it yet, so this is a rough estimate)
+I will time this as if you have 3 hours to take it, but you have the entire week, so use your time wisely!
 \section{Written Homework Problems}
 You should be able to do all of the Written Homework problems up to and including HW5. If you want
 help with your solutions or how to approach these problems, just let me know!
+\section{Python Lab Problems}
+You should be able to explain what every function we have been taught in the labs do, and translate python
+code into a plain english explanation of what it does. For example consider the following code snippet
+\begin{lstlisting}[language=Python]
+import numpy as np
+A = np.array([[1, 2, 4],
+              [2, 1, 7],
+              [1, 1, 1]])
+b = np.array([1, 1, 1])
+x = np.linalg.solve(A,b)
+\end{lstlisting}
+I would expect a response like ``This code solves the system
+    \[
+        \begin{bmatrix}1&2&4 \\ 2&1&7 \\ 1&1&1 \end{bmatrix}\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix} =
+            \begin{bmatrix} 1\\1\\1\end{bmatrix}
+    \]
+        for $\vec{x} = \begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}$ using numpy''.
+    You would NOT have to then solve this system unless explicitly asked to.
+
+    You should also be able to tell me what kind of output to expect. For example in the above snippet,
+    I would expect an answer similar to ``you will get an array of 3 numbers if a solution exists''
+
+    I will NOT ask you to write code by hand, only to do the above tasks.
 \section{MyOpenMath Problems}
 I would pay attention to the following topics associated with each problem below
 \begin{enumerate}
@@ -75,6 +127,7 @@ I would pay attention to the following topics associated with each problem below
     \item Explain what it means for a linear transformation to be Injective (one-to-one) and
         Surjective (onto).
     \item Explain the properties of a determinant and methods to compute it.
-    \item Be able to read Python Code from Labs 1 and 2 and describe what it does.
+    \item Demonstrate (``prove'') results for the determinant of lower triangular matrices (anything we proved in lecture for upper).
+    \item Prove properties that we proved in class for similar matrices and apply multiple properties in a single problem
 \end{enumerate}
 \end{document}

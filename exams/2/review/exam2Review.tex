@@ -1,0 +1,130 @@
+\documentclass[12pt]{exam}
+
+\usepackage{mystyle}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{MATH 3191 Exam 2 Review}
+
+\date{}
+
+\begin{document}
+\maketitle
+\section{Format of Exam}
+The exam will take the following format
+\begin{enumerate}
+    \item Some short response questions that require a sentence or two explaining why a statement
+        is true or false (A beginning of what a proof might look like)
+    \item Longer response questions that will require you to compute a numerical answer and show work
+        on how it was achieved
+    \item Questions on lecture based content (No video exclusive content, but from the pdfs themselves)
+\end{enumerate}
+Note: Since this is a takehome exam, this exam will be fairly long (4-6 questions in each section. I haven't made it yet, so this is a rough estimate)
+I will time this as if you have 3 hours to take it, but you have the entire week, so use your time wisely!
+\section{Written Homework Problems}
+You should be able to do all of the Written Homework problems from HW7 up to and including HW11. If you want
+help with your solutions or how to approach these problems, just let me know!
+\section{MyOpenMath Problems}
+I would pay attention to the following topics associated with each problem below
+\begin{enumerate}
+    \item HW7: 1, 2, 4, 9, 10, 13, 19
+        \begin{enumerate}
+            \item Be able to describe requirements for a vector space and demonstrate its properties
+            \item Determine if a given set is a subspace of a known vector space ($\R^n,\mathcal{P}(\R)$)
+            \item Describe what a null space/kernel is
+            \item Describe what a column space is
+            \item Describe what a spanning list is
+        \end{enumerate}
+    \item HW8: 1, 2, 3, 6, 7, 8, 10, 13, 18
+        \begin{enumerate}
+            \item Know the requirements for a basis of a vector space
+            \item Determine a basis for a null space and column space
+            \item Determine the $\mathcal{B}$-coordinates of a given vector for a particular basis
+            \item Given the $\mathcal{B}$-coordinates of a vector in a particular basis, determine the vector in the standard basis
+            \item Know how the dimension of the null space and column space relate.
+        \end{enumerate}
+    \item HW9: 1, 3, 4, 6, 7, 10, 11, 14, 16, 18
+        \begin{enumerate}
+            \item Determine the change of basis matrix for two given bases
+            \item Convert a coordinate vector from one basis to another
+            \item Determine if a given vector is an eigenvector
+            \item Determine the eigenvalues of a matrix
+            \item Determine the eigenvalue of a matrix power
+        \end{enumerate}
+    \item HW10: 1, 2, 5, 6, 9, 11, 15, 18, 21
+        \begin{enumerate}
+            \item Diagonalize a matrix with real eigenvalues
+            \item Compute a large power of a matrix ($A^n$ for $n\geq 4$)
+            \item Know the requirements for a matrix to be diagonalizable and properties of diagonal matrices
+            \item Compute complex eigenvalues of a $2\times 2$ or $3\times 3$ matrix
+            \item These last objectives are only if we get to them on 4-03 in class
+                \begin{enumerate}
+                    \item Determine if a given matrix is a transition matrix
+                    \item Compute the long run probabilities of Markov Chain
+                \end{enumerate}
+        \end{enumerate}
+    \item HW11:  3, 4, 5, 6, 7, 8, 9
+        \begin{enumerate}
+            \item Compute inner products of vectors
+        \end{enumerate}
+\end{enumerate}
+\section{Lecture Based Problems}
+\begin{enumerate}
+    \item Explain what a similarity transformation is and what it does. IE: given $A = CBC^{-1}$, describe
+        what each step of $CBC^{-1}\vec{x}$ is doing.
+    \item Explain why using a different basis can make some problems easier (Like computing $A^n$).
+    \item Explain what information diagonalization gives us about a matrix
+    \item Be able to explain what a Markov chain is intuitively and algebraically
+    \item Explain what an Inner product is, and be able to demonstrate a simple example is an IP
+    \item Use a given inner product to test orthogonality
+    \item Explain what Orthogonality and Orthonormality are along with theorems in slides.
+\end{enumerate}
+\section{Python Lab Problems}
+You should be able to explain what every function we have been taught in the labs do, and translate python
+code into a plain english explanation of what it does. For example consider the following code snippet
+\begin{lstlisting}[language=Python]
+import numpy as np
+A = np.array([[1, 2, 4],
+              [2, 1, 7],
+              [1, 1, 1]])
+b = np.array([1, 1, 1])
+x = np.linalg.solve(A,b)
+\end{lstlisting}
+I would expect a response like ``This code solves the system
+    \[
+        \begin{bmatrix}1&2&4 \\ 2&1&7 \\ 1&1&1 \end{bmatrix}\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix} =
+            \begin{bmatrix} 1\\1\\1\end{bmatrix}
+    \]
+        for $\vec{x} = \begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}$ using numpy''.
+    You would NOT have to then solve this system unless explicitly asked to.
+
+    You should also be able to tell me what kind of output to expect. For example in the above snippet,
+    I would expect an answer similar to ``you will get an array of 3 numbers if a solution exists''
+
+    I will NOT ask you to write code by hand, only to do the above tasks.
+\end{document}
