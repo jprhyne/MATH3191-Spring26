@@ -1,0 +1,161 @@
+\documentclass[12pt,addpoints]{exam}
+
+\usepackage{mystyle}
+\usepackage{listings}
+
+\title{MATH 3191-E01 Exam 1}
+\date{Due 27 February 2026}
+
+\author{Name: \rule{150pt}{1pt}}
+
+\begin{document}
+   \maketitle
+
+    \paragraph{Instructions:} Submit ALL work that supports your answers. A solution with no work will
+    receive a $0$. You have until 11:59pm (Mountain Time) Friday, February 27th to submit this assignment.
+    I will close submissions on Canvas 2 hours after the due date to allow for tech issues. I will not
+    accept late submissions without documentation supporting a university excused absense. If you are
+    unsure, see \href{https://www.ucdenver.edu/docs/librariesprovider284/default-document-library/7030d---student-attendance-and-absences---cu-denver02fbb186-4b01-4e15-af21-2ab4bbaac065.pdf?sfvrsn=f1001eb4_1}
+    {Policy File 7030D} for clarification. You are allowed to use any resource we have covered in
+    class: Lecture slides 1 through 14 and their associated lecture videos. Textbook chapters 1, 2.1 -- 2.5, 3, and 4.
+    I will only be using content from the chapters I have talked about in the slides. You can use content from the
+    textbook that I haven't discussed (as long as it's in the above list!) and I won't count off,
+    but there is another way to do it that may or may not be easier! Any homework assignment
+    (Written 1--5, MyOpenMath 1--5, and Python Labs 1 -- 3. I did not use any content exclusive
+    to Lab 3, but you can reference it).
+
+    This exam has 160 points available, but will be scored out of 150, so a score of 160/150 is possible
+    \vfill
+    \begin{center}
+        \gradetable[h]
+    \end{center}
+    \newpage
+    \begin{questions}
+        \section*{``Proof'' Based Questions}
+        \question[15] Demonstrate that the determinant of a $3\times 3$ lower triangular matrix is the
+        product of it's diagonals. Hint: I want you to structure your argument similar to how we did
+        in the lecture slides.
+        \vspace{200pt}
+        \question[15] Let $A\in\R^{n\times n}$ be an upper triangular matrix such that $\text{det}(A)=0$.
+        Demonstrate that $A$ has linearly dependent columns. Hint: Consider what it means for a triangular matrix
+        to have a determinant of $0$ and use this to solve the system $A\vec{x}=\vec{b}$. If you are stuck,
+        take $n=3$ then give 2 different examples and try to explain how you'd extend to any larger
+        number for $n$
+        \vfill
+        \newpage
+        \question[20] Let $A\in\R^{m\times n}$ (Could be square, could be something else!) and
+        $\vec{b}\in\R^{m}$. Assume that you have a single $\vec{x}\in\R^{n}$ such that $A\vec{x} = \vec{b}$.
+        \begin{parts}
+            \part Explain how you can use the solution set to $A\vec{y}=\vec{0}$ to get \textbf{all}
+            solutions to $A\vec{x} = \vec{b}$ Hint: Give a solution set using both $\vec{x}$ and $\vec{y}$ somehow
+            \vspace{100pt}
+            \part Demonstrate that your above solution set solves the desired system. Hint: take $\vec{w}$ in your
+            set and show that $A\vec{w} = \vec{b}$
+            \vspace{100pt}
+        \end{parts}
+
+        \section*{Computational Questions}
+        \question[15] Do the following list of vectors span all of $\R^3$? Defend your answer with work.
+
+        \[
+            \vec{v}_1 = \begin{bmatrix}
+                1\\2\\7
+            \end{bmatrix}, \vec{v}_2 = \begin{bmatrix}
+                3 \\ 1 \\ 6
+            \end{bmatrix}, \vec{v}_3 = \begin{bmatrix}
+                2 \\ 1\\ 1
+            \end{bmatrix}
+        \]
+        \vfill
+        \newpage
+        \question[15] Write the solution set to the following system of equations
+        \[
+            \begin{bmatrix}
+                4 &-4 & 5 \\
+                -4& 4 &-5 \\
+                2 &-4 &-5
+            \end{bmatrix}
+            \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} =
+            \begin{bmatrix} 11\\-11\\-21 \end{bmatrix}
+        \]
+        \vfill
+        \newpage
+        \question[15] Let $\vec{u},\vec{v},\vec{w}$ be defined as below. Is $\vec{w}$ in the span of
+        $\vec{u}$ and $\vec{v}$? If so, compute $c_1,c_2\in\R$ such that $\vec{w} = c_1\vec{u} + c_2\vec{v}$. If not,
+        demonstrate why not.
+        \[
+            \vec{u} = \begin{bmatrix} 1 \\ 1 \\ 2 \end{bmatrix}, \vec{v} = \begin{bmatrix} 4 \\ -1 \\ 1\end{bmatrix},
+                \vec{w} = \begin{bmatrix} -\frac{2}{3} \\ 1 \\ 1\end{bmatrix}
+        \]
+        \vfill\newpage
+        \question Let $T:\R^2\rightarrow\R^3$ be defined as below.
+        \[
+            T\left(\begin{bmatrix} 2 \\ 4 \end{bmatrix}\right) = \begin{bmatrix} 1 \\ 7 \end{bmatrix}
+                \qquad\qquad
+            T\left(\begin{bmatrix} 1 \\ 3 \end{bmatrix}\right) = \begin{bmatrix} 2 \\ 1 \end{bmatrix}
+        \]
+        \begin{parts}
+            \part[10] Construct its matrix representation, $A$ such that $A\vec{x} = T(\vec{x})$.
+            \part[5] Use the $A$ you computed to evaluate $T\left(\begin{bmatrix}1\\1\end{bmatrix}\right)$
+        \end{parts}
+        \newpage
+        \section*{Python Related Questions}
+        \question\label{q:python1} Use the following code snippets to answer parts~\ref{q:python1}.\ref{q:python1Start} through
+        \ref{q:python1}.\ref{q:python1Stop}
+        \begin{lstlisting}[language=Python]
+    import sympy as sym
+    from sympy import init_printing
+    init_printing()
+
+    M = sym.Matrix([[1, 3, 5], [1, 5, 8], [9, 7, 15]])
+
+    M.rref()
+        \end{lstlisting}
+        \begin{parts}
+            \part[5]\label{q:python1Start} What is the above code snippet computing?
+            \vspace{75pt}
+            \part[5] What kind of output should we expect from the code above snippet. If there are multiple components,
+            explain what each component should be.
+            \vspace{75pt}
+            \part[5] What kind of problem \textit{could} the above snippet be solving? (Multiple correct
+            answers)
+            \vspace{75pt}
+            \part[5]\label{q:python1Stop} Explain any potential limitations with using this method
+            to solve the above problem. (Do we miss potential answers? Do we need to do anything by hand?)
+            \vspace{75pt}
+        \end{parts}
+        \newpage
+        \question\label{q:python2} Use the following code snippets to answer parts~\ref{q:python2}.\ref{q:python2Start} through
+        \ref{q:python2}.\ref{q:python2Stop}
+        \begin{lstlisting}[language=Python]
+    import numpy as np
+
+    A = np.array([[1, 3, 3], [1, 5, 2], [9, 7, 1]])
+
+    b = np.array([7,8,17])
+
+    np.linalg.solve(A,b)
+        \end{lstlisting}
+        \begin{parts}
+            \part[5]\label{q:python2Start} What is the above code snippet computing?
+            \vspace{75pt}
+            \part[5] What kind of output should we expect from the above code snippet. If there are multiple components,
+            explain what each component should be.
+            \vspace{75pt}
+            \part[5] What problem is the above code snippet solving
+            \vspace{75pt}
+            \part[5]\label{q:python2Stop} Explain any potential limitations with using this method
+            to solve the above problem. (Do we miss potential answers? Do we need to do anything by hand?)
+            \vspace{75pt}
+        \end{parts}
+        \newpage
+        \section*{Bonus Question}
+        \question[10] Answer one of the following questions for 10 points. If you answer both you will
+        only receive credit for one! (Any answer gets full credit, have fun with it!)
+        \begin{enumerate}
+            \item Define the slang term ``cooked'' especially in the context of calling someone/something ``cooked''
+            \item Draw a picture representing your favorite (or least favorite you don't have to tell me which!) content
+                in the course so far
+        \end{enumerate}
+    \end{questions}
+\end{document}

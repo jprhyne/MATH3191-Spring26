@@ -1,0 +1,177 @@
+\documentclass[12pt,addpoints]{exam}
+
+\usepackage{mystyle}
+\newcommand{\bCoord}[2]{\left[#1\right]_{#2}}
+\newcommand{\Cb}{\mathcal{C}}
+\renewcommand{\P}[1]{\mathcal{P}_{#1}\left(\mathbb{R}\right)}
+\renewcommand{\B}{\mathcal{B}}
+\usepackage{listings}
+
+\title{MATH 3191-E01 Exam 2}
+\date{Due 17 April 2026}
+
+\author{Name: \rule{150pt}{1pt}}
+
+\begin{document}
+   \maketitle
+
+    \paragraph{Instructions:} Submit ALL work that supports your answers. A solution with no work will
+    receive a $0$. You have until 11:59pm (Mountain Time) Friday, April 17th to submit this assignment.
+    I will close submissions on Canvas 2 hours after the due date to allow for tech issues. I will not
+    accept late submissions without documentation supporting a university excused absence. If you are
+    unsure, see \href{https://www.ucdenver.edu/docs/librariesprovider284/default-document-library/7030d---student-attendance-and-absences---cu-denver02fbb186-4b01-4e15-af21-2ab4bbaac065.pdf?sfvrsn=f1001eb4_1}
+    {Policy File 7030D} for clarification. You are allowed to use any resource we have covered in
+    class: Lecture slides 1 through 26 (Focusing on 15-26) and their associated lecture videos.
+    Textbook chapters 1, 2, 3, 4, 5, 6.1, and 6.2
+    I will only be using content from the chapters I have talked about in the slides. You can use content from the
+    textbook that I haven't discussed (as long as it's in the above list!) and I won't count off,
+    but there is another way to do it that may or may not be easier! Any homework assignment
+    (Written 1--11, MyOpenMath 1--11, and Python Labs 1 -- 5).
+
+    This exam has 180 points available, but will be scored out of 170, so a score of 180/170 is possible
+
+    \vfill
+    \begin{center}
+        \gradetable[h]
+    \end{center}
+    \newpage
+    \begin{questions}
+        \section*{``Proof'' Based Questions}
+        \question[15] We will begin a proof for the Rank-Nullity Theorem. Let $A\in\R^{m\times n}$
+
+        Let $\vec{y}\in\rowS{A}$, and $\vec{x}\in\nullS{A}$ such that $\vec{x}\neq\vec{0}_n$. Prove
+        that $\vec{x}$ and $\vec{y}$ are orthogonal to each other. (\emph{Hint: Consider how the rows of
+        $A$ relate to computing $A\vec{x}$})
+        \newpage
+        \question (20 points) Consider the vector space $V$ given below
+        \[
+            V = \set{A\in\R^{n\times n}}{A = A^\top}
+        \]
+        \begin{parts}
+            \part[10] Explain how we can prove a set of these matrices is linearly independent.
+
+        \vfill
+            \part[10] Use your proposed method to demonstrate if the following list of $3$ matrices are linearly independent
+        or dependent.
+        \[
+            \vec{v}_1 = \bMat{
+                1 & 1 & 2\\
+                1 & 2 & 3\\
+                2 & 3 & 4}, \vec{v}_2 = \bMat{
+                0 & 1 & 2\\
+                1 & 0 & 3\\
+                2 & 3 & 0},\text{ and } \vec{v}_3 = \bMat{
+                0 & 0 & 1\\
+                0 & 0 & 0\\
+                1 & 0 & 0}
+        \]
+        \end{parts}
+        \vfill
+        \vfill
+        \newpage
+        \question[20] Consider the vector space $\P{2}$ (Set of all polynomials of degree at
+        most $2$ with real coefficients). Prove that
+        \[
+            \langle p(x), q(x)\rangle = \int_0^1 p(x)q(x) dx
+        \]
+        is an inner product.
+        (\emph{Hint: see lecture slide 25 for the requirements. You also used this on the last homework!})
+        \newpage
+        \question[10] Let $V$ be a vector space, and $W$ be a subspace of $V$. Prove that
+        $\left(W^\perp\right)^\perp = W$. (\emph{Hint: Lecture slides 26 defines what the orthogonal
+        complement is!})
+        \vfill
+        \section*{Computational Questions}
+        \question[15] Give a basis for the nullspace and columnspace of the following matrix
+        \[
+            A = \bMat{
+                4 & 1 & 2 \\
+                1 & 4 &-1 \\
+                3 &-3 & 3
+            }
+        \]
+        \vfill
+        \newpage
+        \question[15] Let $A$ be given below. Compute $A^{100}$ (\emph{Hint: We have a way to easily compute
+        matrix powers!})
+        \[
+            A = \bMat{
+                5 & 5 & 0 \\
+                5 & 5 & 2 \\
+                3 & 3 & 2
+            }
+        \]
+        \vfill
+        \newpage
+        \question[15] Let $V= \P{2}$. Consider the following bases for $V$.
+        \[
+            \B = \setBasic{1,t,t^2}\qquad\qquad\Cb =\setBasic{1, t, t(t-1)}
+        \]
+        Let $\bCoord{\vec{c}}{\B} = \bMat{1\\1\\1}$  be a vector written in the basis $\B$ above.
+        Convert $\bCoord{\vec{c}}{\B}$ into a vector written in the basis $\Cb$ given above.
+        \newpage
+        \question[20] Let $V=\R^3$ with the standard inner product. Determine values for $s$ and
+        $t$ such that the vectors $\vec{x},\vec{y}$ given below are orthonormal.
+        \[
+            \vec{x} = s\bMat{1\\2\\3}\qquad\vec{y} = \bMat{\frac{3}{\sqrt{10}}\\0\\t}
+        \]
+        \newpage
+        \section*{Python Related Questions}
+        \question\label{q:python1} (20 points)Use the follow code snippet to answer
+        parts~\ref{q:python1}.\ref{part:python1Start} through \ref{q:python1}.\ref{part:python1Stop}
+        \begin{lstlisting}[language=Python]
+import networkx as nx
+import numpy as np
+G = nx.random_k_out_graph(n=15, k=5, alpha=0.75)
+M = nx.to_numpy_array(G)
+D, V = np.linalg.eig(P)
+eig_one = V[:,np.argmax(D)].real
+eig_one
+        \end{lstlisting}
+        \begin{parts}
+            \part[5]\label{part:python1Start} What is the above code snippet computing?
+            \vfill
+            \part[5] What kind of output should we expect from the above snippet?
+            \vfill
+            \part[5] What kind of problem \emph{could} the above snippet be solving?
+            \vfill
+            \part[5]\label{part:python1Stop} Explain any potential limitations in the above approach.
+            \vfill
+        \end{parts}
+        \newpage
+        \question\label{q:python2} (20 points) Use the follow code snippet to answer
+        parts~\ref{q:python2}.\ref{part:python2Start} through \ref{q:python2}.\ref{part:python2Stop}
+        \begin{lstlisting}[language=Python]
+def N_j(value, x, j):
+    retVal = 1
+    for i in range(j):
+        retVal *= (value - x[i,0])
+    return retVal
+
+M = sym.Matrix(len(x), len(x), lambda i,j: N_j(x[i,0], x, j))
+
+c = M.inv()*y
+        \end{lstlisting}
+        \begin{parts}
+            \part[5]\label{part:python2Start} What is the above code snippet computing?
+            \vfill
+            \part[5] What kind of output should we expect from the above snippet?
+            \vfill
+            \part[5] What kind of problem \emph{could} the above snippet be solving?
+            \vfill
+            \part[5]\label{part:python2Stop} Explain any potential limitations in the above approach.
+            \vfill
+        \end{parts}
+        \newpage
+        \section*{Bonus Question}
+        \question[10] Answer one of the following questions for $10$ points. If you answer both you
+        only receive credit for one! (Any answer gets full credit, have fun with it!)
+        \begin{enumerate}
+            \item Define the slang term ``unc status'' especially in the context of calling someone or something
+                ``unc status''. For example: ``We have reached unc status''
+            \item Draw a picture representing your favorite piece of media (tv show, anime, book, movie, comic
+                series, etc.) without using the title or any main character's name
+        \end{enumerate}
+    \end{questions}
+
+\end{document}
