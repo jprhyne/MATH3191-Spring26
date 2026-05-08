@@ -1,0 +1,151 @@
+\documentclass[12pt,addpoints]{exam}
+
+\usepackage{mystyle}
+\newcommand{\bCoord}[2]{\left[#1\right]_{#2}}
+\newcommand{\Cb}{\mathcal{C}}
+\renewcommand{\P}[1]{\mathcal{P}_{#1}\left(\mathbb{R}\right)}
+\renewcommand{\B}{\mathcal{B}}
+\usepackage{listings}
+
+\title{MATH 3191-E01 Final Exam}
+\date{Due 8 May 2026}
+
+\author{Name: \rule{150pt}{1pt}}
+
+\begin{document}
+   \maketitle
+
+    \paragraph{Instructions:} Submit ALL work that supports your answers. A solution with no work will
+    receive a $0$. You have until 11:59pm (Mountain Time) Friday, May 8th to submit this assignment.
+    I will close submissions on Canvas 2 hours after the due date to allow for tech issues. I will not
+    accept late submissions without documentation supporting a university excused absence. If you are
+    unsure, see \href{https://www.ucdenver.edu/docs/librariesprovider284/default-document-library/7030d---student-attendance-and-absences---cu-denver02fbb186-4b01-4e15-af21-2ab4bbaac065.pdf?sfvrsn=f1001eb4_1}
+    {Policy File 7030D} for clarification. You are allowed to use any resource we have covered in
+    class.
+    I will only be using content from the chapters I have talked about in the slides. You can use content from the
+    textbook that I haven't discussed (as long as it's in the above list!) and I won't count off,
+    but there is another way to do it that may or may not be easier! Any homework assignment
+    is allowed for reference.
+
+    Also complete the file ``gram\_schmidt\_FIXME.ipynb''
+
+    The written component (this document) has 170 points available (scored out of 160) while the
+    jupyter notebook file is worth 20 points. So a total score of 190/180 is possible.
+
+
+    \vfill
+    \begin{center}
+        \gradetable[h]
+    \end{center}
+    \newpage
+    \begin{questions}
+        \section*{``Proof'' Based Questions}
+        \question[20] Let $A\in\R^{m\times n}$. In class, we discussed the SVD, which means we have an
+        $U\in\R^{m\times m},\Sigma\in\R^{m\times n},$ and $V\in\R^{n\times n}$ such that
+        \[
+            A = U\Sigma V^\top
+        \]
+
+        Use this decomposition to prove that $\rowS{A}^\perp = \nullS{A}$.
+
+        Hint: We gave a way to describe each of the four fundamental subspaces in the lecture notes.
+        \vfill
+        \newpage
+        \question[20] Let $A\in\R^{m\times m}$ such that $\det{A} = 0$. Argue that $A$ must have
+        linearly dependent rows/columns without using the invertible matrix theorem.
+        Note: Consider $m=2,m=3$, then try to extend your argument.
+
+        Hint: Consider how row operations affect the determinant
+        \vfill
+        \newpage
+        \question[20] Let $A\in\R^{m\times n}$ and $\vec{b}\in\R^{m}$.
+        Recall the least squares problem is to find an $\vec{x}\in\R^{n}$ such that
+        \[
+            \norm{A\vec{x} - b}{2}
+        \]
+        is minimal.
+
+        Let $Q\in\R^{m\times m},\R^{m\times n}$ be the QR factorization of $A$. Demonstrate that
+        the solution to
+        \[
+            A^\top A \vec{x} = A^\top\vec{b}
+        \]
+        and
+        \[
+            R \vec{x} = Q^\top\vec{b}
+        \]
+        both minimize
+        \[
+            \norm{A\vec{x} - b}{2}
+        \]
+
+        Hint: Show the norms of $ A^\top A \vec{x} = A^\top\vec{b} $ and $ R \vec{x} = Q^\top\vec{b} $
+        are the same and use the fact that $\norm{Q}{2} = 1$
+        \vfill
+        \newpage
+        \question[20] Let $V=\mathcal{P}_2(\R)$ be the set of all polynomials of degree at most $2$
+        with real coefficients. Let $p = a_0 + a_1t + a_2t^2$ and $q = b_0 + b_1t + b_2t^2$ be elements
+        of $V$
+
+        \begin{enumerate}
+            \item(10 points)
+                Prove that
+                \[
+                    \langle p,q\rangle = a_0b_0 + a_1b_1 + a_2b_2
+                \]
+                is an inner product.
+            \item(10 points)
+                Compare this inner product to the dot product over $\R^3$
+        \end{enumerate}
+        \vfill
+        \newpage
+        \section*{Computational Questions}
+        \question[20] Consider the following vector space
+        \[
+            V = \set{A\in\R^{2\times 2}}{\,\trace\left(A\right) = 0}
+        \]
+        Consider the basis
+        \[
+            \mathcal{B} = \setBasic{\bMat{1 & 0 \\ 0 & -1}, \bMat{0 & 1 \\ 0 & 0}, \bMat{0 & 0 \\ 1 & 0}}
+        \]
+        \begin{enumerate}
+            \item(10 points) Give the $\mathcal{B}$ coordinates of each element in the set $S$ below
+                \[
+                    S = \setBasic{\bMat{2 & 1 \\ 0 & -2}, \bMat{1 & 1 \\ 0 & -1}, \bMat{-1 & -1 \\ 1 & 1}}
+                \]
+            \item(10 points) Using these coordinate vectors, determine if $S$ is a basis of $V$ as well
+        \end{enumerate}
+        \vfill
+        \newpage
+        \question[20] Let $V=\R^3$ be the vector space of arrays of real numbers of length 3. Consider
+        the following basis of $V$
+        \[
+            \mathcal{C} = \setBasic{\bMat{1 \\ 1 \\ 2}, \bMat{0 \\ 2 \\ 1 }, \bMat{1 \\ 0 \\ 1}}
+        \]
+        Apply the Gram-Schmidt process to orthonormalize $\mathcal{C}$.
+        \vfill
+        \newpage
+        \question[20] Let $A\in\R^{3\times 3}$ be given below
+        \[
+            A = \bMat{  4 & -2 & 0 \\
+                        -2 & 0 & 1 \\
+                        0 & 1 & 4}
+        \]
+        Diagonalize $A$. IE compute $V,D\in\R^{3\times 3}$ such that $D$ is diagonal and $A = VDV^{-1}$
+        \vfill
+        \newpage
+        \question[20] Let $W = \Span{\bMat{1 \\1 \\ -1}, \bMat{0 \\ 1 \\ 1}}$. Find the orthogonal
+        decomposition of $\vec{x} = \bMat{3 \\ 3 \\ -1}$.
+        \vfill
+        \newpage
+        \section*{Bonus Question}
+        \question[10] Answer one of the following questions for $10$ points. If you answer both you
+        only receive credit for one! (Any answer gets full credit, have fun with it!)
+        \begin{enumerate}
+            \item Define the slang term ``mogging'' especially in the context of saying someone
+                is ``mogging.''
+            \item Draw a picture of your favorite animal.
+        \end{enumerate}
+    \end{questions}
+
+\end{document}
